@@ -1,25 +1,26 @@
-    
+{% extends 'users/layout.html' %} {% block content %}
 
-{% extends 'users/layout.html' %}
+<a href="/users" class="btn btn-outline-primary">Go Back <i class="fas fa-lg fa-backspace"></i></a>
 
-{% block content %}
-
-<a href="/users" class="btn btn-outline-primary">Go Back</a>
-
-<h2 class="text-center ">User Informations</h2>
+<h2 class="text-center">User Informations</h2>
 
 <ul class="list-group list-group-flush">
-    <p class="lead"><li class="list-group-item ">Name : {{user.name}}</li></p>
-    <p class="lead"><li class="list-group-item">Email : {{user.email}}</li></p>
-    <p class="lead"><li class="list-group-item">Ville : {{user.city}}</li></p>
-    <small>Created at {{user.created_at}}</small>
+  <p class="lead"><li class="list-group-item">Name : {{user.name}}</li></p>
+  <p class="lead"><li class="list-group-item">Email : {{user.email}}</li></p>
+  <p class="lead"><li class="list-group-item">Ville : {{user.city}}</li></p>
+  <small>Created at {{user.created_at}}</small>
 </ul>
-<br><br>
-<a href="/users/editUser/{{user.id}}" class="btn btn-outline-success">Edit</a>
-<a href="/users/deleteUser/{{user.id}}" class="btn btn-outline-danger float-right">Delete</a>
-<br><br><br><br>
-
-
-
+<br /><br />
+<a href="/users/editUser/{{user.id}}" class="btn btn-outline-success"
+  >Edit <i class="fas fa-lg fa-user-edit"></i>
+</a>
+<a
+  href="/users/deleteUser/{{user.id}}"
+  class="btn btn-outline-danger float-right"
+  >Delete
+  <i class="fas fa-lg fa-trash-alt"></i>
+  </a
+>
+<br /><br /><br /><br />
 
 {% endblock %}
