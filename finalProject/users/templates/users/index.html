@@ -12,7 +12,7 @@
     {% for user in users %}
     <tr class="table-light">
       <th scope="row">
-        {{user.id}} - <a href="/users/details/{{user.id}}">{{ user.name }}</a>
+         <a href="/users/details/{{user.id}}">{{ user.name }}</a>
       </th>
       <th>{{user.created_at}}</th>
     </tr>
