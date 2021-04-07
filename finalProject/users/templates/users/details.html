@@ -1,0 +1,19 @@
+    
+
+{% extends 'users/layout.html' %}
+
+{% block content %}
+
+<a href="/users" class="btn btn-outline-primary">Go Back</a>
+
+<h2 class="text-center ">User Informations</h2>
+
+<ul class="list-group list-group-flush">
+    <p class="lead"><li class="list-group-item ">Name : {{user.name}}</li></p>
+    <p class="lead"><li class="list-group-item">Email : {{user.email}}</li></p>
+    <p class="lead"><li class="list-group-item">Ville : {{user.city}}</li></p>
+    <small>Created at {{user.created_at}}</small>
+  </ul>
+
+
+{% endblock %}
