@@ -1,6 +1,11 @@
 {% extends 'users/layout.html' %} {% block content %}
-<h3 class="text-center">Users</h3>
-
+<h3 class="text-left">Search Users : </h3>
+<form action="" method="get">
+  {{myFilter.form}}
+  <button class="btn btn-outline-info">Search <i class="fas fa-lg fa-search"></i></button>
+</form>
+<br>
+<h3 class="text-left">Users : </h3>
 <table class="table table-hover">
   <thead>
     <tr>

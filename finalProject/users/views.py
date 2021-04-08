@@ -7,6 +7,7 @@ from django.http import HttpResponse, request
 from .models import Users
 from django.core.paginator import Paginator
 from django.contrib import messages
+from .filters import userFilter
 
 
 # Create your views here.
@@ -15,10 +16,13 @@ from django.contrib import messages
 def index(request):
 
     # show only first 10 users
-    users = Users.objects.all()[:10]
-
+    users = Users.objects.all()
+    #search users
+    myFilter = userFilter(request.GET, queryset=users)
+    users = myFilter.qs
     context = {
-        'users': users
+        'users': users,
+        'myFilter': myFilter
     }
 
     return render(request, 'users/index.html', context)
