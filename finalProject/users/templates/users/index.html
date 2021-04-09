@@ -1,31 +1,49 @@
 {% extends 'users/layout.html' %} {% block content %}
-<h3 class="text-left">Search Users : </h3>
+<h3 class="text-left">Search Users :</h3>
 <form action="" method="get">
   {{myFilter.form}}
-  <button class="btn btn-outline-info">Search <i class="fas fa-lg fa-search"></i></button>
+  <button class="btn btn-outline-info">
+    Search <i class="fas fa-lg fa-search"></i>
+  </button>
 </form>
-<br>
-<h3 class="text-left">Users : </h3>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in users %}
-    <tr class="table-light">
-      <th scope="row">
-         <a href="/users/details/{{user.id}}">{{ user.name }}</a>
-      </th>
-      <th>{{user.created_at}}</th>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<br />
+<h3 class="text-left">Users :</h3>
 
-<a class="btn btn-outline-success" href="/users/registerUser"
-  >Ajouter un Utilisateur <i class="fas fa-lg fa-user-plus"></i>
-</a>
+<div class="col-md-9">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th><a class="block btn btn-outline-success" href="/users/registerUser"
+          >Ajouter un Utilisateur <i class="fas fa-lg fa-user-plus"></i>
+        </a></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr class="table-light">
+        <th scope="row">{{ user.id }}</th>
+        <th scope="row">
+          <a href="/users/details/{{user.id}}">{{ user.name }}</a>
+        </th>
+        <th>{{user.created_at}}</th>
+        <th>
+          <a href="/users/editUser/{{user.id}}" class="btn btn-outline-success"
+            ><i class="fas fa-lg fa-user-edit"></i> </a
+          ><a
+            href="/users/deleteUser/{{user.id}}"
+            class="btn btn-outline-danger float-right"
+          >
+            <i class="fas fa-lg fa-trash-alt"></i>
+          </a>
+        </th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
 {% endblock %}
