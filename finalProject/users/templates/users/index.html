@@ -1,5 +1,7 @@
-{% extends 'users/layout.html' %} {% block content %}
-<h3 class="text-left">Search Users :</h3>
+{% extends 'users/layout.html' %} 
+{% block content %}
+<br />
+<h3 class="text-left text-info">Search Users :</h3>
 <form action="" method="get">
   {{myFilter.form}}
   <button class="btn btn-outline-info">
@@ -7,28 +9,28 @@
   </button>
 </form>
 <br />
-<h3 class="text-left">Users :</h3>
+<h3 class="text-left text-success ">Users :</h3>
 
 <div class="col-md-9">
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">Id</th>
         <th scope="col">Name</th>
-        <th scope="col">Date</th>
-        <th><a class="block btn btn-outline-success" href="/users/registerUser"
-          >Ajouter un Utilisateur <i class="fas fa-lg fa-user-plus"></i>
+        <th scope="col">Email</th>
+        <th scope="col">City</th>
+        <th><a class="btn btn-block btn-outline-success" href="/users/registerUser"
+          ><i class="fas fa-lg fa-user-plus"></i>
         </a></th>
       </tr>
     </thead>
     <tbody>
       {% for user in users %}
       <tr class="table-light">
-        <th scope="row">{{ user.id }}</th>
         <th scope="row">
           <a href="/users/details/{{user.id}}">{{ user.name }}</a>
         </th>
-        <th>{{user.created_at}}</th>
+        <th>{{user.email}}</th>
+        <th>{{user.city}}</th>
         <th>
           <a href="/users/editUser/{{user.id}}" class="btn btn-outline-success"
             ><i class="fas fa-lg fa-user-edit"></i> </a
