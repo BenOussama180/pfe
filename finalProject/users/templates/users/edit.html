@@ -4,21 +4,26 @@
 
   
   {% csrf_token %}
+  <br>
   <div class="col-md-4">
     <h1>Edit a User</h1>
   </div>
   <div class="col-md-8">
     <div class="form-group">
-      <label for="name">Name : </label>
-      <input type="text" name="name" class="form-control" required />
+      <label for="name">Nom : </label>
+      <input type="text" value="{{user.name}}" name="name" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="name">Prénom : </label>
+      <input type="text" value="{{user.prenom}}" name="prenom" class="form-control" required />
     </div>
     <div class="form-group">
       <label for="email">Email : </label>
-      <input type="text" name="email" class="form-control" required />
+      <input type="text" value="{{user.email}}" name="email" class="form-control" required />
     </div>
     <div class="form-group">
-      <label for="city">City : </label>
-      <input type="text" name="city" class="form-control" required />
+      <label for="city">Ville : </label>
+      <input type="text" value="{{user.city}}" name="city" class="form-control" required />
     </div>
     <br />
     <div class="form-group">

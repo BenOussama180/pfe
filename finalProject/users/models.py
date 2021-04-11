@@ -5,6 +5,7 @@ from datetime import datetime
 
 class Users(models.Model):
     name = models.CharField(max_length=100)
+    prenom=models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now,blank=True)

@@ -41,7 +41,7 @@ def about(request):
 def registerUser(request):
     if request.method == 'POST':
         user = Users(
-        name=request.POST['name'], email=request.POST['email'], city=request.POST['city'])
+        name=request.POST['name'], prenom=request.POST['prenom'] ,email=request.POST['email'], city=request.POST['city'])
         user.save()
         messages.success(request,'Vous avez Ajouter un utilisateur avec succés')
         return redirect('/')
