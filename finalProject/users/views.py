@@ -8,6 +8,7 @@ from .models import Users
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .filters import userFilter
+from email_validator import validate_email, EmailNotValidError
 
 
 # Create your views here.
@@ -42,9 +43,15 @@ def registerUser(request):
     if request.method == 'POST':
         user = Users(
         name=request.POST['name'], prenom=request.POST['prenom'] ,email=request.POST['email'], city=request.POST['city'])
-        user.save()
-        messages.success(request,'Vous avez Ajouter un utilisateur avec succés')
-        return redirect('/')
+        try:
+             user.email = validate_email(request.POST.get('email'))
+             user.email=request.POST.get('email')
+             user.save()
+             messages.success(request,'Vous avez Ajouter un utilisateur avec succés')
+             return redirect('/')
+        except EmailNotValidError:
+            messages.error(request, 'email est pas valide')
+            return render(request, 'users/form.html')     
     else:
         return render(request, 'users/form.html')
 

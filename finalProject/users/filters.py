@@ -3,6 +3,7 @@ from django_filters import DateFilter, CharFilter
 from .models import Users
 
 class userFilter(django_filters.FilterSet):
+    id = CharFilter(field_name="id",lookup_expr='iexact')
     name = CharFilter(field_name="name",lookup_expr='icontains')
     prenom = CharFilter(field_name="prenom",lookup_expr='icontains')
     city = CharFilter(field_name="city",lookup_expr='icontains')
