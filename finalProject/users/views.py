@@ -16,16 +16,23 @@ from email_validator import validate_email, EmailNotValidError
 
 def index(request):
 
-    # show only first 10 users
     users = Users.objects.all()
     #search users
     myFilter = userFilter(request.GET, queryset=users)
     users = myFilter.qs
+    #pagination
+    paginator = Paginator(users, 5)
+    # the ('',1) sets the page number to 1 if the page number isnt available
+    page = request.GET.get('page', 1)
+    users = paginator.get_page(page)
     context = {
         'users': users,
-        'myFilter': myFilter
+        'myFilter': myFilter,
+        'paginator': paginator,
+        #converting page to an integer so we can compare the ' i '(which is an integer) 
+        #compare the 'i' with page in index.html to highlight the page number we are in
+        'page' : int(page)
     }
-
     return render(request, 'users/index.html', context)
 
 
