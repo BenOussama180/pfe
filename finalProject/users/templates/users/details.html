@@ -1,8 +1,8 @@
 {% extends 'users/layout.html' %} {% block content %}
+<br>
+<a href="/users" class="btn btn-outline-primary">Revenir <i class="fas fa-lg fa-backspace"></i></a>
 
-<a href="/users" class="btn btn-outline-primary">Go Back <i class="fas fa-lg fa-backspace"></i></a>
-
-<h2 class="text-center">User Informations</h2>
+<h2 class="text-center">Informations de l'Utilisateur</h2>
 
 <ul class="list-group list-group-flush">
   <p class="lead"><li class="list-group-item">Name : {{user.name}}</li></p>
@@ -12,12 +12,12 @@
 </ul>
 <br /><br />
 <a href="/users/editUser/{{user.id}}" class="btn btn-outline-success"
-  >Edit <i class="fas fa-lg fa-user-edit"></i>
+  >Modifier <i class="fas fa-lg fa-user-edit"></i>
 </a>
 <a
   href="/users/deleteUser/{{user.id}}"
   class="btn btn-outline-danger float-right"
-  >Delete
+  >Supprimer
   <i class="fas fa-lg fa-trash-alt"></i>
   </a>
 <br /><br /><br /><br />
