@@ -1,11 +1,15 @@
-{% extends 'users/layout.html' %} {% block content %}
+{% extends 'users/layout.html' %} 
+{% block content %}
+{% load static %}
 <br>
+<div class="container">
 <a href="/users" class="btn btn-outline-primary">Revenir <i class="fas fa-lg fa-backspace"></i></a>
 
 <h2 class="text-center">Informations de l'Utilisateur</h2>
 
 <ul class="list-group list-group-flush">
-  <p class="lead"><li class="list-group-item">Name : {{user.name}}</li></p>
+  <p class="lead"><li class="list-group-item">Prenom : {{user.prenom}}</li></p>
+  <p class="lead"><li class="list-group-item">Nom : {{user.name}}</li></p>
   <p class="lead"><li class="list-group-item">Email : {{user.email}}</li></p>
   <p class="lead"><li class="list-group-item">Ville : {{user.city}}</li></p>
   <small>Created at {{user.created_at}}</small>
@@ -20,6 +24,6 @@
   >Supprimer
   <i class="fas fa-lg fa-trash-alt"></i>
   </a>
-<br /><br /><br /><br />
+</div>
 
 {% endblock %}
