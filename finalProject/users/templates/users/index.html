@@ -3,100 +3,52 @@
 {% load static %}
 
 
-
-  <!--begin::Container-->
-  <div class="container">
-    <!--begin::Advance Table Widget 1-->
-    <div class="card card-custom gutter-b">
-      <!--begin::Header-->
-      <div class="card-header border-0 py-5">
-        <h3 class="card-title align-items-start flex-column">
-          <span class="card-label font-weight-bolder text-dark">Utilisateurs</span>
-        </h3>
-        
-        <div class="card-toolbar">
-          <a href="users/registerUser" class="btn btn-success font-weight-bolder font-size-sm">
-          <span class="svg-icon svg-icon-md svg-icon-white">
-            <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <polygon points="0 0 24 0 24 24 0 24" />
-                <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
-              </g>
-            </svg>
-            <!--end::Svg Icon-->
-          </span>Ajouter nouvel utilisateur</a>
-        </div>
-        <div class="card-toolbar">
-          <h3 class=" text-info">Chercher un Utilisateur :</h3>
-            <form action="" method="get">
-              <div class="form">{{myFilter.form}}</div>
-  
-            <br><button class="btn btn-block btn-info">
-              Cherche <i class="fas fa-lg fa-search"></i>
-            </button>
-          </form></div>
+<div class="container">
+<div class="flex-row-fluid ml-lg-8">
+    <!--begin::Card-->
+    
+    <div class="card card-custom gutter-bs">
+      <!--Begin::Header-->
+      <div class="container">
+      <div class="card-toolbar">
+        <h3 class=" text-info">Chercher un Utilisateur :</h3>
+        <form action="" method="get">
+          <div class="form">{{myFilter.form}}</div>
+          
+          <br><button class="btn btn-block btn-info">
+            Cherche <i class="fas fa-lg fa-search"></i>
+          </button>
+        </form>
       </div>
-      <!--end::Header-->
-      <!--begin::Body-->
-      <div class="card-body py-0">
-        <!--begin::Table-->
-        <div class="table-responsive">
-          <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
-            <thead>
-              <tr class="text-left">
-                <th class="pl-0" style="width: 20px">
-                  <label class="checkbox checkbox-lg checkbox-inline">
-                    <input type="checkbox" value="1" />
-                    <span></span>
-                  </label>
-                </th>
-                <th class="pr-0" style="width: 50px">Nom</th>
-                <th style="min-width: 200px"></th>
-                <th style="min-width: 150px">Email</th>
-                <th style="min-width: 150px">City</th>
-                <th class="pr-0 text-right" style="min-width: 150px">action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for user in users %}
-              <tr>
-                <td class="pl-0">
-                  <label class="checkbox checkbox-lg checkbox-inline">
-                    <input type="checkbox" value="1" />
-                    <span></span>
-                  </label>
-                </td>
-                <td class="pr-0">
-                  <div class="symbol symbol-50 symbol-light mt-1">
-                    <span class="symbol-label">
-                      <img src="{% static 'assets/media/svg/avatars/001-boy.svg' %}" class="h-75 align-self-end" alt="" />
+      </div>
+        <br>
+        {% for user in users %}
+        <div class="card-header card-header-tabs-line">
+          <div class="card-toolbar">
+            <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x" role="tablist">
+              <li class="nav-item mr-3">
+                <a class="nav-link active" href="users/registerUser">
+                  <span class="nav-icon mr-2">
+                    <span class="svg-icon mr-3">
+                      <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <polygon points="0 0 24 0 24 24 0 24" />
+                          <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                          <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+                        </g>
+                      </svg>
+                      <!--end::Svg Icon-->
                     </span>
-                  </div>
-                </td>
-                <td class="pl-0">
-                  <a href="users/details/{{user.id}}" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{user.prenom}}</a>
-                  <span class="text-muted font-weight-bold text-muted d-block">{{user.name}}</span>
-                </td>
-                <td>
-                  <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{user.email}}</span>
-                  <span class="text-muted font-weight-bold">{{user.created_at}}</span>
-                </td>
-                <td>
-                  <div class="d-flex flex-column w-100 mr-2">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{user.city}}</span>
-                  <span class="text-muted font-weight-bold">{{user.id}}</span>
-                    </div>
-                    
-                  </div>
-                </td>
-                <td class="pr-0 text-right">
-                  
-                  <a href="users/editUser/{{user.id}}" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
-                    <span class="svg-icon svg-icon-md svg-icon-primary">
-                      <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
+                  </span>
+                  <span class="nav-text font-weight-bold">Ajouter un nouvel utilisateur</span>
+                </a>
+              </li>
+              <li class="nav-item mr-3">
+                <a class="nav-link active"  href="users/editUser/{{user.id}}">
+                  <span class="nav-icon mr-2">
+                    <span class="svg-icon mr-3">
+                      <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                           <rect x="0" y="0" width="24" height="24" />
@@ -106,10 +58,15 @@
                       </svg>
                       <!--end::Svg Icon-->
                     </span>
-                  </a>
-                  <a href="users/deleteUser/{{user.id}}" class="btn btn-icon btn-light btn-hover-primary btn-sm">
-                    <span class="svg-icon svg-icon-md svg-icon-primary">
-                      <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
+                  </span>
+                  <span class="nav-text font-weight-bold">Modifier cet Utilisateur</span>
+                </a>
+              </li>
+              <li class="nav-item mr-3">
+                <a class="nav-link active"  href="users/deleteUser/{{user.id}}">
+                  <span class="nav-icon mr-2">
+                    <span class="svg-icon mr-3">
+                      <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                           <rect x="0" y="0" width="24" height="24" />
@@ -119,39 +76,119 @@
                       </svg>
                       <!--end::Svg Icon-->
                     </span>
-                  </a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          <ul class="pagination">
-    
-            <li class="page-item disabled">
-              <a class="page-link" href="#">&laquo;</a>
-            </li>
-            {% for i in paginator.page_range  %}
-              <li class="page-item{% if i == page %} active {% endif %}">
-                <a href="?page={{i}}" class="page-link">{{i}}</a>
+                  </span>
+                  <span class="nav-text font-weight-bold">Supprimer cet Utilisateur</span>
+                </a>
               </li>
-              {% endfor %}
-              <li class="page-item disabled">
-                <a class="page-link" href="#">&raquo;</a>
-              </li>
-              
-          </ul>
+            </ul>
+          </div>
         </div>
-        <!--end::Table-->
-      </div>
-      <!--end::Body-->
+                
+      
+                    
+        <!--end::Header-->
+        <!--Begin::Body-->
+        <div class="card-body px-0">
+            <div class="tab-content pt-5">
+                <!--begin::Tab Content-->
+                <div class="tab-pane active" id="kt_apps_contacts_view_tab_2" role="tabpanel">
+                    <form class="form">
+                        <!--begin::Heading-->
+                        <div class="row">
+                            <div class="col-lg-9 col-xl-6 offset-xl-3">
+                                <h3 class="font-size-h6 mb-5">Infos d'Utilisateur:</h3>
+                            </div>
+                        </div>
+                        <!--end::Heading-->
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 text-right col-form-label"></label>
+                            <div class="col-lg-9 col-xl-9">
+                                
+                                    <div class="symbol symbol-120 symbol-circle symbol-success overflow-hidden">
+                                        <span class="symbol-label">
+                                            <img src="{% static '/assets/media/svg/avatars/007-boy-2.svg' %}" class="h-75 align-self-end" alt="" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Prénom</label>
+                            <div class="col-lg-9 col-xl-6">
+                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.prenom}}" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom</label>
+                            <div class="col-lg-9 col-xl-6">
+                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.name}}" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Email Address</label>
+                            <div class="col-lg-9 col-xl-6">
+                                <div class="input-group input-group-lg input-group-solid">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-at"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg form-control-solid" value="{{user.email}}" disabled />
+                                </div>
+                                <span class="form-text text-muted">{{user.created_at}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Ville</label>
+                            <div class="col-lg-9 col-xl-6">
+                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.city}}" disabled />
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed my-10"></div>
+                        <!--begin::Heading-->
+                        
+                        
+                        <!--end::Heading-->
+                        <div class="form-group row">
+                          <div class="separator separator-dashed my-10"></div>
+                          <!--begin::Heading-->
+                          <!--end::Heading-->
+                        </form>
+                      </div>
+                      {% endfor %}
+                <!--end::Tab Content-->
+            </div>
+            <div class="container">
+            <ul class="pagination">
+              {% if users.has_previous %}
+
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">&laquo;</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ users.previous_page_number }}">previous</a>
+                </li>
+                {% endif %}
+                <li class="page-item">
+                  <a href="#" class="page-link">{{users.number}}</a>
+                </li>
+                {% if users.has_next %}
+
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ users.next_page_number }}">next</a>
+                </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{users.paginator.num_pages}}">&raquo;</a>
+                  </li>
+                  {% endif %}
+                  
+              </ul>
+            </div>
+        </div>
+        <!--end::Body-->
     </div>
-    <!--end::Advance Table Widget 1-->
-    
-  <!--end::Container-->
+    <!--end::Card-->
 </div>
-<!--end::Entry-->
+<!--end::Content-->
 </div>
-
-
-
 {% endblock %}

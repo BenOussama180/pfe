@@ -21,7 +21,7 @@ def index(request):
     myFilter = userFilter(request.GET, queryset=users)
     users = myFilter.qs
     #pagination
-    paginator = Paginator(users, 5)
+    paginator = Paginator(users, 1)
     # the ('',1) sets the page number to 1 if the page number isnt available
     page = request.GET.get('page', 1)
     users = paginator.get_page(page)
