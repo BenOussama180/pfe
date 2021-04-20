@@ -147,18 +147,11 @@
                         <div class="separator separator-dashed my-10"></div>
                         <!--begin::Heading-->
                         
-                        
-                        <!--end::Heading-->
-                        <div class="form-group row">
-                          <div class="separator separator-dashed my-10"></div>
-                          <!--begin::Heading-->
-                          <!--end::Heading-->
-                        </form>
                       </div>
                       {% endfor %}
                 <!--end::Tab Content-->
             </div>
-            <div class="container">
+            <div class="container center">
             <ul class="pagination">
               {% if users.has_previous %}
 
@@ -170,7 +163,7 @@
                 </li>
                 {% endif %}
                 <li class="page-item">
-                  <a href="#" class="page-link">{{users.number}}</a>
+                  <a  class="page-link">{{users.number}}</a>
                 </li>
                 {% if users.has_next %}
 

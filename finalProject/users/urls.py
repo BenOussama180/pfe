@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^editUser/(?P<id>\d+)$', views.editUser, name='edit'),
     url(r'^deleteUser/(?P<id>\d+)$', views.deleteUser, name='delete'),
     url(r'^about/$', views.about, name='about'),
+    url(r'^exportdb/$', views.export, name='export'),
+    url(r'^export_excel/$', views.export_excel, name='export_excel'),
 ];

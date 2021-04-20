@@ -1,15 +1,16 @@
 
 
+from datetime import datetime
 from .forms import userForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, request
+from django.http import HttpResponse, request, response
 from .models import Users
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .filters import userFilter
 from email_validator import validate_email, EmailNotValidError
-
+import xlwt
 
 # Create your views here.
 
@@ -45,6 +46,9 @@ def details(request, id):
 
 def about(request):
     return render(request, 'users/about.html')
+
+def export(request):
+    return render(request, 'users/exportdb.html')
 
 def registerUser(request):
     if request.method == 'POST':
@@ -85,6 +89,48 @@ def deleteUser(request, id):
         'user' : user
     }
     return render(request, 'users/delete.html', context)  
+
+
+def export_excel(request):
+    #tellin browser how to handle file ( as excel )
+    response=HttpResponse(content_type='application/ms-excel')
+    #adding to file name
+    response['Content-Disposition']='attachement; filename=Users'+ \
+         str(datetime.now())+'.xls'
+    #creating work book
+    wb=xlwt.Workbook(encoding='utf-8')
+    #work sheet name
+    ws=wb.add_sheet('Users')
+    #define row number
+    row_num= 0
+    font_style=xlwt.XFStyle()
+    #making first row bold
+    font_style.font.bold= True
+
+    columns=['Nom', 'Prenom', 'Email', 'Ville']
+
+    #inserting columns in the rows
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    font_style= xlwt.XFStyle()
+
+    rows=Users.objects.filter().values_list('name', 'prenom','email','city')
+
+    for row in rows:
+        row_num +=1
+
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, str(row[col_num]), font_style)
+    wb.save(response)
+
+    return response
+ 
+
+
+
+
+
           
 
 

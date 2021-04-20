@@ -1,0 +1,119 @@
+{% extends 'users/layout.html' %} 
+{% block content %}
+{% load static %}
+
+
+
+
+<div class="container">
+<div class="card card-custom gutter-b">
+<div class="card-header">
+    <div class="card-title">
+        <span class="card-icon">
+        </span>
+        <h3 class="card-label">Exporter sous forme de :</h3>
+    </div>
+</div>
+<div class="card-body">
+    <div class="row justify-content-center my-20">
+        <!--begin: Pricing-->
+        <div class="col-md-4 col-xxl-3">
+            <div class="pt-30 pt-md-25 pb-15 px-5 text-center">
+                <!--begin::Icon-->
+                <div class="d-flex flex-center position-relative mb-25">
+                    <span class="svg svg-fill-primary opacity-4 position-absolute">
+                        <svg width="175" height="200">
+                            <polyline points="87,0 174,50 174,150 87,200 0,150 0,50 87,0"></polyline>
+                        </svg>
+                    </span>
+                    <span class="svg-icon svg-icon-5x svg-icon-success">
+                        <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Flower3.svg-->
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Communication\Spam.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"/>
+                                <path d="M4.5,3 L19.5,3 C20.3284271,3 21,3.67157288 21,4.5 L21,19.5 C21,20.3284271 20.3284271,21 19.5,21 L4.5,21 C3.67157288,21 3,20.3284271 3,19.5 L3,4.5 C3,3.67157288 3.67157288,3 4.5,3 Z M8,5 C7.44771525,5 7,5.44771525 7,6 C7,6.55228475 7.44771525,7 8,7 L16,7 C16.5522847,7 17,6.55228475 17,6 C17,5.44771525 16.5522847,5 16,5 L8,5 Z M10.5857864,14 L9.17157288,15.4142136 C8.78104858,15.8047379 8.78104858,16.4379028 9.17157288,16.8284271 C9.56209717,17.2189514 10.1952621,17.2189514 10.5857864,16.8284271 L12,15.4142136 L13.4142136,16.8284271 C13.8047379,17.2189514 14.4379028,17.2189514 14.8284271,16.8284271 C15.2189514,16.4379028 15.2189514,15.8047379 14.8284271,15.4142136 L13.4142136,14 L14.8284271,12.5857864 C15.2189514,12.1952621 15.2189514,11.5620972 14.8284271,11.1715729 C14.4379028,10.7810486 13.8047379,10.7810486 13.4142136,11.1715729 L12,12.5857864 L10.5857864,11.1715729 C10.1952621,10.7810486 9.56209717,10.7810486 9.17157288,11.1715729 C8.78104858,11.5620972 8.78104858,12.1952621 9.17157288,12.5857864 L10.5857864,14 Z" fill="#000000"/>
+                            </g>
+                        </svg><!--end::Svg Icon--></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </div>
+                <!--end::Icon-->
+                <!--begin::Content-->
+                <span class="font-size-h1 d-block d-block font-weight-boldest text-dark-75 py-2">Fichier Excel</span>
+                <br><br><br>
+                <a href="/users/export_excel" class="btn btn-success text-uppercase font-weight-bolder px-15 py-3">Telecharger</a>
+                <!--end::Content-->
+            </div>
+        </div>
+        <!--end: Pricing-->
+        <!--begin: Pricing-->
+        <div class="col-md-4 col-xxl-3 border-x-0 border-x-md border-y border-y-md-0">
+            <div class="pt-30 pt-md-25 pb-15 px-5 text-center">
+                <!--begin::Icon-->
+                <div class="d-flex flex-center position-relative mb-25">
+                    <span class="svg svg-fill-primary opacity-4 position-absolute">
+                        <svg width="175" height="200">
+                            <polyline points="87,0 174,50 174,150 87,200 0,150 0,50 87,0"></polyline>
+                        </svg>
+                    </span>
+                    <span class="svg-icon svg-icon-5x svg-icon-primary">
+                        <!--begin::Svg Icon | path:assets/media/svg/icons/Tools/Compass.svg-->
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Design\Edit.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"/>
+                                <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                                <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"/>
+                            </g>
+                        </svg><!--end::Svg Icon--></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </div>
+                <!--end::Icon-->
+                <!--begin::Content-->
+                <span class="font-size-h1 d-block font-weight-boldest text-dark-75 py-2">Fichier Text
+                <sup class="font-size-h3 font-weight-normal pl-1"></sup></span>
+                <br><br><br>
+                <a href="#" class="btn btn-primary text-uppercase font-weight-bolder px-15 py-3">Telecharger</a>
+                <!--end::Content-->
+            </div>
+        </div>
+        <!--end: Pricing-->
+        <!--begin: Pricing-->
+        <div class="col-md-4 col-xxl-3">
+            <div class="pt-30 pt-md-25 pb-15 px-5 text-center">
+                <!--begin::Icon-->
+                <div class="d-flex flex-center position-relative mb-25">
+                    <span class="svg svg-fill-primary opacity-4 position-absolute">
+                        <svg width="175" height="200">
+                            <polyline points="87,0 174,50 174,150 87,200 0,150 0,50 87,0"></polyline>
+                        </svg>
+                    </span>
+                    <span class="svg-icon svg-icon-5x svg-icon-warning">
+                        <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Cart2.svg-->
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Code\Code.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"/>
+                                <path d="M17.2718029,8.68536757 C16.8932864,8.28319382 16.9124644,7.65031935 17.3146382,7.27180288 C17.7168119,6.89328641 18.3496864,6.91246442 18.7282029,7.31463817 L22.7282029,11.5646382 C23.0906029,11.9496882 23.0906029,12.5503176 22.7282029,12.9353676 L18.7282029,17.1853676 C18.3496864,17.5875413 17.7168119,17.6067193 17.3146382,17.2282029 C16.9124644,16.8496864 16.8932864,16.2168119 17.2718029,15.8146382 L20.6267538,12.2500029 L17.2718029,8.68536757 Z M6.72819712,8.6853647 L3.37324625,12.25 L6.72819712,15.8146353 C7.10671359,16.2168091 7.08753558,16.8496835 6.68536183,17.2282 C6.28318808,17.6067165 5.65031361,17.5875384 5.27179713,17.1853647 L1.27179713,12.9353647 C0.909397125,12.5503147 0.909397125,11.9496853 1.27179713,11.5646353 L5.27179713,7.3146353 C5.65031361,6.91246155 6.28318808,6.89328354 6.68536183,7.27180001 C7.08753558,7.65031648 7.10671359,8.28319095 6.72819712,8.6853647 Z" fill="#000000" fill-rule="nonzero"/>
+                                <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-345.000000) translate(-12.000000, -12.000000) " x="11" y="4" width="2" height="16" rx="1"/>
+                            </g>
+                        </svg><!--end::Svg Icon--></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </div>
+                <!--end::Icon-->
+                <!--begin::Content-->
+                <span class="font-size-h1 d-block font-weight-boldest text-dark-75 py-2">Fichier XML
+                <sup class="font-size-h3 font-weight-normal pl-1"></sup></span>
+                <br><br><br>
+                <a href="#" class="btn btn-warning text-uppercase font-weight-bolder px-15 py-3">Telecharger</a>
+                <!--end::Content-->
+            </div>
+        </div>
+        <!--end: Pricing-->
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
