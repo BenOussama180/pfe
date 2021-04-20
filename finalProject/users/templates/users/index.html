@@ -1,6 +1,8 @@
 {% extends 'users/layout.html' %} 
 {% block content %}
 {% load static %}
+{% load users_extras %}
+
 
 
 <div class="container">
@@ -11,6 +13,7 @@
       <!--Begin::Header-->
       <div class="container">
       <div class="card-toolbar">
+        <br>
         <h3 class=" text-info">Chercher un Utilisateur :</h3>
         <form action="" method="get">
           <div class="form">{{myFilter.form}}</div>
@@ -156,10 +159,10 @@
               {% if users.has_previous %}
 
                 <li class="page-item">
-                  <a class="page-link" href="?page=1">&laquo;</a>
+                  <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo;</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" href="?page={{ users.previous_page_number }}">previous</a>
+                  <a class="page-link" href="{% my_url users.previous_page_number 'page' request.GET.urlencode %}">previous</a>
                 </li>
                 {% endif %}
                 <li class="page-item">
@@ -168,10 +171,10 @@
                 {% if users.has_next %}
 
                 <li class="page-item">
-                  <a class="page-link" href="?page={{ users.next_page_number }}">next</a>
+                  <a class="page-link" href="{% my_url users.next_page_number 'page' request.GET.urlencode %}">next</a>
                 </li>
                   <li class="page-item">
-                    <a class="page-link" href="?page={{users.paginator.num_pages}}">&raquo;</a>
+                    <a class="page-link" href="{% my_url users.paginator.num_pages 'page' request.GET.urlencode %}">&raquo;</a>
                   </li>
                   {% endif %}
                   
