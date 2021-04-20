@@ -11,6 +11,9 @@ from django.contrib import messages
 from .filters import userFilter
 from email_validator import validate_email, EmailNotValidError
 import xlwt
+import csv
+from django.core import serializers
+import xml
 
 # Create your views here.
 
@@ -125,6 +128,31 @@ def export_excel(request):
     wb.save(response)
 
     return response
+
+
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Nom', 'Prenom', 'Email', 'ville'])
+    #loopin through data and foreach one writing it 
+    
+    for user in Users.objects.all().values_list('name','prenom','email','city'):
+        writer.writerow(user)
+
+    response['Content-Disposition'] = 'attachement; filename="users.csv"'
+    return response
+
+
+def export_xml(request):
+    response = HttpResponse(content_type='application/xml')
+    user = Users.objects.all()
+    user = serializers.serialize('xml', user)
+    response['Content-Disposition'] = 'attachement; filename="users.xml"'
+
+    return HttpResponse(user, response )
+
+
+
  
 
 
