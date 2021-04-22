@@ -13,7 +13,8 @@ from email_validator import validate_email, EmailNotValidError
 import xlwt
 import csv
 from django.core import serializers
-import xml
+from .resources import UsersResource
+from tablib import Dataset
 
 # Create your views here.
 
@@ -74,7 +75,7 @@ def editUser(request, id):
      form = userForm(request.POST,instance=user)
      if form.is_valid():
          form.save()
-         messages.success(request,'Vous avez Modifier un utilisateur avec succés')
+         messages.warning(request,'Vous avez Modifier un utilisateur avec succés')
          return redirect('/')
      context = {
          'user' : user
@@ -86,7 +87,7 @@ def deleteUser(request, id):
     user = Users.objects.get(id=id)
     if request.method == 'POST':
         user.delete()
-        messages.success(request,'Vous avez Supprimer un utilisateur avec succés')
+        messages.error(request,'Vous avez Supprimer un utilisateur avec succés')
         return redirect('/')
     context = {
         'user' : user
@@ -103,14 +104,14 @@ def export_excel(request):
     #creating work book
     wb=xlwt.Workbook(encoding='utf-8')
     #work sheet name
-    ws=wb.add_sheet('Users')
+    ws=wb.add_sheet('Worksheet')
     #define row number
     row_num= 0
     font_style=xlwt.XFStyle()
     #making first row bold
     font_style.font.bold= True
 
-    columns=['Nom', 'Prenom', 'Email', 'Ville']
+    columns=['Id','Nom', 'Prenom', 'Email', 'Ville']
 
     #inserting columns in the rows
     for col_num in range(len(columns)):
@@ -118,7 +119,7 @@ def export_excel(request):
 
     font_style= xlwt.XFStyle()
 
-    rows=Users.objects.filter().values_list('name', 'prenom','email','city')
+    rows=Users.objects.filter().values_list('id','name', 'prenom','email','city')
 
     for row in rows:
         row_num +=1
@@ -133,10 +134,10 @@ def export_excel(request):
 def export_csv(request):
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
-    writer.writerow(['Nom', 'Prenom', 'Email', 'ville'])
+    writer.writerow(['Id','Nom', 'Prenom', 'Email', 'ville'])
     #loopin through data and foreach one writing it 
     
-    for user in Users.objects.all().values_list('name','prenom','email','city'):
+    for user in Users.objects.all().values_list('id','name','prenom','email','city'):
         writer.writerow(user)
 
     response['Content-Disposition'] = 'attachement; filename="users.csv"'
@@ -150,6 +151,40 @@ def export_xml(request):
     response['Content-Disposition'] = 'attachement; filename="users.xml"'
 
     return HttpResponse(user, response )
+
+
+def import_(request):
+    if request.method == 'POST':
+        user_resource = UsersResource()
+        dataset = Dataset()
+        new = request.FILES['myfile']
+        print(new.name)
+        print(new.size)
+        if not new.name.endswith('xls'):
+             messages.info(request,'Mauvais Format, Veuillez choisir un fichier Excel')
+             return render(request, 'users/importdb.html')
+        
+        imported_data = dataset.load(new.read(),format='xls')
+        for data in imported_data:
+        	print(data[1])
+        	value = Users(
+        		data[0],
+        		data[1],
+        		data[2],
+        		data[3],
+                data[4]
+        		)
+        	value.save()
+        messages.success(request, 'Votre base de donnée a bien été sauvegardé')
+    return render(request, 'users/importdb.html')
+
+
+
+    
+
+
+
+
 
 
 

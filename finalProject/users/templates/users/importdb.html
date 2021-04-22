@@ -1,0 +1,54 @@
+{% extends 'users/layout.html' %} 
+{% block content %}
+{% load static %}
+
+
+
+
+<div class="container">
+<div class="card card-custom gutter-b">
+    <div class="container">
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class="card-label">Importer des fichiers à la base de donnée : </h3>
+            </div>
+        </div>
+        <!--begin::Form-->
+        <!-- multipart/form-data is necessary if the user will upload a file through the form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}    
+            <div class="card-body">
+                <!-- <div class="form-group row">
+                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">
+                        Importer un fichier de type EXCEL <i class="far text-success fa-file-excel"></i>
+                    </label>
+                    <div class="col-lg-4 col-md-9 col-sm-12">
+                        <div class="dropzone dropzone-default dz-clickable" name="myfile "id="kt_dropzone_1">
+                            <div class="dropzone-msg dz-message needsclick">
+                                <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+                                <span class="dropzone-msg-desc">This is just a demo dropzone. Selected files are
+                                <strong>not</strong>actually uploaded.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <input type="file" name="myfile">
+            </div>
+                
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-4">
+                        <button type="submit" class="btn btn-light-primary mr-2">Submit</button>
+                        <button type="reset" class="btn btn-primary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    </div>
+    
+
+
+{% endblock %}
