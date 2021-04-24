@@ -15,6 +15,10 @@ import csv
 from django.core import serializers
 from .resources import UsersResource
 from tablib import Dataset
+from django.utils.datastructures import MultiValueDictKeyError
+from pyexcel_xls import get_data as xls_get
+from pyexcel_xlsx import get_data as xlsx_get
+
 
 # Create your views here.
 
@@ -154,29 +158,71 @@ def export_xml(request):
 
 
 def import_(request):
-    if request.method == 'POST':
-        user_resource = UsersResource()
-        dataset = Dataset()
-        new = request.FILES['myfile']
-        print(new.name)
-        print(new.size)
-        if not new.name.endswith('xls'):
-             messages.info(request,'Mauvais Format, Veuillez choisir un fichier Excel')
-             return render(request, 'users/importdb.html')
-        
-        imported_data = dataset.load(new.read(),format='xls')
-        for data in imported_data:
-        	print(data[1])
-        	value = Users(
-        		data[0],
-        		data[1],
-        		data[2],
-        		data[3],
-                data[4]
-        		)
-        	value.save()
-        messages.success(request, 'Votre base de donnée a bien été sauvegardé')
     return render(request, 'users/importdb.html')
+
+def Parse_xl(request,format=None):
+    try:
+        excel_file = request.FILES['myfile']
+    except MultiValueDictKeyError:
+        messages.error(request, 'Votre Upload a mal tourné')
+        return render(request, 'users/importdb.html')
+    if (str(excel_file).split('.')[-1]=="xls"):
+        data=xls_get(excel_file,column_limit=5)
+    elif (str(excel_file).split('.')[-1]=="xlsx"):
+        data=xlsx_get(excel_file,column_limit=5)
+    else:
+        messages.info(request, 'Veuillez importer un fichier de type Excel')
+        return render(request, 'users/importdb.html')
+    Clients = data["Worksheet"]
+    if (len(Clients) > 1): # We have company data
+        for Worksheet in Clients:
+            if (len(Worksheet) > 0): # The row is not blank
+                if (Worksheet[0] != "id"): # This is not header
+                    # Fill ending columns with blank
+                    if (len(Worksheet) < 5):
+                        i = len(Worksheet)
+                        while (i < 5):
+                            Worksheet.append("")
+                            i+=1
+                            # Check if Client exist
+                            # Assume that Client name is unique
+                    c = Users.objects.filter(name=Worksheet[1])
+                    if ( c.count() == 0):
+                        Users.objects.create(
+                        name= Worksheet[1],
+                        prenom= Worksheet[2],
+                        email= Worksheet[3],
+                        city=Worksheet[4]
+                        )
+    messages.success(request,'Votre base de donnée a bien été Sauvegardé!')
+    return render(request, 'users/importdb.html')
+
+def Parse_txt(request,format=None):
+    Clients_all=Users.objects.all()
+    try:
+        txt_file = request.FILES['file_txt']
+    except MultiValueDictKeyError:
+        messages.error(request, 'Votre Upload a mal tourné')
+        return render(request, 'users/importdb.html')
+    if (str(request.FILES['file_txt']).split('.')[-1]=="txt"):
+         # lines = f.readlines()
+        # with open("txt_file", "r") as fileopened:
+        lines=txt_file.readlines()
+        glines = (line.strip() for line in lines)
+        for line in glines:
+            fields = line.split(";".encode())
+            Users.objects.create(
+                name = fields[1].decode(),
+                prenom = fields[2].decode(),
+                email = fields[3].decode(),
+                city = fields[4].decode()
+        )
+        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
+        return render(request, 'users/importdb.html')
+
+    else:
+       messages.info(request, 'Veuillez importer un fichier de type Text')
+       return render(request, 'users/importdb.html')
 
 
 
