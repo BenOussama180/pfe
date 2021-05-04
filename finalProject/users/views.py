@@ -18,6 +18,8 @@ from tablib import Dataset
 from django.utils.datastructures import MultiValueDictKeyError
 from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get
+from xml.etree import ElementTree as ET
+
 
 
 # Create your views here.
@@ -223,6 +225,32 @@ def Parse_txt(request,format=None):
     else:
        messages.info(request, 'Veuillez importer un fichier de type Text')
        return render(request, 'users/importdb.html')
+
+def Parse_xml(request):
+    try:
+        file_xml=request.FILES['xml_file']
+    except MultiValueDictKeyError:
+        messages.error(request, 'Votre Upload a mal tourné')
+        return render(request, 'users/importdb.html')
+    
+    if (str(request.FILES['xml_file']).split('.')[-1]=="xml"):
+        doc=ET.parse(request.FILES['xml_file'])
+        # records=doc.getElementsByTagName("record")
+        myroot=doc.getroot()
+        for recorde in myroot.findall('record'):
+            Users.objects.create(
+                name = recorde.find('nom').text,
+                prenom = recorde.find('prenom').text,
+                city = recorde.find('ville').text,
+                email = recorde.find('email').text
+                )
+        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
+        return render(request, 'users/importdb.html')
+    else:
+        messages.info(request, 'Veuillez importer un fichier de type XML')
+        return render(request, 'users/importdb.html')
+
+
 
 
 

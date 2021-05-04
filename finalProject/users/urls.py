@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^export_csv/$', views.export_csv, name='export_csv'),
     url(r'^export_xml/$', views.export_xml, name='export_xml'),
     path('parse-excel/', views.Parse_xl,name='Parse_xl'),
-    path('parse-txt/', views.Parse_txt,name='Parse_txt')
+    path('parse-txt/', views.Parse_txt,name='Parse_txt'),
+    path('parse-xml/', views.Parse_xml,name='Parse_xml')
 ]
