@@ -244,7 +244,7 @@ def Parse_xml(request):
                 city = recorde.find('ville').text,
                 email = recorde.find('email').text
                 )
-        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
+        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!!!')
         return render(request, 'users/importdb.html')
     else:
         messages.info(request, 'Veuillez importer un fichier de type XML')
