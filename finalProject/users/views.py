@@ -1,14 +1,14 @@
-
-
 from datetime import datetime
 from .forms import userForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, request, response
 from .models import Users
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
+import django_filters
 from .filters import userFilter
+from . import filters
 from email_validator import validate_email, EmailNotValidError
 import xlwt
 import csv
@@ -22,6 +22,7 @@ from xml.etree import ElementTree as ET
 
 
 
+
 # Create your views here.
 
 
@@ -31,9 +32,7 @@ def index(request):
     #search users
     myFilter = userFilter(request.GET, queryset=users)
     users = myFilter.qs
-    #pagination
     paginator = Paginator(users, 1)
-    # the ('',1) sets the page number to 1 if the page number isnt available
     page = request.GET.get('page', 1)
     users = paginator.get_page(page)
     context = {
@@ -46,6 +45,25 @@ def index(request):
     }
     return render(request, 'users/index.html', context)
 
+def search(request):    
+        # try:
+        #     users_filtered = paginator.page(page)
+        # except PageNotAnInteger:
+        #     users_filtered = paginator.page(1)
+        # except EmptyPage:
+        #     users_filtered = paginator.page(paginator.num_pages)
+    context={}
+    filtered_qs = userFilter(
+                    request.GET, 
+                    queryset=Users.objects.all()
+                )
+    context['filtered_qs']=filtered_qs
+    users=Users.objects.all()
+    paginated_filtered_users = Paginator(filtered_qs.qs,1)
+    page_num = request.GET.get('page')
+    user_page_obj = paginated_filtered_users.get_page(page_num)
+    context['user_page_obj']=user_page_obj
+    return render(request,'users/search.html',context)
 
 def details(request, id):
     user = Users.objects.get(id=id)

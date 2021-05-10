@@ -13,7 +13,6 @@ class userFilter(django_filters.FilterSet):
         fields = '__all__'
         exclude = ['name','prenom','city','email','created_at']
 
-
     # adding css to inputs not working for now
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)  

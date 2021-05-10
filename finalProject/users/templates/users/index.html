@@ -15,13 +15,14 @@
       <div class="card-toolbar">
         <br>
         <h3 class=" text-info">Chercher un Utilisateur :</h3>
-        <form action="" method="get">
+       <!-- ///////////// FORM ///////////////////////// -->
+        <!-- <form action="" method="get">
           <div class="form">{{myFilter.form}}</div>
           
           <br><button class="btn btn-block btn-info">
             Cherche <i class="fas fa-lg fa-search"></i>
           </button>
-        </form>
+        </form> -->
       </div>
       </div>
         <br>
@@ -32,7 +33,7 @@
               <li class="nav-item mr-3">
                 <a class="nav-link active">
                   <span class="nav-icon mr-2">
-                    <span class="svg-icon svg-icon-primary mr-3">
+                    <span class="svg-icon mr-3">
                       <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
                       <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Communication\Adress-book2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -65,7 +66,6 @@
                   <span class="nav-text text-success font-weight-bold">Ajouter un nouvel utilisateur</span>
                 </a>
               </li> -->
-              {% for user in users %}
         
                     
         <!--end::Header-->
@@ -94,11 +94,13 @@
                                 </div>
                             </div>
                         </div>
+                       
+              {% for user in user_page_obj %}
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 text-right col-form-label">#</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.id}}" disabled />
-                            </div>
+                          <label class="col-xl-3 col-lg-3 text-right col-form-label">#</label>
+                          <div class="col-lg-9 col-xl-6">
+                              <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.id}}" disabled />
+                          </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 text-right col-form-label">Prénom</label>
@@ -140,7 +142,7 @@
             </div>
             <div class="container center d-flex justify-content-center">
             <ul class="pagination">
-              {% if users.has_previous %}
+              {% if user_page_obj.has_previous %}
 
                 <li class="page-item">
                   <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo;</a>
@@ -152,7 +154,7 @@
                 <li class="page-item">
                   <a  class="page-link">{{users.number}}</a>
                 </li>
-                {% if users.has_next %}
+                {% if user_page_obj.has_next %}
 
                 <li class="page-item">
                   <a class="page-link" href="{% my_url users.next_page_number 'page' request.GET.urlencode %}">next</a>
@@ -165,7 +167,7 @@
               </ul>
             </div>
             <div>
-             {% for user in users %}
+             {% for user in user_page_obj %}
 
               <button class="btn btn-primary">
                 <a href="users/registerUser">Ajouter</a>

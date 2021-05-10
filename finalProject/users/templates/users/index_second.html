@@ -1,0 +1,27 @@
+{% extends 'users/layout.html' %} 
+{% block content %}
+{% load static %}
+{% load users_extras %}
+<div>
+    {% for user in user_page_obj %}
+    <div>
+        <label for="name">houssssssssss </label>
+        <input type="text" name="name" id="" value="{{user.name}}" disabled>
+    </div>
+    <div>
+        <label for="prenom">prenom </label>
+        <input type="text" name="prenom" id="" value="{{user.prenom}}" disabled>
+    </div>
+    <div>
+        <label for="email">email</label>
+        <input type="text" name="email" id="" value="{{user.email}}" disabled>
+    </div>
+    <div>
+        <label for="city">city</label>
+        <input type="text" name="city" id="" value="{{user.city}}" disabled>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
