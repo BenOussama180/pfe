@@ -28,22 +28,27 @@ from xml.etree import ElementTree as ET
 
 def index(request):
 
-    users = Users.objects.all()
-    #search users
-    myFilter = userFilter(request.GET, queryset=users)
-    users = myFilter.qs
-    paginator = Paginator(users, 1)
-    page = request.GET.get('page', 1)
-    users = paginator.get_page(page)
-    context = {
-        'users': users,
-        'myFilter': myFilter,
-        'paginator': paginator,
-        #converting page to an integer so we can compare the ' i '(which is an integer) 
-        #compare the 'i' with page in index.html to highlight the page number we are in
-        'page' : int(page)
-    }
-    return render(request, 'users/index.html', context)
+    if request.method == 'GET':
+        context={}
+        users = Users.objects.all()
+        #search users
+        filtered_qs = userFilter(
+                request.GET, 
+                queryset=Users.objects.all()
+            )
+        context['filtered_qs']=filtered_qs
+        paginated_filtered_users = Paginator(filtered_qs.qs,1)
+        page_num = request.GET.get('page')
+        user_page_obj = paginated_filtered_users.get_page(page_num)
+        context['user_page_obj']=user_page_obj
+
+        return render(request, 'users/index.html', context)
+    else:
+        users =Users.objects.all()
+        context={
+            'users' : users
+        }
+        return render(request,'users/index.html',context)
 
 def search(request):    
         # try:
@@ -58,7 +63,7 @@ def search(request):
                     queryset=Users.objects.all()
                 )
     context['filtered_qs']=filtered_qs
-    users=Users.objects.all()
+    users = Users.objects.all()
     paginated_filtered_users = Paginator(filtered_qs.qs,1)
     page_num = request.GET.get('page')
     user_page_obj = paginated_filtered_users.get_page(page_num)
@@ -211,8 +216,8 @@ def Parse_xl(request,format=None):
                         Users.objects.create(
                         name= Worksheet[1],
                         prenom= Worksheet[2],
-                        email= Worksheet[3],
-                        city=Worksheet[4]
+                        email= Worksheet[4],
+                        city=Worksheet[3]
                         )
     messages.success(request,'Votre base de donnée a bien été Sauvegardé!')
     return render(request, 'users/importdb.html')

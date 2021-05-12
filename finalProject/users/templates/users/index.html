@@ -103,17 +103,17 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Prénom</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.prenom}}" disabled />
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom</label>
                             <div class="col-lg-9 col-xl-6">
                                 <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.name}}" disabled />
                             </div>
                         </div>
+                        <div class="form-group row">
+                          <label class="col-xl-3 col-lg-3 text-right col-form-label">Prénom</label>
+                          <div class="col-lg-9 col-xl-6">
+                              <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.prenom}}" disabled />
+                          </div>
+                      </div>
                         <div class="form-group row">
                             <label class="col-xl-3 col-lg-3 text-right col-form-label">Email Address</label>
                             <div class="col-lg-9 col-xl-6">
@@ -148,19 +148,19 @@
                   <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo;</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" href="{% my_url users.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                  <a class="page-link" href="{% my_url user_page_obj.previous_page_number 'page' request.GET.urlencode %}">Précédent</a>
                 </li>
                 {% endif %}
                 <li class="page-item">
-                  <a  class="page-link">{{users.number}}</a>
+                  <a  class="page-link">{{user_page_obj.number}}/{{user_page_obj.paginator.num_pages}}</a>
                 </li>
                 {% if user_page_obj.has_next %}
 
                 <li class="page-item">
-                  <a class="page-link" href="{% my_url users.next_page_number 'page' request.GET.urlencode %}">next</a>
+                  <a class="page-link" href="{% my_url user_page_obj.next_page_number 'page' request.GET.urlencode %}">Suivant</a>
                 </li>
                   <li class="page-item">
-                    <a class="page-link" href="{% my_url users.paginator.num_pages 'page' request.GET.urlencode %}">&raquo;</a>
+                    <a class="page-link" href="{% my_url user_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">&raquo;</a>
                   </li>
                   {% endif %}
                   
@@ -178,7 +178,10 @@
               <button class="btn btn-warning">
                 <a href="users/deleteUser/{{user.id}}">Supprimer</a>
               </button>
-              
+
+              <button class="btn btn-warning">
+                <a href="users/search/">Rechercher</a>
+              </button>
               {% endfor %}
             </div>
         </div>
