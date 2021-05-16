@@ -2,34 +2,25 @@
 {% block content %}
 {% load static %}
 {% load users_extras %}
+<div class="container-fluid">
+    <div class="col-9"></div>
+        <form method="GET" action="{% url 'index' %}">
 
-<form method="GET" action="{% url 'index' %}">
-
+                    
+        <!-- ******************************************************* -->
+            <div class="form">
+                {{filtered_qs.form.as_p}}
+                <br><button class="btn btn-info">
+                    Cherche <i class="fas fa-lg fa-search"></i>
+                </button>
+            </div>
+            <button class="btn btn-warning ">
             
-<!-- ******************************************************* -->
-    <div class="form">
-        {{filtered_qs.form.as_p}}
-        <br><button class="btn btn-block btn-info">
-            Cherche <i class="fas fa-lg fa-search"></i>
-          </button>
+                <a href="#">Annuler</a>
+                <i class="fas fa-lg fa-search"></i>
+            </button>
+        </form>
+    <div class="col-3 p-0 pt-5"></div>
     </div>
-    <!-- <div>
-    <label for="name">nom</label>
-    <input type="text" name="name" id="name">
-    </div>
-    <div>
-        <label for="prenom">prenom</label>
-        <input type="text" name="prenom" id="prenom">
-        </div>
-    <div>
-        <label for="email">email</label>
-        <input type="text" name="email" id="email">
-    </div>
-    <div>
-        <label for="city">nom</label>
-        <input type="text" name="city" id="city">
-    </div>  -->
-    <!-- <button type="submit" class="btn btn-block btn-info" value="press" > Chercher </button> -->
-</form>
-<br>
+</div>
 {% endblock content %}

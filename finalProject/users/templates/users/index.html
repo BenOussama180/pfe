@@ -1,194 +1,167 @@
-{% extends 'users/layout.html' %} 
+{% extends 'users/layout.html' %}
 {% block content %}
 {% load static %}
 {% load users_extras %}
 
-
-
 <div class="container">
-<div class="flex-row-fluid ml-lg-8">
+  <div class="flex-row-fluid ml-lg-8">
     <!--begin::Card-->
-    
+
     <div class="card card-custom gutter-bs">
       <!--Begin::Header-->
       <div class="container">
-      <div class="card-toolbar">
-        <br>
-        <h3 class=" text-info">Chercher un Utilisateur :</h3>
-       <!-- ///////////// FORM ///////////////////////// -->
-        <!-- <form action="" method="get">
-          <div class="form">{{myFilter.form}}</div>
-          
-          <br><button class="btn btn-block btn-info">
-            Cherche <i class="fas fa-lg fa-search"></i>
-          </button>
-        </form> -->
+        <div class="card-toolbar">
+          <br>
+          <h3 class=" text-info">Chercher un Utilisateur :</h3>
+        </div>
       </div>
-      </div>
-        <br>
-        <div class="card-header card-header-tabs-line">
-          <div class="card-toolbar">
-            <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x" role="tablist">
-              
-              <li class="nav-item mr-3">
-                <a class="nav-link active">
-                  <span class="nav-icon mr-2">
-                    <span class="svg-icon mr-3">
-                      <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
-                      <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Communication\Adress-book2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <rect x="0" y="0" width="24" height="24"/>
-                          <path d="M18,2 L20,2 C21.6568542,2 23,3.34314575 23,5 L23,19 C23,20.6568542 21.6568542,22 20,22 L18,22 L18,2 Z" fill="#000000" opacity="0.3"/>
-                          <path d="M5,2 L17,2 C18.6568542,2 20,3.34314575 20,5 L20,19 C20,20.6568542 18.6568542,22 17,22 L5,22 C4.44771525,22 4,21.5522847 4,21 L4,3 C4,2.44771525 4.44771525,2 5,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z" fill="#000000"/>
-                        </g>
-                      </svg><!--end::Svg Icon-->
-                      <!--end::Svg Icon-->
-                    </span>
+      <br>
+      <div class="card-header card-header-tabs-line">
+        <div class="card-toolbar w-100">
+          <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x" role="tablist">
+
+            <li class="nav-item mr-3">
+              <a class="nav-link active">
+                <span class="nav-icon mr-2">
+                  <span class="svg-icon mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                      height="24px" viewBox="0 0 24 24" version="1.1">
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path
+                          d="M18,2 L20,2 C21.6568542,2 23,3.34314575 23,5 L23,19 C23,20.6568542 21.6568542,22 20,22 L18,22 L18,2 Z"
+                          fill="#000000" opacity="0.3" />
+                        <path
+                          d="M5,2 L17,2 C18.6568542,2 20,3.34314575 20,5 L20,19 C20,20.6568542 18.6568542,22 17,22 L5,22 C4.44771525,22 4,21.5522847 4,21 L4,3 C4,2.44771525 4.44771525,2 5,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z"
+                          fill="#000000" />
+                      </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                    <!--end::Svg Icon-->
                   </span>
-                  <span class="nav-text text-primary font-weight-bold">Informations Personnelles</span>
-                </a>
-              </li>
-              <!-- <li class="nav-item mr-3">
-                <a class="nav-link" href="users/registerUser">
-                  <span class="nav-icon mr-2">
-                    <span class="svg-icon svg-icon-success mr-3"> -->
-                      <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
-                      <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <polygon points="0 0 24 0 24 24 0 24" />
-                          <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                          <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
-                        </g>
-                      </svg> -->
-                      <!--end::Svg Icon-->
-                    <!-- </span>
-                  </span>
-                  <span class="nav-text text-success font-weight-bold">Ajouter un nouvel utilisateur</span>
-                </a>
-              </li> -->
-        
-                    
-        <!--end::Header-->
-        <!--Begin::Body-->
-        <div class="card-body px-0 d-flex justify-content-center" >
-            <div class="tab-content pt-5">
+                </span>
+                <span class="nav-text text-primary font-weight-bold">Informations Personnelles</span>
+              </a>
+            </li>
+          </ul>
+            <div class="card-body d-flex flex-column bd-highlight mb-3 w-100 justify-content-center">
+              <div class="tab-content pt-5 mx-auto">
                 <!--begin::Tab Content-->
                 <div class="tab-pane active" id="kt_apps_contacts_view_tab_2" role="tabpanel">
-                    <form class="form">
-                        <!--begin::Heading-->
-                        <!-- <div class="row">
-                            <div class="col-lg-9 col-xl-6 offset-xl-3">
-                                <h3 class="font-size-h6 text-info mb-5">Infos d'Utilisateur:</h3>
-                            </div>
-                        </div> s-->
-                        <!--end::Heading-->
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 text-right col-form-label"></label>
-                            <div class="col-lg-9 col-xl-9">
-                                
-                                    <div class="symbol symbol-120 symbol-circle symbol-success overflow-hidden">
-                                        <span class="symbol-label">
-                                            <img src="{% static '/assets/media/svg/avatars/007-boy-2.svg' %}" class="h-75 align-self-end" alt="" />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-              {% for user in user_page_obj %}
-                        <div class="form-group row">
-                          <label class="col-xl-3 col-lg-3 text-right col-form-label">#</label>
-                          <div class="col-lg-9 col-xl-6">
-                              <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.id}}" disabled />
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.name}}" disabled />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-xl-3 col-lg-3 text-right col-form-label">Prénom</label>
-                          <div class="col-lg-9 col-xl-6">
-                              <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.prenom}}" disabled />
-                          </div>
-                      </div>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Email Address</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <div class="input-group input-group-lg input-group-solid">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-at"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control form-control-lg form-control-solid" value="{{user.email}}" disabled />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 text-right col-form-label">Ville</label>
-                            <div class="col-lg-9 col-xl-6">
-                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.city}}" disabled />
-                            </div>
-                        </div>
-                        <div class="separator separator-dashed"></div>
-                        <!--begin::Heading-->
-                        
-                      </div>
-                      {% endfor %}
-                <!--end::Tab Content-->
-            </div>
-            <div class="container center d-flex justify-content-center">
-            <ul class="pagination">
-              {% if user_page_obj.has_previous %}
+                  <form class="form">
 
-                <li class="page-item">
-                  <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo;</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="{% my_url user_page_obj.previous_page_number 'page' request.GET.urlencode %}">Précédent</a>
-                </li>
-                {% endif %}
-                <li class="page-item">
-                  <a  class="page-link">{{user_page_obj.number}}/{{user_page_obj.paginator.num_pages}}</a>
-                </li>
-                {% if user_page_obj.has_next %}
+                    <div class="form-group row">
+                      <label class="col-xl-3 col-lg-3 text-right col-form-label"></label>
+                      <div class="col-lg-9 col-xl-9">
 
-                <li class="page-item">
-                  <a class="page-link" href="{% my_url user_page_obj.next_page_number 'page' request.GET.urlencode %}">Suivant</a>
-                </li>
+                        <div class="symbol symbol-120 symbol-circle symbol-success overflow-hidden">
+                          <span class="symbol-label">
+                            <img src="{% static '/assets/media/svg/avatars/007-boy-2.svg' %}"
+                              class="h-75 align-self-end" alt="" />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                {% for user in user_page_obj %}
+                <div class="form-group row">
+                  <label class="col-xl-3 col-lg-3 text-right col-form-label">#</label>
+                  <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.id}}"
+                      disabled />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom</label>
+                  <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.name}}"
+                      disabled />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-xl-3 col-lg-3 text-right col-form-label">Prénom</label>
+                  <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.prenom}}"
+                      disabled />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-xl-3 col-lg-3 text-right col-form-label">Email Address</label>
+                  <div class="col-lg-9 col-xl-6">
+                    <div class="input-group input-group-lg input-group-solid">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-at"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control form-control-lg form-control-solid" value="{{user.email}}"
+                        disabled />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-xl-3 col-lg-3 text-right col-form-label">Ville</label>
+                  <div class="col-lg-9 col-xl-6">
+                    <input class="form-control form-control-lg form-control-solid" type="text" value="{{user.city}}"
+                      disabled />
+                  </div>
+                </div>
+                <div class="separator separator-dashed"></div>
+                <!--begin::Heading-->
+
+              </div>
+              {% if forloop.last %}
+              <div class="center d-flex justify-content-center mt-7">
+                <ul class="pagination">
+                  {% if user_page_obj.has_previous %}
+
                   <li class="page-item">
-                    <a class="page-link" href="{% my_url user_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">&raquo;</a>
+                    <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo;</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link"
+                      href="{% my_url user_page_obj.previous_page_number 'page' request.GET.urlencode %}">Précédent</a>
                   </li>
                   {% endif %}
-                  
-              </ul>
-            </div>
-            <div>
-             {% for user in user_page_obj %}
+                  <li class="page-item">
+                    <a class="page-link">{{user_page_obj.number}}/{{user_page_obj.paginator.num_pages}}</a>
+                  </li>
+                  {% if user_page_obj.has_next %}
 
-              <button class="btn btn-primary">
-                <a href="users/registerUser">Ajouter</a>
-              </button>
-              <button class="btn btn-danger">
-                <a href="users/editUser/{{user.id}}">Modifier</a>
-              </button>
-              <button class="btn btn-warning">
-                <a href="users/deleteUser/{{user.id}}">Supprimer</a>
-              </button>
+                  <li class="page-item">
+                    <a class="page-link"
+                      href="{% my_url user_page_obj.next_page_number 'page' request.GET.urlencode %}">Suivant</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link"
+                      href="{% my_url user_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">&raquo;</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+              {% endif %}
+              <div class="center d-flex justify-content-center"> 
+                <button class="btn btn-primary p2 m-2">
+                  <a href="users/registerUser">Ajouter</a>
+                </button>
+                <button class="btn btn-danger m-2">
+                  <a href="users/editUser/{{user.id}}">Modifier</a>
+                </button>
+                <button class="btn btn-warning m-2">
+                  <a href="users/deleteUser/{{user.id}}">Supprimer</a>
+                </button>
 
-              <button class="btn btn-warning">
-                <a href="users/search/">Rechercher</a>
-              </button>
+                <button class="btn btn-warning m-2">
+                  <a href="users/search">Rechercher</a>
+                </button>
+              </div>
               {% endfor %}
+              <!--end::Tab Content-->
             </div>
         </div>
-        <!--end::Body-->
+      </div>
     </div>
-    <!--end::Card-->
-</div>
-<!--end::Content-->
+  </div>
 </div>
 {% endblock %}

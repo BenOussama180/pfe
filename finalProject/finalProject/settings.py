@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u1j(4v&&#jk8(94omnzo#p$+(zsf=a$ei+x724t)pa8c+(h*l@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fd240447a782.ngrok.io','127.0.0.1','localhost']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'import_export',
+
 ]
 
 MIDDLEWARE = [
