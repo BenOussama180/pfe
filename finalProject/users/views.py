@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.contrib.messages.api import error
-from django.db.models.query import QuerySet
+from django.db.models.query import QuerySet, RawQuerySet
 from .forms import PersonForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
@@ -67,7 +67,7 @@ def export(request):
     return render(request, 'users/export-db.html')
 
 
-def registerUser(request):
+def registeruser(request):
     if request.method !='GET' and request.method !='POST':
         # print(f'{request.method}')
         raise Http404
@@ -81,14 +81,14 @@ def registerUser(request):
     return render(request, 'users/form.html',{'form':form})
 
 
-def editUser(request, id):
+def edituser(request, id):
     if request.method !='GET' and request.method !='POST':
         raise Http404
     person = None
     try:
         person = Person.objects.get(id=id)
     except Person.DoesNotExist:
-        return render(request, '/', {'error',  "The person does not exist"})
+        return render(request, '/', {'error',  "Cette utilisateur n'existe pas"})
 
     if request.method == 'GET':
         return render(request, 'users/edit.html', {'user': person})
@@ -103,15 +103,21 @@ def editUser(request, id):
         return render(request, 'users/edit.html', {'user': person})
 
 
-def deleteUser(request, id):
-    person = Person.objects.get(id=id)
+def deleteuser(request, id):
+    if request.method != 'POST' and request.method !='GET':
+        raise Http404
+    try:
+        person = Person.objects.get(id=id)
+    except Person.DoesNotExist:
+        return render(request, '/', {'error',  "Cette utilisateur n'existe pas"})
     if request.method == 'POST':
         person.delete() 
         messages.error(request, 'Vous avez Supprimer un utilisateur avec succés')
         return redirect('/')
-    context = {
+    else:
+        context = {
         'user' : person
-    }
+        }
     return render(request, 'users/delete.html', context)  
 
 
@@ -174,8 +180,8 @@ def export_xml(request):
     return HttpResponse(person, response)
 
 
-def import_(request):
-    return render(request, 'users/importdb.html')
+def import_db(request):
+    return render(request, 'users/import-db.html')
 
 
 def Parse_xl(request, format=None):
@@ -213,7 +219,7 @@ def Parse_xl(request, format=None):
                             city=Worksheet[3]
                         )
     messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
-    return render(request, 'users/importdb.html')
+    return render(request, 'users/import-db.html')
 
 
 def Parse_txt(request, format=None):
@@ -222,7 +228,7 @@ def Parse_txt(request, format=None):
         txt_file = request.FILES['file_txt']
     except MultiValueDictKeyError:
         messages.error(request, 'Votre Upload a mal tourné')
-        return render(request, 'users/importdb.html')
+        return render(request, 'users/import-db.html')
     if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
         # lines = f.readlines()
         # with open("txt_file", "r") as fileopened:
@@ -233,16 +239,16 @@ def Parse_txt(request, format=None):
             Person.objects.create(
                 name=fields[1].decode(),
                 prenom=fields[2].decode(),
-                email=fields[3].decode(),
-                city=fields[4].decode()
+                email=fields[4].decode(),
+                city=fields[3].decode()
             )
         messages.success(
             request, 'Votre base de donnée a bien été Sauvegardé!')
-        return render(request, 'users/importdb.html')
+        return render(request, 'users/import-db.html')
 
     else:
         messages.info(request, 'Veuillez importer un fichier de type Text')
-        return render(request, 'users/importdb.html')
+        return render(request, 'users/import-db.html')
 
 
 def Parse_xml(request):
@@ -250,7 +256,7 @@ def Parse_xml(request):
         file_xml = request.FILES['xml_file']
     except MultiValueDictKeyError:
         messages.error(request, 'Votre Upload a mal tourné')
-        return render(request, 'users/importdb.html')
+        return render(request, 'users/import-db.html')
 
     if (str(request.FILES['xml_file']).split('.')[-1] == "xml"):
         doc = ET.parse(request.FILES['xml_file'])
@@ -265,7 +271,7 @@ def Parse_xml(request):
             )
         messages.success(
             request, 'Votre base de donnée a bien été Sauvegardé!!!')
-        return render(request, 'users/importdb.html')
+        return render(request, 'users/import-db.html')
     else:
         messages.info(request, 'Veuillez importer un fichier de type XML')
-        return render(request, 'users/importdb.html')
+        return render(request, 'users/import-db.html')
