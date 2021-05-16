@@ -8,13 +8,6 @@
     <!--begin::Card-->
 
     <div class="card card-custom gutter-bs">
-      <!--Begin::Header-->
-      <div class="container">
-        <div class="card-toolbar">
-          <br>
-          <h3 class=" text-info">Chercher un Utilisateur :</h3>
-        </div>
-      </div>
       <br>
       <div class="card-header card-header-tabs-line">
         <div class="card-toolbar w-100">
@@ -51,15 +44,7 @@
                   <form class="form">
 
                     <div class="form-group row">
-                      <label class="col-xl-3 col-lg-3 text-right col-form-label"></label>
                       <div class="col-lg-9 col-xl-9">
-
-                        <div class="symbol symbol-120 symbol-circle symbol-success overflow-hidden">
-                          <span class="symbol-label">
-                            <img src="{% static '/assets/media/svg/avatars/007-boy-2.svg' %}"
-                              class="h-75 align-self-end" alt="" />
-                          </span>
-                        </div>
                       </div>
                     </div>
                 </div>
@@ -140,19 +125,82 @@
                 </ul>
               </div>
               {% endif %}
-              <div class="center d-flex justify-content-center"> 
-                <button class="btn btn-primary p2 m-2" id="add_btn">
-                  <a href="{% url 'register' %}">Ajouter</a>
-                </button>
-                <button class="btn btn-danger m-2" id="edit_btn">
-                  <a href="{% url 'edit' id=user.id %}">Modifier</a>
-                </button>
-                <button class="btn btn-warning m-2" id="delete_btn">
-                  <a href="{% url 'delete' id=user.id %}"> Supprimer</a>
-                </button>
-                <button class="btn btn-warning m-2" id="search_btn">
-                  <a href="{% url 'search' %}">Rechercher</a>
-                </button>
+              <div class="center d-flex justify-content-center">
+                <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x" role="tablist">
+              
+                  <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'search' %}">
+                      <span class="nav-icon mr-2">
+                        <span class="svg-icon svg-icon-info mr-3">
+                          <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\General\Search.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"/>
+                                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero"/>
+                            </g>
+                        </svg><!--end::Svg Icon--></span>
+                        </span>
+                      </span>
+                      <span class="nav-text text-info font-weight-bold">Chercher un Utilisateur</span>
+                    </a>
+                  </li>
+                  <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'register' %}">
+                      <span class="nav-icon mr-2">
+                        <span class="svg-icon svg-icon-success mr-3">
+                          <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <polygon points="0 0 24 0 24 24 0 24" />
+                              <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                              <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+                            </g>
+                          </svg>
+                          <!--end::Svg Icon-->
+                        </span>
+                      </span>
+                      <span class="nav-text text-success font-weight-bold">Ajouter un nouvel utilisateur</span>
+                    </a>
+                  <li class="nav-item mr-3">
+                    <a class="nav-link"  href="{% url 'edit' id=user.id %}">
+                      <span class="nav-icon mr-2">
+                        <span class="svg-icon svg-icon-warning mr-3">
+                          <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <rect x="0" y="0" width="24" height="24" />
+                              <path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)" />
+                              <path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                            </g>
+                          </svg>
+                          <!--end::Svg Icon-->
+                        </span>
+                      </span>
+                      <span class="nav-text text-warning font-weight-bold">Modifier cet Utilisateur</span>
+                    </a>
+                  </li>
+                  <li class="nav-item mr-3">
+                    <!-- <a class="nav-link"  href="{% url 'delete' id=user.id %}"> -->
+                      <a class="nav-link"  href="users/delete-user/{{user.id}}">
+
+                      <span class="nav-icon mr-2">
+                        <span class="svg-icon svg-icon-danger mr-3">
+                          <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <rect x="0" y="0" width="24" height="24" />
+                              <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero" />
+                              <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3" />
+                            </g>
+                          </svg>
+                          <!--end::Svg Icon-->
+                        </span>
+                      </span>
+                      <span class="nav-text text-danger font-weight-bold">Supprimer cet Utilisateur</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
               {% endfor %}
               

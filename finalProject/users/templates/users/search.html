@@ -2,29 +2,51 @@
 {% block content %}
 {% load static %}
 {% load users_extras %}
-<div class="container-fluid">
-    <div class="col-9"></div>
-    <form method="GET" action="{% url 'index' %}">
+{% load widget_tweaks %}
+
+<div class="container">
+    <div class="flex-row-fluid ml-lg-8">
+        <!--begin::Card-->
+        
+        <div class="card card-custom gutter-bs">
+          <!--Begin::Header-->
+          <div class="container">
+          <div class="card-toolbar">
+            <br>
+         <h3 class=" text-info">Chercher un Utilisateur :</h3>
+
+            <form method="GET" action="{% url 'index' %}">
 
 
-        <!-- ******************************************************* -->
-        <div class="form">
-            {{filtered_qs.form.as_p}}
-            <br><button class="btn btn-info">
-                Cherche <i class="fas fa-lg fa-search"></i>
-            </button>
-        </div>
-        <button class="btn btn-warning">
-            <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
-            <i class="fas fa-lg fa-search"></i>
-        </button>
-        <!-- <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script> -->
-    </form>
+                <!-- ******************************************************* -->
+                 <!-- ******************************************************* -->
+                 <div class="form-group col-sm-4 col-md-3">
+                    # : 
+                    {% render_field filtered_qs.form.id class="form-control" %}
+                  </div>
+                  <div class="form-group col-sm-4 col-md-3">
+                    Nom : 
+                    {% render_field filtered_qs.form.name class="form-control" %}
+                  </div>
+                  <div class="form-group col-sm-4 col-md-3">
+                    Prénom : 
+                    {% render_field filtered_qs.form.prenom class="form-control" %}
+                  </div>
+                  <div class="form-group col-sm-4 col-md-3">
+                    Ville : 
+                    {% render_field filtered_qs.form.city class="form-control" %}
+                  </div>
+                  <br>
+                    <button class="btn btn-lg btn-info">
+                        Cherche <i class="fas fa-lg fa-search"></i>
+                    </button>
+                <a href="{{request.META.HTTP_REFERER}}" class="btn btn-outline-warning btn-lg">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+                <!-- <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script> -->
+            </form>
     <div class="col-3 p-0 pt-5"></div>
-</div>
 </div>
 {% endblock content %}

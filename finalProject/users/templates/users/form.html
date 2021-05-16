@@ -4,6 +4,8 @@
 <div class="container">
   
 <form action="" method="post">
+  <div class="container">
+
 
   
   {% csrf_token %}
@@ -29,10 +31,13 @@
       <input type="text" name="city" class="form-control" required />
     </div>
     <br />
+    
     <div class="form-group">
-      <button class="btn btn-success form-control" type="submit">
+      <button class="btn btn-success btn-lg" type="submit">
        Submit <i class="fas fa-save"></i>
       </button>
+      <a href="/" class="btn btn-outline-warning btn-lg">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+
     </div>
   </div>
 </form></div>

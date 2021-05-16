@@ -104,17 +104,16 @@ def editUser(request, id):
 
 
 def deleteUser(request, id):
-    if request.method !='GET':
-        raise Http404
-    person = None
-    try:
-        person = Person.objects.get(id=id)
-    except Person.DoesNotExist:
-        return render(request, '/', {'error',  "The person does not exist"})
-    print(person.id)
-    person.delete()
-    messages.info(request, 'Vous avez Supprimer un utilisateur avec succés')
-    return redirect('/')
+    person = Person.objects.get(id=id)
+    if request.method == 'POST':
+        person.delete() 
+        messages.error(request, 'Vous avez Supprimer un utilisateur avec succés')
+        return redirect('/')
+    context = {
+        'user' : person
+    }
+    return render(request, 'users/delete.html', context)  
+
 
 
 def export_excel(request):
