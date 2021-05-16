@@ -91,7 +91,7 @@ def editUser(request, id):
         return render(request, '/', {'error',  "The person does not exist"})
 
     if request.method == 'GET':
-        return render(request, 'users/edit.html', {'user', person})
+        return render(request, 'users/edit.html', {'user': person})
     else:
         form = PersonForm(request.POST, instance=person)
         if form.is_valid():
@@ -111,6 +111,7 @@ def deleteUser(request, id):
         person = Person.objects.get(id=id)
     except Person.DoesNotExist:
         return render(request, '/', {'error',  "The person does not exist"})
+    print(person.id)
     person.delete()
     messages.info(request, 'Vous avez Supprimer un utilisateur avec succés')
     return redirect('/')

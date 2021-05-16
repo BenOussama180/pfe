@@ -109,7 +109,6 @@
                 </div>
                 <div class="separator separator-dashed"></div>
                 <!--begin::Heading-->
-
               </div>
               {% if forloop.last %}
               <div class="center d-flex justify-content-center mt-7">
@@ -142,21 +141,21 @@
               </div>
               {% endif %}
               <div class="center d-flex justify-content-center"> 
-                <button class="btn btn-primary p2 m-2">
-                  <a href="users/registerUser">Ajouter</a>
+                <button class="btn btn-primary p2 m-2" id="add_btn">
+                  <a href="{% url 'register' %}">Ajouter</a>
                 </button>
-                <button class="btn btn-danger m-2">
-                  <a href="users/editUser/{{user.id}}">Modifier</a>
+                <button class="btn btn-danger m-2" id="edit_btn">
+                  <a href="{% url 'edit' id=user.id %}">Modifier</a>
                 </button>
-                <button class="btn btn-warning m-2">
-                  <a href="users/deleteUser/{{user.id}}">Supprimer</a>
+                <button class="btn btn-warning m-2" id="delete_btn">
+                  <a href="{% url 'delete' id=user.id %}"> Supprimer</a>
                 </button>
-
-                <button class="btn btn-warning m-2">
-                  <a href="users/search">Rechercher</a>
+                <button class="btn btn-warning m-2" id="search_btn">
+                  <a href="{% url 'search' %}">Rechercher</a>
                 </button>
               </div>
               {% endfor %}
+              
               <!--end::Tab Content-->
             </div>
         </div>

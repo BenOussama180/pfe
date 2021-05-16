@@ -1,26 +1,30 @@
-{% extends 'users/layout.html' %} 
+{% extends 'users/layout.html' %}
 {% block content %}
 {% load static %}
 {% load users_extras %}
 <div class="container-fluid">
     <div class="col-9"></div>
-        <form method="GET" action="{% url 'index' %}">
+    <form method="GET" action="{% url 'index' %}">
 
-                    
+
         <!-- ******************************************************* -->
-            <div class="form">
-                {{filtered_qs.form.as_p}}
-                <br><button class="btn btn-info">
-                    Cherche <i class="fas fa-lg fa-search"></i>
-                </button>
-            </div>
-            <button class="btn btn-warning ">
-            
-                <a href="#">Annuler</a>
-                <i class="fas fa-lg fa-search"></i>
+        <div class="form">
+            {{filtered_qs.form.as_p}}
+            <br><button class="btn btn-info">
+                Cherche <i class="fas fa-lg fa-search"></i>
             </button>
-        </form>
+        </div>
+        <button class="btn btn-warning">
+            <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+            <i class="fas fa-lg fa-search"></i>
+        </button>
+        <!-- <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script> -->
+    </form>
     <div class="col-3 p-0 pt-5"></div>
-    </div>
+</div>
 </div>
 {% endblock content %}
