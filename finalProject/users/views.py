@@ -163,7 +163,6 @@ def export_csv(request):
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
     writer.writerow(['Id', 'Nom', 'Prenom', 'Email', 'ville'])
-    # loopin through data and foreach one writing it
     for person in Person.objects.all().values_list('id', 'name', 'prenom', 'email', 'city'):
         writer.writerow(person)
 
@@ -198,18 +197,15 @@ def Parse_xl(request, format=None):
         messages.info(request, 'Veuillez importer un fichier de type Excel')
         return render(request, 'users/importdb.html')
     Clients = data["Worksheet"]
-    if (len(Clients) > 1):  # We have company data
+    if (len(Clients) > 1):  
         for Worksheet in Clients:
-            if (len(Worksheet) > 0):  # The row is not blank
-                if (Worksheet[0] != "id"):  # This is not header
-                    # Fill ending columns with blank
+            if (len(Worksheet) > 0):  
+                if (Worksheet[0] != "id"):
                     if (len(Worksheet) < 5):
                         i = len(Worksheet)
                         while (i < 5):
                             Worksheet.append("")
                             i += 1
-                            # Check if Client exist
-                            # Assume that Client name is unique
                     c = Person.objects.filter(name=Worksheet[1])
                     if (c.count() == 0):
                         Person.objects.create(
@@ -230,20 +226,22 @@ def Parse_txt(request, format=None):
         messages.error(request, 'Votre Upload a mal tourné')
         return render(request, 'users/import-db.html')
     if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
-        # lines = f.readlines()
-        # with open("txt_file", "r") as fileopened:
         lines = txt_file.readlines()
         glines = (line.strip() for line in lines)
         for line in glines:
             fields = line.split(";".encode())
+            try:
+                valid=validate_email(fields[4].decode())
+            except EmailNotValidError:
+                messages.error(request,'Cet email est pas valide!')
+                continue
             Person.objects.create(
                 name=fields[1].decode(),
                 prenom=fields[2].decode(),
-                email=fields[4].decode(),
+                email=valid.email,
                 city=fields[3].decode()
             )
-        messages.success(
-            request, 'Votre base de donnée a bien été Sauvegardé!')
+        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
         return render(request, 'users/import-db.html')
 
     else:
@@ -260,17 +258,21 @@ def Parse_xml(request):
 
     if (str(request.FILES['xml_file']).split('.')[-1] == "xml"):
         doc = ET.parse(request.FILES['xml_file'])
-        # records=doc.getElementsByTagName("record")
         myroot = doc.getroot()
         for recorde in myroot.findall('record'):
+            # email validation takes for ever for some reason
+            # try:
+            #     valid=validate_email(recorde.find('email').text)
+            # except EmailNotValidError:
+            #     messages.error(request,'Cet email est pas valide !!')
+            #     continue
             Person.objects.create(
                 name=recorde.find('nom').text,
                 prenom=recorde.find('prenom').text,
                 city=recorde.find('ville').text,
                 email=recorde.find('email').text
             )
-        messages.success(
-            request, 'Votre base de donnée a bien été Sauvegardé!!!')
+        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!!!')
         return render(request, 'users/import-db.html')
     else:
         messages.info(request, 'Veuillez importer un fichier de type XML')
