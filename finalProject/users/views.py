@@ -68,21 +68,21 @@ def export(request):
 
 
 def registeruser(request):
-    if request.method !='GET' and request.method !='POST':
+    if request.method != 'GET' and request.method != 'POST':
         # print(f'{request.method}')
         raise Http404
-    if request.method =='GET':
+    if request.method == 'GET':
         return render(request, 'users/form.html')
     form = PersonForm(request.POST)
     if form.is_valid():
         form.save()
         messages.info(request, 'You are registred succeefully')
         return redirect('/')
-    return render(request, 'users/form.html',{'form':form})
+    return render(request, 'users/form.html', {'form': form})
 
 
 def edituser(request, id):
-    if request.method !='GET' and request.method !='POST':
+    if request.method != 'GET' and request.method != 'POST':
         raise Http404
     person = None
     try:
@@ -104,22 +104,22 @@ def edituser(request, id):
 
 
 def deleteuser(request, id):
-    if request.method != 'POST' and request.method !='GET':
+    if request.method != 'POST' and request.method != 'GET':
         raise Http404
     try:
         person = Person.objects.get(id=id)
     except Person.DoesNotExist:
         return render(request, '/', {'error',  "Cette utilisateur n'existe pas"})
     if request.method == 'POST':
-        person.delete() 
-        messages.error(request, 'Vous avez Supprimer un utilisateur avec succés')
+        person.delete()
+        messages.error(
+            request, 'Vous avez Supprimer un utilisateur avec succés')
         return redirect('/')
     else:
         context = {
-        'user' : person
+            'user': person
         }
-    return render(request, 'users/delete.html', context)  
-
+    return render(request, 'users/delete.html', context)
 
 
 def export_excel(request):
@@ -197,9 +197,9 @@ def Parse_xl(request, format=None):
         messages.info(request, 'Veuillez importer un fichier de type Excel')
         return render(request, 'users/importdb.html')
     Clients = data["Worksheet"]
-    if (len(Clients) > 1):  
+    if (len(Clients) > 1):
         for Worksheet in Clients:
-            if (len(Worksheet) > 0):  
+            if (len(Worksheet) > 0):
                 if (Worksheet[0] != "id"):
                     if (len(Worksheet) < 5):
                         i = len(Worksheet)
@@ -231,9 +231,9 @@ def Parse_txt(request, format=None):
         for line in glines:
             fields = line.split(";".encode())
             try:
-                valid=validate_email(fields[4].decode())
+                valid = validate_email(fields[4].decode())
             except EmailNotValidError:
-                messages.error(request,'Cet email est pas valide!')
+                messages.error(request, 'Cet email est pas valide!')
                 continue
             Person.objects.create(
                 name=fields[1].decode(),
@@ -241,7 +241,8 @@ def Parse_txt(request, format=None):
                 email=valid.email,
                 city=fields[3].decode()
             )
-        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
+        messages.success(
+            request, 'Votre base de donnée a bien été Sauvegardé!')
         return render(request, 'users/import-db.html')
 
     else:
@@ -259,20 +260,15 @@ def Parse_xml(request):
     if (str(request.FILES['xml_file']).split('.')[-1] == "xml"):
         doc = ET.parse(request.FILES['xml_file'])
         myroot = doc.getroot()
-        for recorde in myroot.findall('record'):
-            # email validation takes for ever for some reason
-            # try:
-            #     valid=validate_email(recorde.find('email').text)
-            # except EmailNotValidError:
-            #     messages.error(request,'Cet email est pas valide !!')
-            #     continue
+        for recorde in myroot.findall('object'):
             Person.objects.create(
-                name=recorde.find('nom').text,
-                prenom=recorde.find('prenom').text,
-                city=recorde.find('ville').text,
-                email=recorde.find('email').text
+                name=recorde.find("field[@name='name']").text,
+                prenom=recorde.find("field[@name='prenom']").text,
+                city=recorde.find("field[@name='city']").text,
+                email=recorde.find("field[@name='email']").text
             )
-        messages.success(request, 'Votre base de donnée a bien été Sauvegardé!!!')
+        messages.success(
+            request, 'Votre base de donnée a bien été Sauvegardé!!!')
         return render(request, 'users/import-db.html')
     else:
         messages.info(request, 'Veuillez importer un fichier de type XML')
