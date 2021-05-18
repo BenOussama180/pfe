@@ -261,10 +261,16 @@ def Parse_xml(request):
         doc = ET.parse(request.FILES['xml_file'])
         myroot = doc.getroot()
         for recorde in myroot.findall('object'):
+            # try:
+            #     valid = validate_email(recorde.find("field[@name='email']").text)
+            # except EmailNotValidError:
+            #     messages.error(request, 'Cet email est pas valide!')
+            #     continue
             Person.objects.create(
                 name=recorde.find("field[@name='name']").text,
                 prenom=recorde.find("field[@name='prenom']").text,
                 city=recorde.find("field[@name='city']").text,
+                # email=valid.email
                 email=recorde.find("field[@name='email']").text
             )
         messages.success(
