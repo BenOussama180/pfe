@@ -45,20 +45,6 @@ def search(request):
     return render(request, 'users/search.html', {'filtered_qs': PersonFilter()})
 
 
-def details(request, id):
-    if request.method != 'GET':
-        raise Http404
-    person = None
-    try:
-        person = Person.objects.get(id=id)
-    except Person.DoesNotExist:
-        return render(request, '/', {'error',  "The person does not exist"})
-    context = {
-        'person': person
-    }
-    return render(request, 'users/details.html', context)
-
-
 def about(request):
     return render(request, 'users/about.html')
 
