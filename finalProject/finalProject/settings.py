@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-u1j(4v&&#jk8(94omnzo#p$+(zsf=a$ei+x724t)pa8c+(h*l@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fd240447a782.ngrok.io','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['fd240447a782.ngrok.io', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -81,11 +83,11 @@ WSGI_APPLICATION = 'finalProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DBManager',
+        'NAME': 'pfe_dic',
         'USER': 'djangomanager',
-        'PASSWORD': 'DBManager123',
-        'HOST' : 'localhost',
-        'PORT' : ''
+        'PASSWORD': '12345678',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 # Houssam DB settings:
@@ -129,7 +131,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-import os
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -146,7 +147,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
