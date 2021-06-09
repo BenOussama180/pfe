@@ -265,3 +265,4 @@ def Parse_xml(request):
     else:
         messages.info(request, 'Veuillez importer un fichier de type XML')
         return render(request, 'users/import-db.html')
+
