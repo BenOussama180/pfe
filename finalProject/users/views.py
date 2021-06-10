@@ -5,11 +5,11 @@ from .forms import PersonForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, request, response
-from .models import Person
+from .models import Nom, Person, Racine, Scheme, Verbe
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 import django_filters
-from .filters import PersonFilter
+from .filters import NomFilter, PersonFilter, VerbeFilter, NomFilter
 from . import filters
 from email_validator import validate_email, EmailNotValidError
 import xlwt
@@ -266,3 +266,19 @@ def Parse_xml(request):
         messages.info(request, 'Veuillez importer un fichier de type XML')
         return render(request, 'users/import-db.html')
 
+
+def display(request):
+    if request.method != 'GET':
+        raise Http404
+   
+    ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
+    verb_obj = ver_filter.qs
+    nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
+    nom_obj = nom_filter.qs
+    context = {
+        'ver_filter': ver_filter,
+        'verb_obj': verb_obj,
+        'nom_filter': nom_filter,
+        'nom_obj': nom_obj
+    }
+    return render(request, 'users/display.html', context)

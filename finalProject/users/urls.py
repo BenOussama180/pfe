@@ -22,5 +22,8 @@ urlpatterns = [
     
     path('parse-excel/', views.Parse_xl, name='Parse_xl'),
     path('parse-txt/', views.Parse_txt, name='Parse_txt'),
-    path('parse-xml/', views.Parse_xml, name='Parse_xml')
+    path('parse-xml/', views.Parse_xml, name='Parse_xml'),
+
+    path('display/', views.display, name='display')
+    
 ]

@@ -1,10 +1,68 @@
 {% extends 'users/layout.html' %}
 {% block content %}
 {% load static %}
+{% load widget_tweaks %}
 
 <div class="container">
-    <div>
-        <label class="">أدخل الجدر</label>
-        <input type="text" name="racine" id="racine" placeholder="الجدر">
+    <div class="row">
+        <!-- <div class="col">
+            <label class="">أدخل الجدر</label>
+            <input type="text" name="racine" id="racine" placeholder="الجدر">
+        </div>
+        {% for verbe in verbes %}
+        <div class="col">
+
+            <label style="padding-left: 30px;">الفعل</label>
+            <input type="text" name="verbe" id="verbe" value="{{verbe.verbe}}" disabled>
+            <label>الوزن</label>
+            <input type="text" name="scheme" id="scheme" value="{{verbe.scheme_ver}}" disabled>
+        </div>
+        {% endfor %}
+        <div class="col">
+            {% for nom in noms %}
+            <label style="padding-left: 30px;">الفعل</label>
+            <input type="text" name="verbe" id="verbe" value="{{nom.nom}}" disabled>
+            {% endfor %}
+        </div> -->
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'display' %}" method="GET">
+
+                <label for="text"> البحث عن الأفعال</label>
+                <div class="form-group col-sm-4 col-md-3">
+                    # :
+                    {% render_field ver_filter.form.id_ver class="form-control" %}
+                </div>
+                <div class="form-group col-sm-4 col-md-3">
+                    الفعل
+                    {% render_field ver_filter.form.verbe class="form-control" %}
+                </div>
+                <div class="form-group col-sm-4 col-md-3">
+                    الحروف المتحركة
+                    {% render_field ver_filter.form.ver_voy class="form-control" %}
+                </div>
+                <div class="form-group col-sm-4 col-md-3">
+                    الحروف الساكنة
+                    {% render_field ver_filter.form.ver_cons class="form-control" %}
+                </div>
+                <div class="form-group col-sm-4 col-md-3">
+                    الأوزان
+                    {% render_field ver_filter.form.scheme_ver class="form-control" %}
+                </div>
+
+
+                <input type="submit" class="btn btn-primary" value="إدخال">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        {% for obj in verb_obj %}
+        <label for="text"> نتيجة البحث</label>
+        <input type="text" name="verbe" value="{{obj.verbe}}" disabled>
+        {% endfor%}
     </div>
 </div>
+
+{% endblock %}
