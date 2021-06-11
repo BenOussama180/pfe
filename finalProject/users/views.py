@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.contrib.messages.api import error
 from django.db.models.query import QuerySet, RawQuerySet
-from .forms import PersonForm
+from .forms import PersonForm, RacineForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, request, response
@@ -270,15 +270,19 @@ def Parse_xml(request):
 def display(request):
     if request.method != 'GET':
         raise Http404
-   
+
     ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
     verb_obj = ver_filter.qs
     nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
     nom_obj = nom_filter.qs
+    # racines = Racine.objects.all()
+    # for rac_nom in racines:
+    #     rac_nom = racines.filter(type_rac=1)
+    
     context = {
         'ver_filter': ver_filter,
         'verb_obj': verb_obj,
         'nom_filter': nom_filter,
-        'nom_obj': nom_obj
+        'nom_obj': nom_obj,
     }
     return render(request, 'users/display.html', context)

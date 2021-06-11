@@ -5,63 +5,70 @@
 
 <div class="container">
     <div class="row">
-        <!-- <div class="col">
-            <label class="">أدخل الجدر</label>
-            <input type="text" name="racine" id="racine" placeholder="الجدر">
-        </div>
-        {% for verbe in verbes %}
-        <div class="col">
-
-            <label style="padding-left: 30px;">الفعل</label>
-            <input type="text" name="verbe" id="verbe" value="{{verbe.verbe}}" disabled>
-            <label>الوزن</label>
-            <input type="text" name="scheme" id="scheme" value="{{verbe.scheme_ver}}" disabled>
-        </div>
-        {% endfor %}
-        <div class="col">
-            {% for nom in noms %}
-            <label style="padding-left: 30px;">الفعل</label>
-            <input type="text" name="verbe" id="verbe" value="{{nom.nom}}" disabled>
-            {% endfor %}
-        </div> -->
-    </div>
-    <br>
-    <div class="row">
         <div class="col">
             <form action="{% url 'display' %}" method="GET">
 
-                <label for="text"> البحث عن الأفعال</label>
                 <div class="form-group col-sm-4 col-md-3">
-                    # :
-                    {% render_field ver_filter.form.id_ver class="form-control" %}
-                </div>
-                <div class="form-group col-sm-4 col-md-3">
-                    الفعل
-                    {% render_field ver_filter.form.verbe class="form-control" %}
-                </div>
-                <div class="form-group col-sm-4 col-md-3">
-                    الحروف المتحركة
-                    {% render_field ver_filter.form.ver_voy class="form-control" %}
-                </div>
-                <div class="form-group col-sm-4 col-md-3">
-                    الحروف الساكنة
-                    {% render_field ver_filter.form.ver_cons class="form-control" %}
-                </div>
-                <div class="form-group col-sm-4 col-md-3">
+                    <label for="text"> البحث عن الأفعال</label>
+                    <br>
+                    <br>
                     الأوزان
                     {% render_field ver_filter.form.scheme_ver class="form-control" %}
                 </div>
-
+                <div class="form-group col-sm-4 col-md-3">
+                    الجدور
+                    {% render_field ver_filter.form.racine_ver class="form-control" %}
+                </div>
 
                 <input type="submit" class="btn btn-primary" value="إدخال">
             </form>
         </div>
     </div>
     <div class="row">
-        {% for obj in verb_obj %}
-        <label for="text"> نتيجة البحث</label>
-        <input type="text" name="verbe" value="{{obj.verbe}}" disabled>
-        {% endfor%}
+        <div class="col-sm-6">
+            <label for="text"> قائمة الأفعال</label>
+            {% for obj in verb_obj %}
+            {% if obj.racine_ver.type_rac == 2 %}
+            <div class="overlow-auto"> {{ obj.verbe }}</div>
+            {{ obj.racine_ver.type_rac }}
+            {% endif %}
+            {% endfor%}
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'display' %}" method="GET">
+                {% csrf_token %}
+                <label for="text"> البحث عن الأسماء</label>
+                <div class="form-group col-sm-4 col-md-3">
+                    <label for="text"> البحث عن الأسماء</label>
+                    <br>
+                    <br>
+                    الأوزان
+                    {% render_field nom_filter.form.scheme_nom class="form-control" %}
+                </div>
+                <div class="form-group col-sm-4 col-md-3">
+                    الجدور
+                    {% render_field nom_filter.form.racine_nom class="form-control" %}
+                </div>
+                <input type="submit" class="btn btn-primary" value="إدخال">
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <label for="text"> قائمة الأسماء </label>
+            {% for obj in nom_obj %}
+            {% if obj.racine_nom.type_rac == 1 %}
+            <div class="overflow-auto">{{ obj.nom }}</div>
+            <br>
+            <br>
+            {% endif %}
+            {% endfor%}
+        </div>
     </div>
 </div>
 
