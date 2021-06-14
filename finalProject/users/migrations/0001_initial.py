@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Racine',
             fields=[
-                ('id_rac', models.BigAutoField(primary_key=True, serialize=False)),
+                ('id', models.BigAutoField(primary_key=True, serialize=False)),
                 ('rac', models.CharField(max_length=30)),
                 ('type_rac', models.IntegerField()),
             ],
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Scheme',
             fields=[
-                ('id_sch', models.BigAutoField(primary_key=True, serialize=False)),
+                ('id', models.BigAutoField(primary_key=True, serialize=False)),
                 ('sch_cons', models.CharField(max_length=30)),
                 ('sch_voy', models.CharField(max_length=30)),
                 ('scheme', models.CharField(max_length=50, null=True)),

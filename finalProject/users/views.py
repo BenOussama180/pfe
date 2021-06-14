@@ -268,23 +268,32 @@ def Parse_xml(request):
 
 
 def display(request):
-    if request.method != 'GET':
+    if request.method != 'GET' and request.method != 'POST':
         raise Http404
+    results = []
+    
+    if request.method == 'POST':
+        scheme = request.POST.get('arg_lverb', -1)
+        racines = request.POST.get('arg_lverb_racines', -1)
+        results = Verbe.objects.filter(
+        scheme_ver__id_sch=scheme, racine_ver__id_rac=racines)
 
-    # all_scheme = SchemeFilter(request.GET, queryset=Scheme.objects.all())
-    # sch_obj = all_scheme.qs
-    ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
-    verb_obj = ver_filter.qs
-    nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
-    nom_obj = nom_filter.qs
+    # # ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
+    # verb_obj = ver_filter.qs
 
-    # sch_filtered = SchemeFilter(request.GET, queryset=Scheme.objects.all())
+    # print("im here")
+    # print(request.GET)
+    # value = request.GET['select']
+    # nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
+    # nom_obj = nom_filter.qs
+
     context = {
-
-        'ver_filter': ver_filter,
-        'verb_obj': verb_obj,
-        'nom_filter': nom_filter,
-        'nom_obj': nom_obj,
-
+        'ver_filter': '',
+        'verb_obj': results,
+        'nom_filter': '',
+        'nom_obj': '',
+        'list_verbs_scheme': Scheme.objects.filter(type_scheme=1),
+        'list_names_scheme': Scheme.objects.filter(type_scheme=2),
+        'list_verbs_racine': Racine.objects.all()
     }
     return render(request, 'users/display.html', context)

@@ -24,11 +24,6 @@ class PersonFilter(django_filters.FilterSet):
 
 
 class VerbeFilter(django_filters.FilterSet):
-    id_ver = CharFilter(field_name="id_ver", lookup_expr='iexact')
-    verbe = CharFilter(field_name="verbe", lookup_expr='icontains')
-    ver_cons = CharFilter(field_name="ver_cons", lookup_expr='icontains')
-    ver_voy = CharFilter(field_name="ver_voy", lookup_expr='icontains')
-
     class Meta:
         model = Verbe
         fields = '__all__'
@@ -48,7 +43,7 @@ class NomFilter(django_filters.FilterSet):
 
 
 class RacineFilter(django_filters.FilterSet):
-    id_rac = CharFilter(field_name="id_rac", lookup_expr='iexact')
+    id = CharFilter(field_name="id", lookup_expr='iexact')
 
     class Meta:
         model = Racine
@@ -56,7 +51,7 @@ class RacineFilter(django_filters.FilterSet):
 
 
 class SchemeFilter(django_filters.FilterSet):
-    id_sch = CharFilter(field_name="id_sch", lookup_expr='iexact')
+    id = CharFilter(field_name="id", lookup_expr='iexact')
 
     class Meta:
         model = Scheme

@@ -1,25 +1,30 @@
 {% extends 'users/layout.html' %}
+{% load static widget_tweaks language_utils %}
 {% block content %}
-{% load static %}
-{% load widget_tweaks %}
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <form action="{% url 'display' %}" method="GET">
-
+            <form action="{% url 'display' %}" method="POST">
+                {% csrf_token %}
+                
                 <div class="form-group col-sm-4 col-md-3">
                     <label for="text"> البحث عن الأفعال</label>
-                    <br>
-                    <br>
                     الأوزان
-
-                    <!-- {{ ver_filter.form }} -->
-                    {% render_field ver_filter.form.scheme_ver class="form-control" %}
+                    {{ ver_filter.form.scheme_ver }}
+                    <select name="arg_lverb">
+                    {% for lverb in list_verbs_scheme %}
+                    <option value="{{ lverb.id_sch }}"> {{ lverb.scheme }}</option>
+                    {% endfor %}
+                    </select>
                 </div>
                 <div class="form-group col-sm-4 col-md-3">
                     الجدور
-                    {% render_field ver_filter.form.racine_ver class="form-control" %}
+                    <select name="arg_lverb_racines">
+                    {% for lverb_racines in list_verbs_racine %}
+                    <option value="{{ lverb_racines.id_rac }}">{{ lverb_racines.rac }} </option>
+                    {% endfor %}
+                    </select>
                 </div>
 
                 <input type="submit" class="btn btn-primary" value="إدخال">
@@ -31,18 +36,20 @@
         <div class="col-sm-6">
             <label for="text"> قائمة الأفعال</label>
             {% for obj in verb_obj %}
-            <div class="overlow-auto"> {{ obj.scheme_ver}}
+            <div class="overlow-auto">
+                -----------
+                {{ obj.scheme_ver}}
                 **********
                 {{ obj.verbe }}
 
             </div>
-            {% endfor%}
+            {% endfor %}
         </div>
     </div>
     <br>
     <br>
     <hr>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col">
             <form action="{% url 'display' %}" method="GET">
                 <div class="form-group col-sm-4 col-md-3">
@@ -62,17 +69,17 @@
             </form>
         </div>
     </div>
+    <hr> -->
     <hr>
     <hr>
-    <hr>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-6">
             <label for="text"> قائمة الأسماء </label>
             {% for obj in nom_obj %}
             {{ obj.nom }}
             {% endfor %}
         </div>
-    </div>
+    </div> -->
 </div>
 
 {% endblock %}
