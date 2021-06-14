@@ -271,18 +271,16 @@ def display(request):
     if request.method != 'GET':
         raise Http404
 
-    all_scheme = SchemeFilter(request.GET, queryset=Scheme.objects.all())
-    sch_obj = all_scheme.qs
+    # all_scheme = SchemeFilter(request.GET, queryset=Scheme.objects.all())
+    # sch_obj = all_scheme.qs
     ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
     verb_obj = ver_filter.qs
     nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
     nom_obj = nom_filter.qs
 
-    sch_filtered = SchemeFilter(request.GET, queryset=Scheme.objects.all())
+    # sch_filtered = SchemeFilter(request.GET, queryset=Scheme.objects.all())
     context = {
 
-        'sch_filtered': sch_filtered,
-        'all_scheme': all_scheme,
         'ver_filter': ver_filter,
         'verb_obj': verb_obj,
         'nom_filter': nom_filter,

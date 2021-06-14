@@ -16,6 +16,9 @@ class Person(models.Model):
     class Meta:
         verbose_name_plural = "Persones"
 
+#################
+
+
 
 class Racine(models.Model):
     id_rac = models.BigAutoField(primary_key=True)
@@ -30,10 +33,11 @@ class Scheme(models.Model):
     id_sch = models.BigAutoField(primary_key=True)
     sch_cons = models.CharField(max_length=30)
     sch_voy = models.CharField(max_length=30)
+    scheme = models.CharField(max_length=50, null=True)
     type_scheme = models.IntegerField()
 
     def __str__(self):
-        return self.type_scheme
+        return self.scheme
 
 
 class Verbe(models.Model):

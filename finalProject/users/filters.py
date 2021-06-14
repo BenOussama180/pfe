@@ -22,6 +22,7 @@ class PersonFilter(django_filters.FilterSet):
 
 ##############
 
+
 class VerbeFilter(django_filters.FilterSet):
     id_ver = CharFilter(field_name="id_ver", lookup_expr='iexact')
     verbe = CharFilter(field_name="verbe", lookup_expr='icontains')
@@ -60,5 +61,3 @@ class SchemeFilter(django_filters.FilterSet):
     class Meta:
         model = Scheme
         fields = '__all__'
-
-    
