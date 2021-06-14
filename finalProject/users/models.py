@@ -12,7 +12,6 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
-    # so in the administration its not Userss
 
     class Meta:
         verbose_name_plural = "Persones"
@@ -31,7 +30,7 @@ class Scheme(models.Model):
     id_sch = models.BigAutoField(primary_key=True)
     sch_cons = models.CharField(max_length=30)
     sch_voy = models.CharField(max_length=30)
-    type_scheme = models.CharField(max_length=50)
+    type_scheme = models.IntegerField()
 
     def __str__(self):
         return self.type_scheme

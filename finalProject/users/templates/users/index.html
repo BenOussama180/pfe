@@ -131,6 +131,7 @@
 
                 <li class="nav-item mr-3">
                   <a class="nav-link" href="{% url 'search' %}">
+                    <span class="nav-text text-info font-weight-bold">البحث</span>
                     <span class="nav-icon mr-2">
                       <span class="svg-icon svg-icon-info mr-3">
                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\General\Search.svg-->
@@ -150,11 +151,11 @@
                       </span>
                     </span>
                     </span>
-                    <span class="nav-text text-info font-weight-bold">البحث</span>
                   </a>
                 </li>
                 <li class="nav-item mr-3">
                   <a class="nav-link" href="{% url 'register' %}">
+                    <span class="nav-text text-success font-weight-bold">الإضافة</span>
                     <span class="nav-icon mr-2">
                       <span class="svg-icon svg-icon-success mr-3">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
@@ -173,10 +174,10 @@
                         <!--end::Svg Icon-->
                       </span>
                     </span>
-                    <span class="nav-text text-success font-weight-bold">الإضافة</span>
                   </a>
                 <li class="nav-item mr-3">
                   <a class="nav-link" href="{% url 'edit' id=user.id %}">
+                    <span class="nav-text text-warning font-weight-bold">تغيير</span>
                     <span class="nav-icon mr-2">
                       <span class="svg-icon svg-icon-warning mr-3">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
@@ -196,13 +197,12 @@
                         <!--end::Svg Icon-->
                       </span>
                     </span>
-                    <span class="nav-text text-warning font-weight-bold">تغيير</span>
                   </a>
                 </li>
                 <li class="nav-item mr-3">
                   <!-- <a class="nav-link"  href="{% url 'delete' id=user.id %}"> -->
                   <a class="nav-link" href="users/delete-user/{{user.id}}">
-
+                    <span class="nav-text text-danger font-weight-bold">مسح</span>
                     <span class="nav-icon mr-2">
                       <span class="svg-icon svg-icon-danger mr-3">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
@@ -221,7 +221,6 @@
                         <!--end::Svg Icon-->
                       </span>
                     </span>
-                    <span class="nav-text text-danger font-weight-bold">مسح</span>
                   </a>
                 </li>
               </ul>
@@ -233,9 +232,9 @@
               </div>
             </ul>
             {% endfor %}
-            <div>
+            <!-- <div>
               <a href="{% url 'display' %}">click here</a>
-            </div>
+            </div> -->
 
             <!--end::Tab Content-->
           </div>

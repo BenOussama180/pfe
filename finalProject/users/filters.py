@@ -4,10 +4,9 @@ from django.db.models import fields
 from django.db.models.fields import BigAutoField
 from django.db.models.fields.related import ForeignKey
 import django_filters
-from django_filters import DateFilter, CharFilter
+from django_filters import *
 from dns.resolver import Cache
 from .models import Person, Scheme, Verbe, Racine, Nom
-from users import models
 
 
 class PersonFilter(django_filters.FilterSet):
@@ -21,28 +20,7 @@ class PersonFilter(django_filters.FilterSet):
         fields = '__all__'
         exclude = ['name', 'prenom', 'city', 'email', 'created_at']
 
-
-# class SchemeFilter(django_filters.FilterSet):
-#     id_sch = CharFilter(field_name="id_sch", lookup_expr='iexact')
-#     sch_cons = CharFilter(field_name="sch_cons", lookup_expr='icontains')
-#     sch_voy = CharFilter(field_name="sch_voy", lookup_expr='icontains')
-#     type_scheme = CharFilter(field_name="type_scheme", lookup_expr='icontains')
-
-#     class Meta:
-#         model = Scheme
-#         fields = '__all__'
-#         exclude = ['id_sch', 'sch_cons', 'sch_voy', 'type_scheme']
-
-
-# class RacineFilter(django_filters.FilterSet):
-#     id_rac = CharFilter(field_name="id_sch", lookup_expr='iexact')
-#     rac = CharFilter(field_name="sch_cons", lookup_expr='icontains')
-
-#     class Meta:
-#         model = Racine
-#         fields = '__all__'
-#         exclude = ['id_rac', 'rac']
-
+##############
 
 class VerbeFilter(django_filters.FilterSet):
     id_ver = CharFilter(field_name="id_ver", lookup_expr='iexact')
@@ -57,7 +35,7 @@ class VerbeFilter(django_filters.FilterSet):
 
 
 class NomFilter(django_filters.FilterSet):
-    id_nom = CharFilter(field_name="id_noms", lookup_expr='iexact')
+    id_nom = CharFilter(field_name="id_nom", lookup_expr='iexact')
     nom = CharFilter(field_name="nom", lookup_expr='icontains')
     nom_cons = CharFilter(field_name="nom_voy", lookup_expr='icontains')
     nom_voy = CharFilter(field_name="nom_voy", lookup_expr='icontains')
@@ -66,3 +44,21 @@ class NomFilter(django_filters.FilterSet):
         model = Nom
         fields = '__all__'
         exclude = ['id_nom', 'nom', 'nom_cons', 'nom_voy']
+
+
+class RacineFilter(django_filters.FilterSet):
+    id_rac = CharFilter(field_name="id_rac", lookup_expr='iexact')
+
+    class Meta:
+        model = Racine
+        fields = '__all__'
+
+
+class SchemeFilter(django_filters.FilterSet):
+    id_sch = CharFilter(field_name="id_sch", lookup_expr='iexact')
+
+    class Meta:
+        model = Scheme
+        fields = '__all__'
+
+    

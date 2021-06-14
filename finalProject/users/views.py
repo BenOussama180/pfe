@@ -5,11 +5,11 @@ from .forms import PersonForm, RacineForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, request, response
-from .models import Nom, Person, Racine, Scheme, Verbe
+from .models import Nom, Person, Racine, Verbe, Scheme
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 import django_filters
-from .filters import NomFilter, PersonFilter, VerbeFilter, NomFilter
+from .filters import PersonFilter, SchemeFilter, VerbeFilter, NomFilter, RacineFilter, SchemeFilter
 from . import filters
 from email_validator import validate_email, EmailNotValidError
 import xlwt
@@ -197,8 +197,8 @@ def Parse_xl(request, format=None):
                         Person.objects.create(
                             name=Worksheet[1],
                             prenom=Worksheet[2],
-                            email=Worksheet[4],
-                            city=Worksheet[3]
+                            email=Worksheet[3],
+                            city=Worksheet[4]
                         )
     messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
     return render(request, 'users/import-db.html')
@@ -271,18 +271,22 @@ def display(request):
     if request.method != 'GET':
         raise Http404
 
+    all_scheme = SchemeFilter(request.GET, queryset=Scheme.objects.all())
+    sch_obj = all_scheme.qs
     ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
     verb_obj = ver_filter.qs
     nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
     nom_obj = nom_filter.qs
-    # racines = Racine.objects.all()
-    # for rac_nom in racines:
-    #     rac_nom = racines.filter(type_rac=1)
-    
+
+    sch_filtered = SchemeFilter(request.GET, queryset=Scheme.objects.all())
     context = {
+
+        'sch_filtered': sch_filtered,
+        'all_scheme': all_scheme,
         'ver_filter': ver_filter,
         'verb_obj': verb_obj,
         'nom_filter': nom_filter,
         'nom_obj': nom_obj,
+
     }
     return render(request, 'users/display.html', context)

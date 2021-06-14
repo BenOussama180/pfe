@@ -24,6 +24,7 @@
             </form>
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col-sm-6">
             <label for="text"> قائمة الأفعال</label>
@@ -37,17 +38,18 @@
     </div>
     <br>
     <br>
+    <hr>
     <div class="row">
         <div class="col">
             <form action="{% url 'display' %}" method="GET">
-                {% csrf_token %}
-                <label for="text"> البحث عن الأسماء</label>
                 <div class="form-group col-sm-4 col-md-3">
                     <label for="text"> البحث عن الأسماء</label>
                     <br>
                     <br>
                     الأوزان
-                    {% render_field nom_filter.form.scheme_nom class="form-control" %}
+                    {% render_field nom_filter.form.scheme_nom cslass="form-control" %}
+                    <hr>
+                    {{ sch_filtered.form }}
                 </div>
                 <div class="form-group col-sm-4 col-md-3">
                     الجدور
@@ -55,19 +57,17 @@
                 </div>
                 <input type="submit" class="btn btn-primary" value="إدخال">
             </form>
-
         </div>
     </div>
+    <hr>
+    <hr>
+    <hr>
     <div class="row">
         <div class="col-sm-6">
             <label for="text"> قائمة الأسماء </label>
             {% for obj in nom_obj %}
-            {% if obj.racine_nom.type_rac == 1 %}
-            <div class="overflow-auto">{{ obj.nom }}</div>
-            <br>
-            <br>
-            {% endif %}
-            {% endfor%}
+            {{ obj.nom }}
+            {% endfor %}
         </div>
     </div>
 </div>
