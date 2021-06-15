@@ -318,4 +318,16 @@ def arabedic(request):
         'list': list(mylist),
         'lmots_obj': lmots_obj
     }
-    return render(request, 'dict-arabe.html', context)
+    return render(request, 'users/dict-arabe.html', context)
+
+
+def racines(request):
+    if request.method != 'GET':
+        raise Http404
+
+    racines = Racine.objects.all()
+    paginated_racines = Paginator(racines, 1)
+    page_num = request.GET.get('page')
+    racines = paginated_racines.get_page(page_num)
+
+    return render(request, 'users/racine.html', {'racines': racines})
