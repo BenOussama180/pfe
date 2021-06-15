@@ -1,6 +1,8 @@
 from datetime import datetime
+import re
 from django.contrib.messages.api import error
 from django.db.models.query import QuerySet, RawQuerySet
+from django.template import context
 from .forms import PersonForm, RacineForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
@@ -22,6 +24,7 @@ from pyexcel_xls import get_data as xls_get
 from pyexcel_xlsx import get_data as xlsx_get
 from xml.etree import ElementTree as ET
 from django.http import Http404
+from itertools import chain
 
 
 # Index page
@@ -271,12 +274,12 @@ def display(request):
     if request.method != 'GET' and request.method != 'POST':
         raise Http404
     results = []
-    
+
     if request.method == 'POST':
         scheme = request.POST.get('arg_lverb', -1)
         racines = request.POST.get('arg_lverb_racines', -1)
         results = Verbe.objects.filter(
-        scheme_ver__id_sch=scheme, racine_ver__id_rac=racines)
+            scheme_ver__id_sch=scheme, racine_ver__id_rac=racines)
 
     # # ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
     # verb_obj = ver_filter.qs
@@ -297,3 +300,22 @@ def display(request):
         'list_verbs_racine': Racine.objects.all()
     }
     return render(request, 'users/display.html', context)
+
+
+def arabedic(request):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+
+    lverbs = Verbe.objects.all()
+    lnoms = Nom.objects.all()
+
+    mylist = chain(lverbs, lnoms)
+    paginated_lmots = Paginator(list(mylist), 1)
+    page_num = request.GET.get('page')
+    lmots_obj = paginated_lmots.get_page(page_num)
+
+    context = {
+        'list': list(mylist),
+        'lmots_obj': lmots_obj
+    }
+    return render(request, 'dict-arabe.html', context)

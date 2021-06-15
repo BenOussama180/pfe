@@ -24,6 +24,10 @@ urlpatterns = [
     path('parse-txt/', views.Parse_txt, name='Parse_txt'),
     path('parse-xml/', views.Parse_xml, name='Parse_xml'),
 
-    path('display/', views.display, name='display')
+    path('display/', views.display, name='display'),
+    path('dict-arabe/', views.arabedic, name='arabedic')
+    # path('racine/', views.racines, name='racines'),
+    # path('scheme/', views.scheme, name='scheme')
+
     
 ]

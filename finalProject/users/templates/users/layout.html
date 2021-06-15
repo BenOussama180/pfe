@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ar" dir="rtl">
+<html lang="en">
 <!--begin::Head-->
 
 <head>
@@ -23,6 +23,11 @@
 	<!--begin::Layout Themes(used by all pages)-->
 	<!--end::Layout Themes-->
 	<link rel="shortcut icon" href="{% static '/assets/media/logos/favicon.ico' %}" />
+	<style>
+		input {
+			direction: rtl;
+		}
+	</style>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -195,7 +200,7 @@
 
 					<!--end::Subheader-->
 					<!--begin::Entry-->
-					<div class="d-flex flex-column-fluid" style="direction: rtl;">
+					<div class="d-flex flex-column-fluid">
 						<div id="msg">
 							{% include 'users/messages.html' %}
 						</div>
