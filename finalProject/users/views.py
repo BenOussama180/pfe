@@ -281,15 +281,6 @@ def display(request):
         results = Verbe.objects.filter(
             scheme_ver__id_sch=scheme, racine_ver__id_rac=racines)
 
-    # # ver_filter = VerbeFilter(request.GET, queryset=Verbe.objects.all())
-    # verb_obj = ver_filter.qs
-
-    # print("im here")
-    # print(request.GET)
-    # value = request.GET['select']
-    # nom_filter = NomFilter(request.GET, queryset=Nom.objects.all())
-    # nom_obj = nom_filter.qs
-
     context = {
         'ver_filter': '',
         'verb_obj': results,
@@ -310,12 +301,13 @@ def arabedic(request):
     lnoms = Nom.objects.all()
 
     mylist = chain(lverbs, lnoms)
+
     paginated_lmots = Paginator(list(mylist), 1)
     page_num = request.GET.get('page')
     lmots_obj = paginated_lmots.get_page(page_num)
 
     context = {
-        'list': list(mylist),
+      #  'list': list(mylist),
         'lmots_obj': lmots_obj
     }
     return render(request, 'users/dict-arabe.html', context)
@@ -326,6 +318,7 @@ def racines(request):
         raise Http404
 
     racines = Racine.objects.all()
+    
     paginated_racines = Paginator(racines, 1)
     page_num = request.GET.get('page')
     racines = paginated_racines.get_page(page_num)
