@@ -1,4 +1,5 @@
 from typing import Pattern
+from unicodedata import name
 from django.conf.urls import url
 from . import views
 from django.urls import path
@@ -28,7 +29,9 @@ urlpatterns = [
     path('dict-arabe/', views.arabedic, name='arabedic'),
     path('racine/', views.racines, name='racines'),
     path('scheme/', views.scheme, name='scheme'),
-    path('search_rac/', views.racine_search, name='racine_search')
-
+    path('search_rac/', views.racine_search, name='racine_search'),
+    path('ajouter-rac/', views.ajouter_racine, name='ajouter_racine'),
+    path('ajouter-sch/', views.ajouter_scheme, name='ajouter_scheme'),
+    path('ajouter-mot/<int:id_m>/', views.ajouter_verb, name='ajouter_verb')
 
 ]

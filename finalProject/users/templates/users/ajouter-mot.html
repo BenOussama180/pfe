@@ -1,0 +1,121 @@
+{% extends 'users/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ajouter verbes </h5>
+                        <form action="ajouter-mot/1/" method="POST">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Verbe: </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="ver" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">consonte:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="number"
+                                        name="ver_c" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">voyelles:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="ver_v" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">scheme de verbe:
+                                </label>
+                                <select name="arg_schverb">
+                                    {% for lverb in list_verbs_scheme %}
+                                    <option value="{{ lverb.id_sch }}"> {{ lverb.scheme }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">racine de verbe:
+                                </label>
+                                <select name="arg_racverb">
+                                    {% for lverb in list_racines %}
+                                    <option value="{{ lverb.id_sch }}"> {{ lverb.rac }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">valider</button>
+                        </form>
+                        <div class="separator separator-dashed"></div>
+                    </div>
+                    <!-- ***************************************************"""""""""""""""""""" -->
+                    <div class="card-body">
+                        <h5 class="card-title">Ajouter noms </h5>
+                        <form action="ajouter-mot/2/" method="POST">
+                            {% csrf_token %}
+
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom: </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="nom" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">consonte:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="number"
+                                        name="nom_c" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">voyelles:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="nom_v" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">scheme de verbe:
+                                </label>
+                                <select name="arg_schnom">
+                                    {% for lnom in list_nom_scheme %}
+                                    <option value="{{ lnom.id_sch }}"> {{ lnom.scheme }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">racine de verbe:
+                                </label>
+                                <select name="arg_racnom">
+                                    {% for lnom in list_racines %}
+                                    <option value="{{ lnom.id_sch }}"> {{ lnom.rac }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">valider</button>
+                        </form>
+                        <div class="separator separator-dashed"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

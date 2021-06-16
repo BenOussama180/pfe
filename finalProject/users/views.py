@@ -1,5 +1,6 @@
 from datetime import datetime
 import re
+from django import http
 from django.contrib.messages.api import error
 from django.db.models.query import QuerySet, RawQuerySet
 from django.template import context
@@ -354,18 +355,106 @@ def racine_search(request):
     if request.method != 'GET' and request.method != 'POST':
         raise Http404
     results = []
-    # if request.method == 'POST':
-    # type = request.POST.get('type_rac', -1)
-    # racine = request.POST.get('rac', -1)
-    # id_r = request.POST.get('id_rac', -1)
-    # print('here here')
-    # print(id_r)
-    # results = Racine.objects.filter(id_rac=id_r, type_rac=type, rac=racine)
-
-    # paginated_racines = Paginator(results, 1)
-    # page_num = request.GET.get('page')
-    # racines = paginated_racines.get_page(page_num)
-
-    # return render(request, 'users/racine.html')
 
     return render(request, 'users/search_rac.html')
+
+
+def ajouter_racine(request):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+    if request.method == 'GET':
+        return render(request, 'users/ajouter-racine.html')
+    if request.method == 'POST':
+        racine_rac = request.POST.get('racine_rac')
+        type = request.POST.get('racine_type_rac')
+        classe = request.POST.get('racine_classe')
+        if not type:
+            messages.warning(request, "le type est obligatoire")
+            if not racine_rac and not classe:
+                messages.warning(request, "donner des valeurs")
+
+        else:
+            racine = Racine(rac=racine_rac, type_rac=type, classe_rac=classe)
+            racine.save()
+            messages.success(
+                request, "vous avez ajouter un racine avec succes")
+            return render(request, 'users/racine.html')
+    return redirect('/')
+
+
+def ajouter_scheme(request):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+
+    if request.method == 'GET':
+        # schemes = Scheme.objects.all()
+
+        nombres = Scheme._meta.get_field('nombre').choices
+        units = Scheme._meta.get_field('unit').choices
+        oras = Scheme._meta.get_field('ora').choices
+        conjs = Scheme._meta.get_field('conj').choices
+
+        context = {
+            'nombres': nombres,
+            'units': units,
+            'oras': oras,
+            'conjs': conjs
+        }
+        return render(request, 'users/ajouter-scheme.html', context)
+
+    if request.method == 'POST':
+        scheme = Scheme(scheme=request.POST.get['scheme_sch'], sch_cons=request.POST.get['sch_cons'], sch_voy=request.POST.get['sch_voy'], nombre=request.POST.get['nb_choice'],
+                        unit=request.POST.get['unit_choice'], ora=request.POST.get[
+                            'ora_choice'], conj=request.POST.get['conj_choice'], type_scheme=request.POST.get['type'],
+                        classe_sch=request.POST.get['classe'])
+        scheme.save()
+        messages.success(request, "Vous avez ajouter un scheme avec succes")
+        return redirect('/')
+
+
+def ajouter_verb(request, id_m):
+
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+
+    if request.method == 'GET':
+
+        context = {
+            'list_verbs_scheme': Scheme.objects.filter(typ='فعل'),
+            'list_nom_scheme': Scheme.objects.filter(typ__icontains='اسم'),
+            'list_racines': Racine.objects.all()
+        }
+
+        return render(request, 'users/ajouter-mot.html', context)
+    if request.method == 'POST':
+        if id_m == 1:
+            verb = Verbe(verbe=request.POST.get['ver'], ver_cons=request.POST.get['ver_c'],
+                         ver_voy=request.POST.get['ver_v'], scheme_ver=request.POST.get['arg_schverb'], racine_ver=request.POST.get['arg_racverb'])
+            verb.save()
+            messages.success(request, "Vous avez ajouter un verbe avec succes")
+            return render(request, '/')
+        else:
+            nom = Nom(nom=request.POST.GET['nom'], nom_cons=request.POST.GET['nom_c'],
+                      nom_voy=request.POST.GET['nom_v'], scheme_nom=request.POST.GET['arg_schnom'],
+                      racine_nom=request.POST.GET['arg_racnom'])
+            nom.save()
+            messages.success(request, "Vous avez ajouter un verbe avec succes")
+            return render(request, '/')
+
+# def ajouter_nom(request):
+#     if request.method != 'GET' and request.method != 'POST':
+#         raise Http404
+#     if request.method == 'GET':
+#         context = {
+#             'list_verbs_scheme': Scheme.objects.filter(typ='فعل'),
+#             'list_nom_scheme': Scheme.objects.filter(typ__icontains='اسم'),
+#             'list_racines': Racine.objects.all()
+#         }
+#         return render(request, 'users/ajouter-mot.html', context)
+#     if request.method == 'POST':
+#         nom = Nom(nom=request.POST.GET['nom'], nom_cons=request.POST.GET['nom_c'],
+#                   nom_voy=request.POST.GET['nom_v'], scheme_nom=request.POST.GET['arg_schnom'],
+#                   racine_nom=request.POST.GET['arg_racnom'])
+#         nom.save()
+#         messages.success(request, "Vous avez ajouter un verbe avec succes")
+#         return render(request, '/')
