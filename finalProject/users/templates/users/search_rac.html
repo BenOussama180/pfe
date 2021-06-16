@@ -1,0 +1,17 @@
+{% extends 'users/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form action="{% url 'racines' %}" method="POST">
+        {% csrf_token %}
+        <label for="rac_s">Code: </label>
+        <input type="text" name="id_rac" required>
+        <label for="rac_s">Racine: </label>
+        <input type="text" name="rac" required>
+        <label for="rac_s">type: </label>
+        <input type="text" name="type_rac" required>
+
+        <button type="submit" class="btn btn-secondary">valider</button>
+    </form>
+</div>
+{% endblock %}

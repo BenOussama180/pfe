@@ -1,0 +1,67 @@
+{% extends 'users/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Table des scheme</h5>
+                    {% for scheme in schemes %}
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 text-right col-form-label">Code:</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                value="{{ scheme.id_sch }}" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 text-right col-form-label">scheme: </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                value="{{scheme.scheme}}" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 text-right col-form-label" for="{{scheme.id_rac}}">Type:
+                        </label>
+                        <div class="col-lg-9 col-xl-6">
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                value="{{scheme.type_scheme}}" disabled />
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                    <!--begin::Heading-->
+                </div>
+                {% if forloop.last %}
+                <div class="center d-flex justify-content-center mt-7">
+                    <ul class="pagination">
+                        {% if schemes.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="users/scheme/?page=1">&laquo;</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="users/scheme/?page={{ schemes.previous_page_number }}">&larr;</a>
+                        </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link">{{schemes.number}}/{{schemes.paginator.num_pages}}</a>
+                        </li>
+                        {% if schemes.has_next %}
+
+                        <li class="page-item">
+                            <a class="page-link" href="users/scheme/?page={{ schemes.next_page_number }}">&rarr;</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="users/scheme/?page={{ schemes.paginator.num_pages }}">&raquo;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

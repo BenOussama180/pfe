@@ -25,6 +25,7 @@ from pyexcel_xlsx import get_data as xlsx_get
 from xml.etree import ElementTree as ET
 from django.http import Http404
 from itertools import chain
+from django.db.models import Q
 
 
 # Index page
@@ -307,20 +308,64 @@ def arabedic(request):
     lmots_obj = paginated_lmots.get_page(page_num)
 
     context = {
-      #  'list': list(mylist),
+        #  'list': list(mylist),
         'lmots_obj': lmots_obj
     }
     return render(request, 'users/dict-arabe.html', context)
 
 
 def racines(request):
-    if request.method != 'GET':
+    if request.method != 'GET' and request.method != 'POST':
         raise Http404
+    if request.method == 'POST':
 
-    racines = Racine.objects.all()
-    
+        type = request.POST.get('type_rac', -1)
+        racine = request.POST.get('rac', -1)
+        id_r = request.POST.get('id_rac', -1)
+        racines = Racine.objects.filter(
+            Q(id_rac__iexact=id_r), Q(type_rac__iexact=type), Q(rac__icontains=racine)).exclude(Q(id_rac__iexact=None), Q(type_rac__iexact=None)).order_by('id_rac')
+
+    if request.method == 'GET':
+        racines = Racine.objects.all()
+
     paginated_racines = Paginator(racines, 1)
     page_num = request.GET.get('page')
     racines = paginated_racines.get_page(page_num)
+    context = {
+        'racines': racines
+    }
 
-    return render(request, 'users/racine.html', {'racines': racines})
+    return render(request, 'users/racine.html', context)
+
+
+def scheme(request):
+    if request.method != 'GET':
+        raise Http404
+    schemes = Scheme.objects.all()
+
+    paginated_schemes = Paginator(schemes, 1)
+    page_num = request.GET.get('page')
+    schemes = paginated_schemes.get_page(page_num)
+
+    return render(request, 'users/scheme.html', {'schemes': schemes})
+
+
+def racine_search(request):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+    results = []
+    # if request.method == 'POST':
+    # type = request.POST.get('type_rac', -1)
+    # racine = request.POST.get('rac', -1)
+    # id_r = request.POST.get('id_rac', -1)
+    # print('here here')
+    # print(id_r)
+    # results = Racine.objects.filter(id_rac=id_r, type_rac=type, rac=racine)
+
+    # paginated_racines = Paginator(results, 1)
+    # page_num = request.GET.get('page')
+    # racines = paginated_racines.get_page(page_num)
+
+    # return render(request, 'users/racine.html')
+
+    return render(request, 'users/search_rac.html')
