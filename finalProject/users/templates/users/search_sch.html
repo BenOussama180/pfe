@@ -125,16 +125,55 @@
                                     <label for="exampleFormControlTextarea6">Classe de scheme</label>
                                     <textarea style="background: transparent;direction: rtl;" name="classe_sch"
                                         class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3">{{scheme.classe_sch}}
-                                </textarea>
+                                    </textarea>
 
                                 </div>
-                                <!--end::Title-->
-                                <!--begin::Lable-->
-                                <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
-                                <!--end::Lable-->
                             </div>
-                            <!--end::Item-->
-                            </from>
+                            <select name="nb">
+                                {% for obj in nombres %}
+
+                                <option value="{{ obj }}">{{ obj }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+                            <select name="unit">
+                                {% for obj in units %}
+
+                                <option value="{{ obj }}">{{ obj }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+                            <select name="ora">
+                                {% for obj in oras %}
+
+                                <option value="{{ obj }}">{{ obj }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+                            <select name="conj">
+                                {% for obj in typs %}
+
+                                <option value="{{ obj }}">{{ obj }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+                            <select name="nb_choice">
+                                {% for obj in conjs %}
+
+                                <option value="{{ obj }}">{{ obj }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+
+
+
+
+                        </from>
                         </div>
                         <!--end::Body-->
                         <a href=""></a>

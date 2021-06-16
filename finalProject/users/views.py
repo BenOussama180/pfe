@@ -366,13 +366,13 @@ def scheme_search(request, id_sch):
         scheme = Scheme.objects.get(id_sch=id_sch)
     except Scheme.DoesNotExist:
         messages.error("on a pas trouvée ce scheme")
+    
     context = {
         'scheme': scheme
     }
     return render(request, 'users/search_sch.html', context)
 
-# 3
-# Ajout works for everything pretty sure
+
 
 
 def ajouter_racine(request):
