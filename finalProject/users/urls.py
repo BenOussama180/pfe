@@ -26,10 +26,15 @@ urlpatterns = [
     path('parse-xml/', views.Parse_xml, name='Parse_xml'),
 
     path('display/', views.display, name='display'),
+
     path('dict-arabe/', views.arabedic, name='arabedic'),
     path('racine/', views.racines, name='racines'),
     path('scheme/', views.scheme, name='scheme'),
+
     path('search_rac/', views.racine_search, name='racine_search'),
+    path('search_sch/<int:id_sch>', views.scheme_search, name='scheme_search'),
+
+
     path('ajouter-rac/', views.ajouter_racine, name='ajouter_racine'),
     path('ajouter-sch/', views.ajouter_scheme, name='ajouter_scheme'),
     path('ajouter-mot/<int:id_m>/', views.ajouter_verb, name='ajouter_verb')
