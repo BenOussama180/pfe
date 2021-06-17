@@ -692,10 +692,9 @@ def edit_verbe(request, id_ver):
     if request.method == 'POST':
         scheme_v = request.POST.get('sch_ver_ed')
         racine_v = request.POST.get('rac_ver_ed')
-        try:
-            scheme_e = Scheme.objects.filter(scheme=scheme_v).get()
-            racine_e = Racine.objects.filter(rac=racine_v).get()
-        except Scheme.DoesNotExist or Racine.DoesNotExist:
+        scheme_e = Scheme.objects.filter(scheme=scheme_v)
+        racine_e = Racine.objects.filter(rac=racine_v)
+        if not scheme_e or not racine_e:
             messages.error(
                 request, "Vous ne pouvez pas utiliser ce schème ou racine (n'existe pas)")
             return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
@@ -724,12 +723,14 @@ def edit_nom(request, id_nom):
         return render(request, 'users/edit-nom.html', context)
 
     if request.method == 'POST':
-        scheme_n = request.POST.get('sch_nom_ed')
-        racine_n = request.POST.get('rac_nom_ed')
-        try:
-            scheme_n_e = Scheme.objects.filter(scheme=scheme_n).get()
-            racine_n_e = Racine.objects.filter(rac=racine_n).get()
-        except Scheme.DoesNotExist or Racine.DoesNotExist:
+        scheme_n = request.POST['sch_nom_ed']
+        racine_n = request.POST['rac_nom_ed']
+        print('here again: ')
+        print(scheme_n)
+        print(racine_n)
+        scheme_n_e = Scheme.objects.filter(scheme=scheme_n)
+        racine_n_e = Racine.objects.filter(rac=racine_n)
+        if not scheme_n_e or not racine_n_e:
             messages.error(
                 request, "Vous ne pouvez pas utiliser ce schème ou racine (n'existe pas)")
             return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
