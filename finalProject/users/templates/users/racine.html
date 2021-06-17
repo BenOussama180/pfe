@@ -137,16 +137,10 @@
                                                 x="16.3255682" y="2.94551858" width="3" height="18" rx="1"></rect>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
                             </span>
-                            <!--end::Icon-->
-                            <!--begin::Title-->
                             <div class="d-flex flex-column flex-grow-1 mr-2">
-                                <!-- <a href="#"
-                                    class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">Group
-                                    lunch celebration</a>
-                                <span class="text-muted font-weight-bold">Due in 2 Days</span> -->
+
                                 <label for="exampleFormControlTextarea6">Classe de racine</label>
                                 {% for racine in racines %}
                                 <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3"
@@ -157,11 +151,8 @@
                             </div>
                             <a href="{% url 'racine_search' %}"><button class="btn btn-secondary">SEARCH
                                     RACINE</button></a>
-                            {% for racine in racines %}
-                            <a href="{% url 'edit_racine' racine.id_rac %}"><button id="edit-rac"class="btn btn-secondary">SEARCH
-                                RACINE</button></a>
-                            <!--end::Title-->
-                            <!--begin::Lable-->
+
+                            
                             <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
                             <!--end::Lable-->
                         </div>

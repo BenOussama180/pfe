@@ -23,10 +23,13 @@
                             <div class="mb-6">
                                 <!--begin::Content-->
                                 <div class="d-flex align-items-center flex-grow-1">
+                                    <div>
+                                        <!-- {{ nombres_2 }} -->
+                                    </div>
                                     <label class="col-xl-3 col-lg-3 text-right col-form-label">Code:</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input class="form-control form-control-lg form-control-solid" type="text"
-                                            name="id_sc" value="{{ scheme.id_sch }}" />
+                                            id="id_sch" name="id_sc" value="{{ scheme.id_sch }}" />
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +54,8 @@
                                     <label class="col-xl-3 col-lg-3 text-right col-form-label">Anomalie:
                                     </label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input class="form-control form-control-lg form-control-solid" type="number"
-                                            value="{%if type_scheme == 9 %}1{% else %}0{% endif %} " />
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            id="anomalie" value="{%if type_scheme == 9 %}1{% else %}0{% endif %} " />
                                     </div>
                                 </div>
                                 <!--end::Content-->
@@ -63,8 +66,8 @@
                                     <label class="col-xl-3 col-lg-3 text-right col-form-label">Classe:
                                     </label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input class="form-control form-control-lg form-control-solid" type="number"
-                                            name="type_scheme" value="{{scheme.type_scheme}} " />
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            id="type_scheme" name="type_scheme" value="{{scheme.type_scheme}} " />
                                     </div>
                                 </div>
                                 <!--end::Content-->
@@ -131,16 +134,17 @@
                             </div>
                             <select name="nb">
                                 {% for obj in nombres %}
-
-                                <option value="{{ obj }}">{{ obj }}
+                                <option value="{{ obj }}">{{ obj.1 }}
                                 </option>
+                                <!-- <option value="{{ obj }}">{{ obj.2 }}
+                                </option> -->
                                 {% endfor %}
 
                             </select>
                             <select name="unit">
                                 {% for obj in units %}
 
-                                <option value="{{ obj }}">{{ obj }}
+                                <option value="{{ obj }}">{{ obj.1 }}
                                 </option>
                                 {% endfor %}
 
@@ -148,7 +152,7 @@
                             <select name="ora">
                                 {% for obj in oras %}
 
-                                <option value="{{ obj }}">{{ obj }}
+                                <option value="{{ obj }}">{{ obj.1 }}
                                 </option>
                                 {% endfor %}
 
@@ -156,7 +160,7 @@
                             <select name="conj">
                                 {% for obj in conjs %}
 
-                                <option value="{{ obj }}">{{ obj }}
+                                <option value="{{ obj }}">{{ obj.1 }}
                                 </option>
                                 {% endfor %}
 
@@ -165,13 +169,13 @@
                             <select name="typ">
                                 {% for obj in typs %}
 
-                                <option value="{{ obj }}">{{ obj }}
+                                <option value="{{ obj }}">{{ obj.1 }}
                                 </option>
                                 {% endfor %}
 
                             </select>
 
-                            <button type="submit" class="btn btn-primary">valider</button>
+                            <button type="submit" class="btn btn-primary" id="sch-search">valider</button>
                             <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i
                                     class="fas fa-lg fa-backspace"></i></a>
                             </from>

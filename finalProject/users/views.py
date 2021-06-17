@@ -344,6 +344,7 @@ def search_mot(request):
 def racines(request):
     if request.method != 'GET' and request.method != 'POST':
         raise Http404
+
     if request.method == 'POST':
 
         type = request.POST.get('type_rac', -1)
@@ -351,19 +352,21 @@ def racines(request):
         # id_r = request.POST.get('id_rac', -1)
         if not type:
             messages.error(request, "donner le type")
-        racines = Racine.objects.filter(Q(type_rac__iexact=type), Q(
+            return render(request,'users/search_rac.html')
+        racines = Racine.objects.filter(Q(type_rac__iexact=type),Q(
             rac__icontains=racine)).order_by('id_rac')
-
+        if not racines:
+            return HttpResponse("Il y'a pas des racines ")
     if request.method == 'GET':
         racines = Racine.objects.all()
 
     paginated_racines = Paginator(racines, 1)
     page_num = request.GET.get('page')
     racines = paginated_racines.get_page(page_num)
+
     context = {
         'racines': racines
     }
-
     return render(request, 'users/racine.html', context)
 
 
@@ -385,18 +388,21 @@ def scheme(request):
 
     if request.method == 'POST':
         sch = request.POST.get('sch')
-        # type_sch = request.POST.get('type_scheme')
+        type_sch = request.POST.get('type_scheme')
         classe_sch = request.POST.get('classe_sch')
         nb = request.POST.get('nb')
         unit = request.POST.get('unit')
         ora = request.POST.get('ora')
         conj = request.POST.get('conj')
         typ = request.POST.get('typ')
-        schemes = Scheme.objects.filter(scheme__icontains=sch, classe_sch__icontains=classe_sch,
-                                        unit__iexact=unit, nombre__iexact=nb, ora__iexact=ora, conj__iexact=conj, typ__iexact=typ)
+        schemes = Scheme.objects.filter(Q(scheme__icontains=sch), Q(unit__icontains=unit) | Q(nombre__icontains=nb) | Q(
+                                        ora__icontains=ora) | Q(conj__icontains=conj) | Q(typ__icontains=typ) | Q(type_scheme__iexact=type_sch)).order_by('id_sch')
+    if not schemes:
+        print('im empty')
     paginated_schemes = Paginator(schemes, 1)
     page_num = request.GET.get('page')
     schemes = paginated_schemes.get_page(page_num)
+
     context = {
         'schemes': schemes,
     }
@@ -410,6 +416,8 @@ def scheme_search(request, id_sch):
         scheme = Scheme.objects.get(id_sch=id_sch)
     except Scheme.DoesNotExist:
         messages.error("on a pas trouvée ce scheme")
+    # scheme2 = Scheme()
+    # nombres_2 = scheme2.NOMBRE_CHOICES[1][0]
     nombres = Scheme._meta.get_field('nombre').choices
     units = Scheme._meta.get_field('unit').choices
     oras = Scheme._meta.get_field('ora').choices
@@ -417,6 +425,7 @@ def scheme_search(request, id_sch):
     typs = Scheme._meta.get_field('typ').choices
 
     context = {
+        # 'nombres_2': nombres_2,
         'scheme': scheme,
         'nombres': nombres,
         'units': units,
