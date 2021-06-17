@@ -24,6 +24,10 @@ class PersonFilter(django_filters.FilterSet):
 
 
 class VerbeFilter(django_filters.FilterSet):
+    id_ver = CharFilter(field_name="id_ver", lookup_expr='iexact')
+    verbe = CharFilter(field_name="verbe", lookup_expr='icontains')
+    ver_cons = CharFilter(field_name="ver_voy", lookup_expr='icontains')
+    ver_voy = CharFilter(field_name="ver_voy", lookup_expr='icontains')
     class Meta:
         model = Verbe
         fields = '__all__'

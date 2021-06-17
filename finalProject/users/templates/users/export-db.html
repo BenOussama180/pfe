@@ -41,10 +41,28 @@
                 <!--begin::Content-->
                 <span class="font-size-h1 d-block d-block font-weight-boldest text-dark-75 py-2">Fichier Excel</span>
                 <br><br><br>
-                <a href="/users/export-excel" class="btn btn-success text-uppercase font-weight-bolder px-15 py-3">Telecharger</a>
+                <div class="dropdown">
+                    <button class="btn btn-success text-uppercase font-weight-bolder text-uppercase font-weight-bolder  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choisir la base de donné <span class="svg-icon svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Navigation\Arrow-from-top.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24"/>
+                                                    <rect fill="#000000" opacity="0.3" x="11" y="7" width="2" height="14" rx="1"/>
+                                                    <path d="M6.70710678,20.7071068 C6.31658249,21.0976311 5.68341751,21.0976311 5.29289322,20.7071068 C4.90236893,20.3165825 4.90236893,19.6834175 5.29289322,19.2928932 L11.2928932,13.2928932 C11.6714722,12.9143143 12.2810586,12.9010687 12.6757246,13.2628459 L18.6757246,18.7628459 C19.0828436,19.1360383 19.1103465,19.7686056 18.7371541,20.1757246 C18.3639617,20.5828436 17.7313944,20.6103465 17.3242754,20.2371541 L12.0300757,15.3841378 L6.70710678,20.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 16.999999) scale(1, -1) translate(-12.000003, -16.999999) "/>
+                                                    <rect fill="#000000" opacity="0.3" x="3" y="3" width="18" height="2" rx="1"/>
+                                                </g>
+                                            </svg><!--end::Svg Icon--></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{% url 'export_excel_rac' %}">Racines</a>
+                        <a class="dropdown-item" href="{% url 'export_excel_sch' %}">Schèmes</a>
+                        <a class="dropdown-item" href="{% url 'export_excel_ver' %}">Verbes</a>
+                        <a class="dropdown-item" href="{% url 'export_excel_nom' %}">Noms</a>
+                    </div>
+                </div>
                 <!--end::Content-->
             </div>
         </div>
+        
         <!--end: Pricing-->
         <!--begin: Pricing-->
         <div class="col-md-4 col-xxl-3 border-x-0 border-x-md border-y border-y-md-0">
@@ -73,7 +91,24 @@
                 <span class="font-size-h1 d-block font-weight-boldest text-dark-75 py-2">Fichier Text
                 <sup class="font-size-h3 font-weight-normal pl-1"></sup></span>
                 <br><br><br>
-                <a href="/users/export-csv" class="btn btn-primary text-uppercase font-weight-bolder px-15 py-3">Telecharger</a>
+                <div class="dropdown">
+                    <button class="btn btn-primary text-uppercase font-weight-bolder  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choisir la base de donné <span class="svg-icon svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Navigation\Arrow-from-top.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                <rect fill="#000000" opacity="0.3" x="11" y="7" width="2" height="14" rx="1"/>
+                                <path d="M6.70710678,20.7071068 C6.31658249,21.0976311 5.68341751,21.0976311 5.29289322,20.7071068 C4.90236893,20.3165825 4.90236893,19.6834175 5.29289322,19.2928932 L11.2928932,13.2928932 C11.6714722,12.9143143 12.2810586,12.9010687 12.6757246,13.2628459 L18.6757246,18.7628459 C19.0828436,19.1360383 19.1103465,19.7686056 18.7371541,20.1757246 C18.3639617,20.5828436 17.7313944,20.6103465 17.3242754,20.2371541 L12.0300757,15.3841378 L6.70710678,20.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 16.999999) scale(1, -1) translate(-12.000003, -16.999999) "/>
+                                <rect fill="#000000" opacity="0.3" x="3" y="3" width="18" height="2" rx="1"/>
+                            </g>
+                        </svg><!--end::Svg Icon--></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{% url 'export_csv_rac' %}">Racines</a>
+                        <a class="dropdown-item" href="{% url 'export_csv_sch' %}">Schèmes</a>
+                        <a class="dropdown-item" href="{% url 'export_csv_ver' %}">Verbes</a>
+                        <a class="dropdown-item" href="{% url 'export_csv_nom' %}">Noms</a>
+                    </div>
+                </div>
                 <!--end::Content-->
             </div>
         </div>
@@ -105,7 +140,25 @@
                 <span class="font-size-h1 d-block font-weight-boldest text-dark-75 py-2">Fichier XML
                 <sup class="font-size-h3 font-weight-normal pl-1"></sup></span>
                 <br><br><br>
-                <a href="/users/export-xml" class="btn btn-warning text-uppercase font-weight-bolder px-15 py-3">Telecharger</a>
+                <div class="dropdown">
+                    <button class="btn btn-warning text-uppercase font-weight-bolder  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choisir la base de donné <span class="svg-icon svg-icon svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo13\dist/../src/media/svg/icons\Navigation\Arrow-from-top.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <polygon points="0 0 24 0 24 24 0 24"/>
+                                <rect fill="#000000" opacity="0.3" x="11" y="7" width="2" height="14" rx="1"/>
+                                <path d="M6.70710678,20.7071068 C6.31658249,21.0976311 5.68341751,21.0976311 5.29289322,20.7071068 C4.90236893,20.3165825 4.90236893,19.6834175 5.29289322,19.2928932 L11.2928932,13.2928932 C11.6714722,12.9143143 12.2810586,12.9010687 12.6757246,13.2628459 L18.6757246,18.7628459 C19.0828436,19.1360383 19.1103465,19.7686056 18.7371541,20.1757246 C18.3639617,20.5828436 17.7313944,20.6103465 17.3242754,20.2371541 L12.0300757,15.3841378 L6.70710678,20.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 16.999999) scale(1, -1) translate(-12.000003, -16.999999) "/>
+                                <rect fill="#000000" opacity="0.3" x="3" y="3" width="18" height="2" rx="1"/>
+                            </g>
+                        </svg><!--end::Svg Icon--></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{% url 'export_xml_rac' %}">Racines</a>
+                        <a class="dropdown-item" href="{% url 'export_xml_sch' %}">Schèmes</a>
+                        <a class="dropdown-item" href="{% url 'export_xml_ver' %}">Verbes</a>
+                        <a class="dropdown-item" href="{% url 'export_xml_nom' %}">Noms</a>
+                    </div>
+                </div>
+                
                 <!--end::Content-->
             </div>
         </div>

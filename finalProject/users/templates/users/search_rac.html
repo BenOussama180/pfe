@@ -1,0 +1,38 @@
+{% extends 'users/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="container">
+        <div class="flex-row-fluid ml-lg-8">
+            <!--begin::Card-->
+            
+            <div class="card card-custom gutter-bs">
+              <!--Begin::Header-->
+              <div class="container">
+              <div class="card-toolbar">
+                <br>
+                <h3 class=" text-info">Chercher une Racine :</h3>
+    <form action="{% url 'racines' %}" method="POST">
+        {% csrf_token %}
+        <!-- <label for="rac_s">Code: </label>
+        <input type="text" name="id_rac" required> -->
+        <div class="form-group col-sm-4 col-md-3">
+            <label for="rac_s">Racine: </label>
+            <input class="form-control" type="text" name="rac" >
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+            <label for="rac_s">type: </label>
+            <input class="form-control" type="text" name="type_rac">
+        </div>
+        
+
+        <div class="form-group">
+            <button class="btn btn-success btn-lg" type="submit">
+             Submit <i class="fas fa-save"></i>
+            </button>
+            <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+      
+          </div>
+    </form>
+</div>
+{% endblock %}
