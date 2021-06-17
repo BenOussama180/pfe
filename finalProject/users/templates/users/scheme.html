@@ -26,8 +26,8 @@
                             <div class="d-flex align-items-center flex-grow-1">
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">Code:</label>
                                 <div class="col-lg-9 col-xl-6">
-                                    <input class="form-control form-control-lg form-control-solid" type="text"
-                                     id="code"   value="{{ scheme.id_sch }}" disabled />
+                                    <input class="form-control form-control-lg form-control-solid" type="text" id="code"
+                                        value="{{ scheme.id_sch }}" disabled />
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">Schème: </label>
                                 <div class="col-lg-9 col-xl-6">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                    id="scheme"    value="{{scheme.scheme}}" disabled />
+                                        id="scheme" value="{{scheme.scheme}}" disabled />
                                 </div>
                             </div>
                             <!--end::Content-->
@@ -52,8 +52,8 @@
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">Anomalie:
                                 </label>
                                 <div class="col-lg-9 col-xl-6">
-                                    <input class="form-control form-control-lg form-control-solid" type="text"
-                                     id="anom"   value="{%if type_scheme == 9 %}1{% else %}0{% endif %} " disabled />
+                                    <input class="form-control form-control-lg form-control-solid" type="text" id="anom"
+                                        value="{%if type_scheme == 9 %}1{% else %}0{% endif %} " disabled />
                                 </div>
                             </div>
                             <!--end::Content-->
@@ -65,7 +65,7 @@
                                 </label>
                                 <div class="col-lg-9 col-xl-6">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                    id="classe"    value="{{scheme.type_scheme}} " disabled />
+                                        id="classe" value="{{scheme.type_scheme}} " disabled />
                                 </div>
                             </div>
                             <!--end::Content-->
@@ -164,26 +164,18 @@
                                     id="exampleFormControlTextarea6" rows="3" disabled>{{scheme.classe_sch}}
                                 </textarea>
                                 {% endfor %}
-
                             </div>
-                            <!--end::Title-->
-                            <!--begin::Lable-->
-                            <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
-                            <!--end::Lable-->
-                        </div>
-                        <!--end::Item-->
 
+                        </div>
+                        <!--end::Body-->
                         {% for scheme in schemes %}
                         <a href="/users/search_sch/{{scheme.id_sch}}"><button
                                 class="btn btn-primary">Rechercher</button></a>
                         {% endfor %}
 
                     </div>
-                    <!--end::Body-->
-                    <a href=""></a>
+                    <!--end::List Widget 11-->
                 </div>
-                <!--end::List Widget 11-->
             </div>
         </div>
-    </div>
-    {% endblock %}
+        {% endblock %}

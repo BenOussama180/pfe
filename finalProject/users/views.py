@@ -352,8 +352,8 @@ def racines(request):
         # id_r = request.POST.get('id_rac', -1)
         if not type:
             messages.error(request, "donner le type")
-            return render(request,'users/search_rac.html')
-        racines = Racine.objects.filter(Q(type_rac__iexact=type),Q(
+            return render(request, 'users/search_rac.html')
+        racines = Racine.objects.filter(Q(type_rac__iexact=type), Q(
             rac__icontains=racine)).order_by('id_rac')
         if not racines:
             return HttpResponse("Il y'a pas des racines ")
@@ -397,8 +397,11 @@ def scheme(request):
         typ = request.POST.get('typ')
         schemes = Scheme.objects.filter(Q(scheme__icontains=sch), Q(unit__icontains=unit) | Q(nombre__icontains=nb) | Q(
                                         ora__icontains=ora) | Q(conj__icontains=conj) | Q(typ__icontains=typ) | Q(type_scheme__iexact=type_sch)).order_by('id_sch')
-    if not schemes:
-        print('im empty')
+        if not schemes:
+            schemes = Scheme.objects.all()
+            messages.error(
+                request, "il y'a pas des schemes avec ces conditions")
+            return render(request, 'users/scheme.html',)
     paginated_schemes = Paginator(schemes, 1)
     page_num = request.GET.get('page')
     schemes = paginated_schemes.get_page(page_num)
@@ -416,8 +419,7 @@ def scheme_search(request, id_sch):
         scheme = Scheme.objects.get(id_sch=id_sch)
     except Scheme.DoesNotExist:
         messages.error("on a pas trouvée ce scheme")
-    # scheme2 = Scheme()
-    # nombres_2 = scheme2.NOMBRE_CHOICES[1][0]
+    
     nombres = Scheme._meta.get_field('nombre').choices
     units = Scheme._meta.get_field('unit').choices
     oras = Scheme._meta.get_field('ora').choices
@@ -425,7 +427,6 @@ def scheme_search(request, id_sch):
     typs = Scheme._meta.get_field('typ').choices
 
     context = {
-        # 'nombres_2': nombres_2,
         'scheme': scheme,
         'nombres': nombres,
         'units': units,
