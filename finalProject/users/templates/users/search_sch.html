@@ -12,7 +12,7 @@
                     <div class="card card-custom card-stretch gutter-b">
                         <!--begin::Header-->
                         <div class="card-header border-0">
-                            <h3 class="card-title font-weight-bolder text-dark">Table des racines</h3>
+                            <h3 class="card-title font-weight-bolder text-dark">Table des scheme</h3>
                             <div class="card-toolbar">
                             </div>
                         </div>
@@ -154,14 +154,6 @@
 
                             </select>
                             <select name="conj">
-                                {% for obj in typs %}
-
-                                <option value="{{ obj }}">{{ obj }}
-                                </option>
-                                {% endfor %}
-
-                            </select>
-                            <select name="nb_choice">
                                 {% for obj in conjs %}
 
                                 <option value="{{ obj }}">{{ obj }}
@@ -170,10 +162,19 @@
 
                             </select>
 
+                            <select name="typ">
+                                {% for obj in typs %}
 
+                                <option value="{{ obj }}">{{ obj }}
+                                </option>
+                                {% endfor %}
 
+                            </select>
 
-                        </from>
+                            <button type="submit" class="btn btn-primary">valider</button>
+                            <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i
+                                    class="fas fa-lg fa-backspace"></i></a>
+                            </from>
                         </div>
                         <!--end::Body-->
                         <a href=""></a>

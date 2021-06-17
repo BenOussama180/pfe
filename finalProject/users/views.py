@@ -294,24 +294,50 @@ def display(request):
     }
     return render(request, 'users/display.html', context)
 
+###########################################################
+
 
 def arabedic(request):
     if request.method != 'GET' and request.method != 'POST':
         raise Http404
 
-    lverbs = Verbe.objects.all()
-    lnoms = Nom.objects.all()
+    if request.method == 'POST':
 
-    mylist = chain(lverbs, lnoms)
+        if request.POST.get('mot_t') == 'كلمة':
+            nom_i = request.POST.get('mot')
+            rac_nom_i = request.POST.get('rac_mot')
+            sch_nom_i = request.POST.get('sch_mot')
+            noms = Nom.objects.filter(
+                nom__icontains=nom_i, scheme_nom__scheme__icontains=sch_nom_i, racine_nom__rac__icontains=rac_nom_i)
+            mylist = noms
+        else:
+            ver_i = request.POST.get('mot')
+            rac_ver_i = request.POST.get('rac_mot')
+            sch_ver_i = request.POST.get('sch_mot')
+            verbs = Verbe.objects.filter(
+                verbe__icontains=ver_i, scheme_ver__scheme__icontains=sch_ver_i, racine_ver__rac__icontains=rac_ver_i)
+            mylist = verbs
 
-    paginated_lmots = Paginator(list(mylist), 1)
+    if request.method == 'GET':
+        lverbs = Verbe.objects.all()
+        lnoms = Nom.objects.all()
+        mylist = chain(lverbs, lnoms)
+        mylist = list(mylist)
+    paginated_lmots = Paginator(mylist, 1)
     page_num = request.GET.get('page')
     lmots_obj = paginated_lmots.get_page(page_num)
-
     context = {
         'lmots_obj': lmots_obj
     }
     return render(request, 'users/dict-arabe.html', context)
+
+
+def search_mot(request):
+    if request.method != 'GET':
+        raise Http404
+
+    return render(request, 'users/search-mot.html')
+###############################
 
 
 def racines(request):
@@ -348,15 +374,30 @@ def racine_search(request):
 
 
 def scheme(request):
-    if request.method != 'GET':
+    if request.method != 'GET' and request.method != 'POST':
         raise Http404
 
-    schemes = Scheme.objects.all()
+    if request.method == 'GET':
+        schemes = Scheme.objects.all()
+        context = {
+            'schemes': schemes,
+        }
+    if request.method == 'POST':
+        sch = request.POST.get('sch')
+        # type_sch = request.POST.get('type_scheme')
+        classe_sch = request.POST.get('classe_sch')
+        nb = request.POST.get('nb')
+        unit = request.POST.get('unit')
+        ora = request.POST.get('ora')
+        conj = request.POST.get('conj')
+        typ = request.POST.get('typ')
+        schemes = Scheme.objects.filter(scheme__icontains=sch, classe_sch__icontains=classe_sch,
+                                        unit__iexact=unit, nb__iexact=nb, ora__iexact=ora, conj__iexact=conj, typ__iexact=typ)
     paginated_schemes = Paginator(schemes, 1)
     page_num = request.GET.get('page')
     schemes = paginated_schemes.get_page(page_num)
 
-    return render(request, 'users/scheme.html', {'schemes': schemes})
+    return render(request, 'users/scheme.html', context)
 
 
 def scheme_search(request, id_sch):
@@ -366,13 +407,21 @@ def scheme_search(request, id_sch):
         scheme = Scheme.objects.get(id_sch=id_sch)
     except Scheme.DoesNotExist:
         messages.error("on a pas trouvée ce scheme")
-    
+    nombres = Scheme._meta.get_field('nombre').choices
+    units = Scheme._meta.get_field('unit').choices
+    oras = Scheme._meta.get_field('ora').choices
+    conjs = Scheme._meta.get_field('conj').choices
+    typs = Scheme._meta.get_field('typ').choices
+
     context = {
-        'scheme': scheme
+        'scheme': scheme,
+        'nombres': nombres,
+        'units': units,
+        'oras': oras,
+        'conjs': conjs,
+        'typs': typs
     }
     return render(request, 'users/search_sch.html', context)
-
-
 
 
 def ajouter_racine(request):

@@ -59,10 +59,10 @@
                                 <div class="col-lg-9 col-xl-6">
                                     {% if obj.nom %}
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                        value="{{ obj.nom  }}" disabled />
+                                        value="{{ obj.nom }}" disabled />
                                     {% elif obj.verbe %}
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                        value="{{ obj.verbe  }}" disabled />
+                                        value="{{ obj.verbe }}" disabled />
                                     {% endif%}
                                 </div>
                             </div>
@@ -169,8 +169,11 @@
                         </div>
                         {% endif %}
                         {% endfor %}
+
                         <!--end::Tab Content-->
                     </div>
+                    <a href="users/search-mot">rechercher
+                    </a>
                 </div>
             </div>
         </div>

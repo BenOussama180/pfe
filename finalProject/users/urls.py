@@ -34,6 +34,7 @@ urlpatterns = [
     path('search_rac/', views.racine_search, name='racine_search'),
     path('search_sch/<int:id_sch>', views.scheme_search, name='scheme_search'),
 
+    path('search-mot/', views.search_mot, name='search_mot'),
 
     path('ajouter-rac/', views.ajouter_racine, name='ajouter_racine'),
     path('ajouter-sch/', views.ajouter_scheme, name='ajouter_scheme'),
