@@ -38,6 +38,9 @@ urlpatterns = [
 
     path('ajouter-rac/', views.ajouter_racine, name='ajouter_racine'),
     path('ajouter-sch/', views.ajouter_scheme, name='ajouter_scheme'),
-    path('ajouter-mot/<int:id_m>/', views.ajouter_verb, name='ajouter_verb')
+    path('ajouter-mot/<int:id_m>/', views.ajouter_verb, name='ajouter_verb'),
+
+    # path('edit-racine/<int:id_rac>/', views.edit_racine, name='edit_racine')
+
 
 ]

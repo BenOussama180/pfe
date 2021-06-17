@@ -98,9 +98,9 @@
                             <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">racine de verbe:
                                 </label>
-                                <select name="arg_racnom">
+                                <select name="arg_racnom" id="rac_n">
                                     {% for lnom in list_racines %}
-                                    <option value="{{ lnom.id_sch }}"> {{ lnom.rac }}</option>
+                                    <option value="{{ lnom.id_rac }}"> {{ lnom.rac }}</option>
                                     {% endfor %}
                                 </select>
 

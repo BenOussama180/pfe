@@ -323,6 +323,7 @@ def arabedic(request):
         lnoms = Nom.objects.all()
         mylist = chain(lverbs, lnoms)
         mylist = list(mylist)
+
     paginated_lmots = Paginator(mylist, 1)
     page_num = request.GET.get('page')
     lmots_obj = paginated_lmots.get_page(page_num)
@@ -372,6 +373,8 @@ def racine_search(request):
 
     return render(request, 'users/search_rac.html')
 
+####################################################
+
 
 def scheme(request):
     if request.method != 'GET' and request.method != 'POST':
@@ -379,9 +382,7 @@ def scheme(request):
 
     if request.method == 'GET':
         schemes = Scheme.objects.all()
-        context = {
-            'schemes': schemes,
-        }
+
     if request.method == 'POST':
         sch = request.POST.get('sch')
         # type_sch = request.POST.get('type_scheme')
@@ -392,11 +393,13 @@ def scheme(request):
         conj = request.POST.get('conj')
         typ = request.POST.get('typ')
         schemes = Scheme.objects.filter(scheme__icontains=sch, classe_sch__icontains=classe_sch,
-                                        unit__iexact=unit, nb__iexact=nb, ora__iexact=ora, conj__iexact=conj, typ__iexact=typ)
+                                        unit__iexact=unit, nombre__iexact=nb, ora__iexact=ora, conj__iexact=conj, typ__iexact=typ)
     paginated_schemes = Paginator(schemes, 1)
     page_num = request.GET.get('page')
     schemes = paginated_schemes.get_page(page_num)
-
+    context = {
+        'schemes': schemes,
+    }
     return render(request, 'users/scheme.html', context)
 
 
@@ -482,15 +485,6 @@ def ajouter_verb(request, id_m):
     if request.method != 'GET' and request.method != 'POST':
         raise Http404
 
-    if request.method == 'GET':
-
-        context = {
-            'list_verbs_scheme': Scheme.objects.all(),
-            'list_nom_scheme': Scheme.objects.all(),
-            'list_racines': Racine.objects.all()
-        }
-
-        return render(request, 'users/ajouter-mot.html', context)
     if request.method == 'POST':
         if id_m == 1:
             scheme_v = request.POST.get('arg_schverb')
@@ -501,8 +495,24 @@ def ajouter_verb(request, id_m):
             messages.success(request, "Vous avez ajouter un verbe avec succes")
 
         elif id_m == 2:
-            nom = Nom(nom=request.POST.GET('nom'), nom_cons=request.POST.GET('nom_c'),
-                      nom_voy=request.POST.GET('nom_v'), scheme_nom=request.POST.GET('arg_schnom'),
-                      racine_nom=request.POST.GET('arg_racnom'))
+            scheme_n = request.POST.get('arg_schnom')
+            racine_n = request.POST.get('arg_racnom')
+            print('im here')
+            print(request.POST.get('arg_racnom'))
+            nom = Nom(nom=request.POST.get('nom'), nom_cons=request.POST.get('nom_c'),
+                      nom_voy=request.POST.get('nom_v'), scheme_nom=Scheme.objects.get(id_sch=scheme_n),
+                      racine_nom=Racine.objects.get(id_rac=racine_n))
             nom.save()
             messages.success(request, "Vous avez ajouter un nom avec succes")
+
+    context = {
+        'list_verbs_scheme': Scheme.objects.all(),
+        'list_nom_scheme': Scheme.objects.all(),
+        'list_racines': Racine.objects.all()
+    }
+
+    return render(request, 'users/ajouter-mot.html', context)
+
+##########################################################
+
+# def edit_racine(index,id_rac):

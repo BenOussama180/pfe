@@ -157,6 +157,9 @@
                             </div>
                             <a href="{% url 'racine_search' %}"><button class="btn btn-secondary">SEARCH
                                     RACINE</button></a>
+                            {% for racine in racines %}
+                            <a href="{% url 'edit_racine' racine.id_rac %}"><button id="edit-rac"class="btn btn-secondary">SEARCH
+                                RACINE</button></a>
                             <!--end::Title-->
                             <!--begin::Lable-->
                             <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
