@@ -4,6 +4,7 @@ from django import http
 from django.contrib.messages.api import error
 from django.db.models.query import QuerySet, RawQuerySet
 from django.template import context
+from pyexcel_io.constants import SKIP_DATA
 from .forms import PersonForm, RacineForm
 from django.core.checks import messages
 from django.shortcuts import redirect, render
@@ -180,6 +181,7 @@ def Parse_xl(request, format=None):
     except MultiValueDictKeyError:
         messages.error(request, 'Votre Upload a mal tourné')
         return render(request, 'users/importdb.html')
+
     if (str(excel_file).split('.')[-1] == "xls"):
         data = xls_get(excel_file, column_limit=5)
     elif (str(excel_file).split('.')[-1] == "xlsx"):
@@ -187,9 +189,9 @@ def Parse_xl(request, format=None):
     else:
         messages.info(request, 'Veuillez importer un fichier de type Excel')
         return render(request, 'users/importdb.html')
-    Clients = data["Worksheet"]
-    if (len(Clients) > 1):
-        for Worksheet in Clients:
+    Racines = data["Worksheet"]
+    if (len(Racines) > 1):
+        for Worksheet in Racines:
             if (len(Worksheet) > 0):
                 if (Worksheet[0] != "id"):
                     if (len(Worksheet) < 5):
@@ -197,20 +199,21 @@ def Parse_xl(request, format=None):
                         while (i < 5):
                             Worksheet.append("")
                             i += 1
-                    c = Person.objects.filter(name=Worksheet[1])
+                    c = Racine.objects.filter(rac=Worksheet[1])
+                    bools = isinstance(Worksheet[2], (int, float))
+                    if bools != True:
+                        Worksheet[2] = 3
                     if (c.count() == 0):
-                        Person.objects.create(
-                            name=Worksheet[1],
-                            prenom=Worksheet[2],
-                            email=Worksheet[3],
-                            city=Worksheet[4]
+                        Racine.objects.create(
+                            rac=Worksheet[1],
+                            type_rac=Worksheet[2],
+                            classe_rac=Worksheet[3]
                         )
     messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
     return render(request, 'users/import-db.html')
 
 
 def Parse_txt(request, format=None):
-    Clients_all = Person.objects.all()
     try:
         txt_file = request.FILES['file_txt']
     except MultiValueDictKeyError:
@@ -221,16 +224,10 @@ def Parse_txt(request, format=None):
         glines = (line.strip() for line in lines)
         for line in glines:
             fields = line.split(";".encode())
-            try:
-                valid = validate_email(fields[4].decode())
-            except EmailNotValidError:
-                messages.error(request, 'Cet email est pas valide!')
-                continue
-            Person.objects.create(
-                name=fields[1].decode(),
-                prenom=fields[2].decode(),
-                email=valid.email,
-                city=fields[3].decode()
+            Racine.objects.create(
+                rac=fields[1].decode(),
+                type_rac=fields[2].decode(),
+                classe_rac=fields[3].decode()
             )
         messages.success(
             request, 'Votre base de donnée a bien été Sauvegardé!')
@@ -252,17 +249,10 @@ def Parse_xml(request):
         doc = ET.parse(request.FILES['xml_file'])
         myroot = doc.getroot()
         for recorde in myroot.findall('object'):
-            # try:
-            #     valid = validate_email(recorde.find("field[@name='email']").text)
-            # except EmailNotValidError:
-            #     messages.error(request, 'Cet email est pas valide!')
-            #     continue
-            Person.objects.create(
-                name=recorde.find("field[@name='name']").text,
-                prenom=recorde.find("field[@name='prenom']").text,
-                city=recorde.find("field[@name='city']").text,
-                # email=valid.email
-                email=recorde.find("field[@name='email']").text
+            Racine.objects.create(
+                rac=recorde.find("field[@name='rac']").text,
+                type_rac=recorde.find("field[@name='type_rac']").text,
+                classe_rac=recorde.find("field[@name='classe_rac']").text,
             )
         messages.success(
             request, 'Votre base de donnée a bien été Sauvegardé!!!')
@@ -389,7 +379,7 @@ def scheme(request):
     if request.method == 'POST':
         sch = request.POST.get('sch')
         type_sch = request.POST.get('type_scheme')
-        classe_sch = request.POST.get('classe_sch')
+        # classe_sch = request.POST.get('classe_sch')
         nb = request.POST.get('nb')
         unit = request.POST.get('unit')
         ora = request.POST.get('ora')
@@ -419,7 +409,7 @@ def scheme_search(request, id_sch):
         scheme = Scheme.objects.get(id_sch=id_sch)
     except Scheme.DoesNotExist:
         messages.error("on a pas trouvée ce scheme")
-    
+
     nombres = Scheme._meta.get_field('nombre').choices
     units = Scheme._meta.get_field('unit').choices
     oras = Scheme._meta.get_field('ora').choices
