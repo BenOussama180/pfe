@@ -15,7 +15,7 @@
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">Verbe: </label>
                                 <div class="col-lg-9 col-xl-6">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                        name="ver" required />
+                                        name="ver" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -37,7 +37,7 @@
                             <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">scheme de verbe:
                                 </label>
-                                <select name="arg_schverb">
+                                <select name="arg_schverb" id="sch_v">
                                     {% for lverb in list_verbs_scheme %}
                                     <option value="{{ lverb.id_sch }}"> {{ lverb.scheme }}</option>
                                     {% endfor %}
@@ -46,7 +46,7 @@
                             <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">racine de verbe:
                                 </label>
-                                <select name="arg_racverb">
+                                <select name="arg_racverb" id="rac_v">
                                     {% for lverb in list_racines %}
                                     <option value="{{ lverb.id_rac }}"> {{ lverb.rac }}</option>
                                     {% endfor %}
@@ -67,7 +67,7 @@
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom: </label>
                                 <div class="col-lg-9 col-xl-6">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                        name="nom" required />
+                                        name="nom" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -89,7 +89,7 @@
                             <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">scheme de verbe:
                                 </label>
-                                <select name="arg_schnom">
+                                <select name="arg_schnom" id="sch_n">
                                     {% for lnom in list_nom_scheme %}
                                     <option value="{{ lnom.id_sch }}"> {{ lnom.scheme }}</option>
                                     {% endfor %}

@@ -43,12 +43,10 @@
                         <div class="tab-content pt-5 mx-auto">
                             <!--begin::Tab Content-->
                             <div class="tab-pane active" id="kt_apps_contacts_view_tab_2" role="tabpanel">
-                                <form class="form">
-
-                                    <div class="form-group row">
-                                        <div class="col-lg-9 col-xl-9">
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-9 col-xl-9">
                                     </div>
+                                </div>
                             </div>
                             <br>
                             <img src="{% static '/ar_pic.png' %}" class="pb-10" alt="">
@@ -156,9 +154,18 @@
                         {% endfor %}
 
                         <!--end::Tab Content-->
+
                     </div>
+                    {% for obj in lmots_obj %}
+
                     <a href="users/search-mot">rechercher
                     </a>
+                    {% if obj.verbe %}
+                    <a href="users/edit-verbe/{{obj.id_ver}}/">modifier</a>
+                    {% elif obj.nom %}
+                    <a href="users/edit-nom/{{obj.id_nom}}">Modifier</a>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -40,7 +40,10 @@ urlpatterns = [
     path('ajouter-sch/', views.ajouter_scheme, name='ajouter_scheme'),
     path('ajouter-mot/<int:id_m>/', views.ajouter_verb, name='ajouter_verb'),
 
-    # path('edit-racine/<int:id_rac>/', views.edit_racine, name='edit_racine')
+    path('edit-racine/<int:id_rac>/', views.edit_racine, name='edit_racine'),
+    path('edit-scheme/<int:id_sch>/', views.edit_scheme, name='edit_scheme'),
+    path('edit-verbe/<int:id_ver>/', views.edit_verbe, name='edit_verbe'),
+    path('edit-nom/<int:id_nom>/', views.edit_nom, name='edit_nom'),
 
 
 ]

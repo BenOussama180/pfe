@@ -169,8 +169,11 @@
                         </div>
                         <!--end::Body-->
                         {% for scheme in schemes %}
-                        <a href="/users/search_sch/{{scheme.id_sch}}"><button
+                        <a href="/users/search_sch/{{scheme.id_sch}}"><button id="sch_se"
                                 class="btn btn-primary">Rechercher</button></a>
+                        <a href="/users/edit-scheme/{{scheme.id_sch}}"><button id="sch_ed"
+                                class="btn btn-primary">Modifier</button></a>
+
                         {% endfor %}
 
                     </div>

@@ -35,7 +35,7 @@
                                         <!--end::Svg Icon-->
                                     </span>
                                 </span>
-                                <span class="nav-text text-primary font-weight-bold">Recherche des mots</span>
+                                <span class="nav-text text-primary font-weight-bold">Modifier ce verbe</span>
                             </a>
                         </li>
                     </ul>
@@ -43,35 +43,50 @@
                         <div class="tab-content pt-5 mx-auto">
                             <!--begin::Tab Content-->
                             <div class="tab-pane active" id="kt_apps_contacts_view_tab_2" role="tabpanel">
-                                <!-- <div class="form-group row">
+                                <div class="form-group row">
                                     <div class="col-lg-9 col-xl-9">
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                             <br>
                             <img src="{% static '/ar_pic.png' %}" class="pb-10" alt="">
 
-                            <form action="/users/dict-arabe/" name="form_mot" method="POST">
+                            <form action="{% url 'edit_verbe' id_ver=verb.id_ver %}" method="POST">
                                 {% csrf_token %}
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Mot: </label>
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Verbe: </label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input class="form-control form-control-lg form-control-solid" type="text"
-                                            name="mot" id="mot" />
+                                            name="v_ed" value="{{ verb.verbe}}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Les consonnes: </label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            name="v_con_ed" value="{{ verb.ver_cons}}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Les voyelles: </label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            name="v_voy_ed" value="{{ verb.ver_voy}}" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 text-right col-form-label">Racine</label>
                                     <div class="col-lg-9 col-xl-6">
+
                                         <input class="form-control form-control-lg form-control-solid" type="text"
-                                            name="rac_mot" id="mot_r" />
+                                            name="rac_ver_ed" value="{{verb.racine_ver.rac}}" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 text-right col-form-label">Schème</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input class="form-control form-control-lg form-control-solid" type="text"
-                                            name="sch_mot" id="mot_sch" />
+                                            name="sch_ver_ed" value="{{verb.scheme_ver.scheme}}" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -81,31 +96,25 @@
                                             <div class="input-group-prepend">
                                             </div>
                                             <input type="text" class="form-control form-control-lg form-control-solid"
-                                                id="form_can" />
+                                                name="can_ver_ed" value="{{verb}}" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom/Verbe: </label>
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom/Verbe</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <!-- <select name="mot_t" required>
-                                            <option id="kalima">كلمة</option>
-                                            <option id="fi3l">فعل</option>
-                                        </select> -->
                                         <input type="text" class="form-control form-control-lg form-control-solid"
-                                            name="mot_t" id="mot_t" />
+                                            value="فعل" disabled />
                                     </div>
                                 </div>
-
-                                <button type="submit" id="btn-searchmot" class="btn btn-primary">valider</button>
+                                <div class="separator separator-dashed"></div>
+                                <button type="submit" class="btn btn-primary" id="sbeditverb">Valider</button>
+                                <!--begin::Heading-->
                             </form>
+                            <a href="/users/dict-arabe"> <button class="btn btn-secondary">Mots</button></a>
 
-                            <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i
-                                    class="fas fa-lg fa-backspace"></i></a>
-
-                            <div class="separator separator-dashed"></div>
-                            <!--begin::Heading-->
                         </div>
+
                     </div>
                 </div>
             </div>

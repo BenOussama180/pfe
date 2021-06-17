@@ -28,6 +28,7 @@ from xml.etree import ElementTree as ET
 from django.http import Http404
 from itertools import chain
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 
 
 # Index page
@@ -171,6 +172,7 @@ def export_xml(request):
     return HttpResponse(person, response)
 
 
+######################################################################################
 def import_db(request):
     return render(request, 'users/import-db.html')
 
@@ -260,6 +262,43 @@ def Parse_xml(request):
     else:
         messages.info(request, 'Veuillez importer un fichier de type XML')
         return render(request, 'users/import-db.html')
+#######################################################################################
+# def Parse_xl_scheme(request):
+#     try:
+#         excel_file = request.FILES['myfile_sch']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/importdb.html')
+
+#     if (str(excel_file).split('.')[-1] == "xls"):
+#         data = xls_get(excel_file, column_limit=5)
+#     elif (str(excel_file).split('.')[-1] == "xlsx"):
+#         data = xlsx_get(excel_file, column_limit=5)
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Excel')
+#         return render(request, 'users/importdb.html')
+#     Racines = data["Worksheet"]
+#     if (len(Racines) > 1):
+#         for Worksheet in Racines:
+#             if (len(Worksheet) > 0):
+#                 if (Worksheet[0] != "id"):
+#                     if (len(Worksheet) < 5):
+#                         i = len(Worksheet)
+#                         while (i < 5):
+#                             Worksheet.append("")
+#                             i += 1
+#                     c = Racine.objects.filter(rac=Worksheet[1])
+#                     bools = isinstance(Worksheet[2], (int, float))
+#                     if bools != True:
+#                         Worksheet[2] = 3
+#                     if (c.count() == 0):
+#                         Racine.objects.create(
+#                             rac=Worksheet[1],
+#                             type_rac=Worksheet[2],
+#                             classe_rac=Worksheet[3]
+#                         )
+#     messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
+#     return render(request, 'users/import-db.html')
 
 
 def display(request):
@@ -292,21 +331,37 @@ def arabedic(request):
         raise Http404
 
     if request.method == 'POST':
+        if not request.POST.get('mot_t'):
+            messages.error(request, "Choisir Verbe/Nom: 'كلمة/فعل' ")
+            return redirect(request.META.get('HTTP_REFERER', 'users/racine.html'))
 
         if request.POST.get('mot_t') == 'كلمة':
             nom_i = request.POST.get('mot')
             rac_nom_i = request.POST.get('rac_mot')
             sch_nom_i = request.POST.get('sch_mot')
-            noms = Nom.objects.filter(
-                nom__icontains=nom_i, scheme_nom__scheme__icontains=sch_nom_i, racine_nom__rac__icontains=rac_nom_i)
+            if not rac_nom_i or not sch_nom_i:
+                messages.error(request, "Erreur d'insertion ")
+                return redirect(request.META.get('HTTP_REFERER', 'users/racine.html'))
+
+            noms = Nom.objects.filter(Q(nom__icontains=nom_i) | Q(
+                scheme_nom__scheme__icontains=sch_nom_i), Q(racine_nom__rac__icontains=rac_nom_i))
             mylist = noms
+            if not mylist:
+                messages.warning(
+                    request, "il y'a pas du nom avec ces caractéristique")
+                return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+
         else:
             ver_i = request.POST.get('mot')
             rac_ver_i = request.POST.get('rac_mot')
             sch_ver_i = request.POST.get('sch_mot')
             verbs = Verbe.objects.filter(
-                verbe__icontains=ver_i, scheme_ver__scheme__icontains=sch_ver_i, racine_ver__rac__icontains=rac_ver_i)
+                Q(verbe__icontains=ver_i) | Q(scheme_ver__scheme__icontains=sch_ver_i) | Q(racine_ver__rac__icontains=rac_ver_i))
             mylist = verbs
+            if not mylist:
+                messages.warning(
+                    request, "il y'a pas du verbe avec ces caractéristique")
+                return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
 
     if request.method == 'GET':
         lverbs = Verbe.objects.all()
@@ -327,7 +382,15 @@ def search_mot(request):
     if request.method != 'GET':
         raise Http404
 
-    return render(request, 'users/search-mot.html')
+    list_scheme = Scheme.objects.all()
+    list_racine = Racine.objects.all()
+
+    context = {
+
+        'list_scheme': list_scheme,
+        'list_racine': list_racine
+    }
+    return render(request, 'users/search-mot.html', context)
 ###############################
 
 
@@ -339,14 +402,14 @@ def racines(request):
 
         type = request.POST.get('type_rac', -1)
         racine = request.POST.get('rac', -1)
-        # id_r = request.POST.get('id_rac', -1)
-        if not type:
-            messages.error(request, "donner le type")
-            return render(request, 'users/search_rac.html')
-        racines = Racine.objects.filter(Q(type_rac__iexact=type), Q(
+
+        racines = Racine.objects.filter(Q(type_rac__iexact=type) | Q(
             rac__icontains=racine)).order_by('id_rac')
         if not racines:
-            return HttpResponse("Il y'a pas des racines ")
+            messages.warning(
+                request, "il ya pas des racines avec ces caracteristique")
+            return redirect(request.META.get('HTTP_REFERER', 'users/racine.html'))
+
     if request.method == 'GET':
         racines = Racine.objects.all()
 
@@ -391,7 +454,7 @@ def scheme(request):
             schemes = Scheme.objects.all()
             messages.error(
                 request, "il y'a pas des schemes avec ces conditions")
-            return render(request, 'users/scheme.html',)
+            return render(request, 'users/scheme.html')
     paginated_schemes = Paginator(schemes, 1)
     page_num = request.GET.get('page')
     schemes = paginated_schemes.get_page(page_num)
@@ -437,10 +500,9 @@ def ajouter_racine(request):
         type = request.POST.get('racine_type_rac')
         classe = request.POST.get('racine_classe')
 
-        if not type:
-            messages.warning(request, "le type est obligatoire")
-            if not racine_rac and not classe:
-                messages.warning(request, "donner des valeurs")
+        if not type or not racine_rac or not classe:
+            messages.error(request, "Erreur d'insertion")
+            return redirect(request.META.get('HTTP_REFERER', 'users/racine.html'))
 
         else:
             racine = Racine(rac=racine_rac, type_rac=type, classe_rac=classe)
@@ -462,19 +524,37 @@ def ajouter_scheme(request):
         units = Scheme._meta.get_field('unit').choices
         oras = Scheme._meta.get_field('ora').choices
         conjs = Scheme._meta.get_field('conj').choices
+        typs = Scheme._meta.get_field('typ').choices
 
         context = {
             'nombres': nombres,
             'units': units,
             'oras': oras,
-            'conjs': conjs
+            'conjs': conjs,
+            'typs': typs
+
         }
         return render(request, 'users/ajouter-scheme.html', context)
 
     if request.method == 'POST':
+        scheme_i = request.POST.get('scheme_sch')
+        nombre_i = request.POST.get('nb_choice')
+        scheme_ti = request.POST.get('type')
+        scheme_cli = request.POST.get('classe')
+        if not scheme_cli:
+            messages.warning(request, "La classe est obligatoire")
+            return redirect(request.META.get('HTTP_REFERER', 'users/scheme.html'))
+
+        if not scheme_ti:
+            messages.warning(request, "Donner le type")
+            return redirect(request.META.get('HTTP_REFERER', 'users/scheme.html'))
+
+        if not scheme_i and not nombre_i and not scheme_cli and not scheme_cli:
+            messages.error(request, "Erreur d'insertion")
+            return redirect(request.META.get('HTTP_REFERER', 'users/scheme.html'))
 
         scheme = Scheme(scheme=request.POST.get('scheme_sch'), sch_cons=request.POST.get('sch_cons'), sch_voy=request.POST.get('sch_voy'), nombre=request.POST.get('nb_choice'), unit=request.POST.get(
-            'unit_choice'), ora=request.POST.get('ora_choice'), conj=request.POST.get('conj_choice'), type_scheme=request.POST.get('type'), classe_sch=request.POST.get('classe'))
+            'unit_choice'), ora=request.POST.get('ora_choice'), conj=request.POST.get('conj_choice'), type_scheme=request.POST.get('type'), classe_sch=request.POST.get('classe'), typ=request.POST.get('typ_choice'))
         scheme.save()
         messages.success(request, "Vous avez ajouter un scheme avec succes")
         return redirect('/')
@@ -489,6 +569,11 @@ def ajouter_verb(request, id_m):
         if id_m == 1:
             scheme_v = request.POST.get('arg_schverb')
             racine_v = request.POST.get('arg_racverb')
+            verb_i = request.POST.get('ver')
+            if not scheme_v or not racine_v or not verb_i:
+                messages.error(request, "error d'insertion")
+                return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+
             verb = Verbe(verbe=request.POST.get('ver'), ver_cons=request.POST.get('ver_c'),
                          ver_voy=request.POST.get('ver_v'), scheme_ver=Scheme.objects.get(id_sch=scheme_v), racine_ver=Racine.objects.get(id_rac=racine_v))
             verb.save()
@@ -497,8 +582,11 @@ def ajouter_verb(request, id_m):
         elif id_m == 2:
             scheme_n = request.POST.get('arg_schnom')
             racine_n = request.POST.get('arg_racnom')
-            print('im here')
-            print(request.POST.get('arg_racnom'))
+            nom_i = request.POST.get('nom')
+            if not scheme_n or not racine_n or not nom_i:
+                messages.error(request, "error d'insertion:")
+                return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+
             nom = Nom(nom=request.POST.get('nom'), nom_cons=request.POST.get('nom_c'),
                       nom_voy=request.POST.get('nom_v'), scheme_nom=Scheme.objects.get(id_sch=scheme_n),
                       racine_nom=Racine.objects.get(id_rac=racine_n))
@@ -506,8 +594,8 @@ def ajouter_verb(request, id_m):
             messages.success(request, "Vous avez ajouter un nom avec succes")
 
     context = {
-        'list_verbs_scheme': Scheme.objects.all(),
-        'list_nom_scheme': Scheme.objects.all(),
+        'list_verbs_scheme': Scheme.objects.filter(type_scheme=1),
+        'list_nom_scheme': Scheme.objects.filter(type_scheme=2),
         'list_racines': Racine.objects.all()
     }
 
@@ -515,4 +603,142 @@ def ajouter_verb(request, id_m):
 
 ##########################################################
 
-# def edit_racine(index,id_rac):
+
+def edit_racine(request, id_rac):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+    racine = None
+    try:
+        racine = Racine.objects.get(id_rac=id_rac)
+    except Person.DoesNotExist:
+        return render(request, '/', {'error',  "Cette utilisateur n'existe pas"})
+    if request.method == 'GET':
+        return render(request, 'users/edit-racine.html', {'racine': racine})
+    if request.method == 'POST':
+        racine.rac = request.POST['e_rac']
+        racine.type_rac = request.POST['e_rac_t']
+        racine.classe_rac = request.POST['e_rac_c']
+        racine.save()
+        messages.info(request, "Vous avez modifier avec succes")
+        return render(request, 'users/edit-racine.html', {'racine': racine})
+
+
+def edit_scheme(request, id_sch):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+    try:
+        scheme = Scheme.objects.get(id_sch=id_sch)
+    except Person.DoesNotExist:
+        return render(request, '/', {'error',  "Cette utilisateur n'existe pas"})
+    if request.method == 'GET':
+        nombres = Scheme._meta.get_field('nombre').choices
+        units = Scheme._meta.get_field('unit').choices
+        oras = Scheme._meta.get_field('ora').choices
+        conjs = Scheme._meta.get_field('conj').choices
+        typs = Scheme._meta.get_field('typ').choices
+        context = {
+            'scheme': scheme,
+            'nombres': nombres,
+            'units': units,
+            'oras': oras,
+            'conjs': conjs,
+            'typs': typs,
+        }
+        return render(request, 'users/edit-scheme.html', context)
+
+    if request.method == 'POST':
+
+        scheme.scheme = request.POST['sch_e']
+        scheme.type_scheme = request.POST['sch_t_e']
+        scheme.classe_sch = request.POST['sch_c_e']
+        scheme.nombre = request.POST['nb_choice_e']
+        scheme.unit = request.POST['unit_choice_e']
+        scheme.ora = request.POST['ora_choice_e']
+        scheme.conj = request.POST['conj_choice_e']
+        scheme.typ = request.POST['typ_choice_e']
+        scheme.save()
+
+        messages.info(request, "Vous avez modifier avec succes")
+
+        nombres = Scheme._meta.get_field('nombre').choices
+        units = Scheme._meta.get_field('unit').choices
+        oras = Scheme._meta.get_field('ora').choices
+        conjs = Scheme._meta.get_field('conj').choices
+        typs = Scheme._meta.get_field('typ').choices
+        context = {
+            'nombres': nombres,
+            'units': units,
+            'oras': oras,
+            'conjs': conjs,
+            'typs': typs,
+            'scheme': scheme
+        }
+        return render(request, 'users/edit-scheme.html', context)
+
+
+def edit_verbe(request, id_ver):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+    try:
+        verb = Verbe.objects.get(id_ver=id_ver)
+    except Person.DoesNotExist:
+        return render(request, '/', {'error',  "Cet verbe n'existe pas"})
+
+    if request.method == 'GET':
+        context = {
+            'verb': verb
+        }
+        return render(request, 'users/edit-verbe.html', context)
+    if request.method == 'POST':
+        scheme_v = request.POST.get('sch_ver_ed')
+        racine_v = request.POST.get('rac_ver_ed')
+        try:
+            scheme_e = Scheme.objects.filter(scheme=scheme_v).get()
+            racine_e = Racine.objects.filter(rac=racine_v).get()
+        except Scheme.DoesNotExist or Racine.DoesNotExist:
+            messages.error(
+                request, "Vous ne pouvez pas utiliser ce schème ou racine (n'existe pas)")
+            return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+        verb.verbe = request.POST['v_ed']
+        verb.ver_cons = request.POST['v_con_ed']
+        verb.ver_voy = request.POST['v_voy_ed']
+        verb.scheme_ver = scheme_e
+        verb.racine_ver = racine_e
+        verb.save()
+        messages.success(request, "Vous avez modifier ce verbe avec succes")
+        return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+
+
+def edit_nom(request, id_nom):
+    if request.method != 'GET' and request.method != 'POST':
+        raise Http404
+    try:
+        nom = Nom.objects.get(id_nom=id_nom)
+    except Person.DoesNotExist:
+        return render(request, '/', {'error',  "Cet nom n'existe pas"})
+
+    if request.method == 'GET':
+        context = {
+            'nom': nom
+        }
+        return render(request, 'users/edit-nom.html', context)
+
+    if request.method == 'POST':
+        scheme_n = request.POST.get('sch_nom_ed')
+        racine_n = request.POST.get('rac_nom_ed')
+        try:
+            scheme_n_e = Scheme.objects.filter(scheme=scheme_n).get()
+            racine_n_e = Racine.objects.filter(rac=racine_n).get()
+        except Scheme.DoesNotExist or Racine.DoesNotExist:
+            messages.error(
+                request, "Vous ne pouvez pas utiliser ce schème ou racine (n'existe pas)")
+            return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+
+        nom.nom = request.POST['n_ed']
+        nom.scheme_ver = scheme_n_e
+        nom.racine_ver = racine_n_e
+        nom.nom_cons = request.POST['n_con_ed']
+        nom.nom_voy = request.POST['n_voy_ed']
+        nom.save()
+        messages.success(request, "Vous avez modifier ce nom avec succes")
+        return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))

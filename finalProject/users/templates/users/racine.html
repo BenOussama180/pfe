@@ -54,7 +54,7 @@
                                 </label>
                                 <div class="col-lg-9 col-xl-6">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                        value="{{racine.id_rac}}" disabled />
+                                        value="{{racine.type_rac}}" disabled />
                                 </div>
                             </div>
                             <!--end::Content-->
@@ -146,17 +146,16 @@
                                 <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3"
                                     disabled>{{racine.classe_rac}}
                                 </textarea>
-                                {% endfor %}
+
 
                             </div>
-                            <a href="{% url 'racine_search' %}"><button class="btn btn-secondary">SEARCH
-                                    RACINE</button></a>
 
-                            
-                            <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
-                            <!--end::Lable-->
                         </div>
-                        <!--end::Item-->
+                        <a href="{% url 'racine_search' %}"><button class="btn btn-secondary">SEARCH
+                                RACINE</button></a>
+                        <a href="{% url 'edit_racine'  racine.id_rac %}"> <button class="btn btn-info"
+                                id="ver-ed-rac">modifier racine</button></a>
+                        {% endfor %}
 
 
 
