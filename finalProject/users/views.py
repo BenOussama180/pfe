@@ -701,8 +701,8 @@ def edit_verbe(request, id_ver):
         verb.verbe = request.POST['v_ed']
         verb.ver_cons = request.POST['v_con_ed']
         verb.ver_voy = request.POST['v_voy_ed']
-        verb.scheme_ver = scheme_e
-        verb.racine_ver = racine_e
+        verb.scheme_ver = Scheme.objects.filter(scheme=scheme_v).get()
+        verb.racine_ver = Racine.objects.filter(rac=racine_v).get()
         verb.save()
         messages.success(request, "Vous avez modifier ce verbe avec succes")
         return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
@@ -736,8 +736,8 @@ def edit_nom(request, id_nom):
             return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
 
         nom.nom = request.POST['n_ed']
-        nom.scheme_ver = scheme_n_e
-        nom.racine_ver = racine_n_e
+        nom.scheme_ver = Scheme.objects.filter(scheme=scheme_n).get()
+        nom.racine_ver = Racine.objects.filter(rac=racine_n).get()
         nom.nom_cons = request.POST['n_con_ed']
         nom.nom_voy = request.POST['n_voy_ed']
         nom.save()
