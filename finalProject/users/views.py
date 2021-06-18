@@ -216,29 +216,29 @@ def import_db(request):
 #     return render(request, 'users/import-db.html')
 
 
-def Parse_txt(request, format=None):
-    try:
-        txt_file = request.FILES['file_txt']
-    except MultiValueDictKeyError:
-        messages.error(request, 'Votre Upload a mal tourné')
-        return render(request, 'users/import-db.html')
-    if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
-        lines = txt_file.readlines()
-        glines = (line.strip() for line in lines)
-        for line in glines:
-            fields = line.split(";".encode())
-            Racine.objects.create(
-                rac=fields[1].decode(),
-                type_rac=fields[2].decode(),
-                classe_rac=fields[3].decode()
-            )
-        messages.success(
-            request, 'Votre base de donnée a bien été Sauvegardé!')
-        return render(request, 'users/import-db.html')
+# def Parse_txt(request, format=None):
+#     try:
+#         txt_file = request.FILES['file_txt']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/import-db.html')
+#     if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
+#         lines = txt_file.readlines()
+#         glines = (line.strip() for line in lines)
+#         for line in glines:
+#             fields = line.split(";".encode())
+#             Racine.objects.create(
+#                 rac=fields[1].decode(),
+#                 type_rac=fields[2].decode(),
+#                 classe_rac=fields[3].decode()
+#             )
+#         messages.success(
+#             request, 'Votre base de donnée a bien été Sauvegardé!')
+#         return render(request, 'users/import-db.html')
 
-    else:
-        messages.info(request, 'Veuillez importer un fichier de type Text')
-        return render(request, 'users/import-db.html')
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Text')
+#         return render(request, 'users/import-db.html')
 
 
 def Parse_xml(request):
@@ -265,7 +265,173 @@ def Parse_xml(request):
         return render(request, 'users/import-db.html')
 #######################################################################################
 
+###################scheme parsing ##################
+# def Parse_xl(request):
+#     try:
+#         excel_file = request.FILES['myfile']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/importdb.html')
 
+#     if (str(excel_file).split('.')[-1] == "xls"):
+#         data = xls_get(excel_file, column_limit=20)
+#     elif (str(excel_file).split('.')[-1] == "xlsx"):
+#         data = xlsx_get(excel_file, column_limit=20)
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Excel')
+#         return render(request, 'users/importdb.html')
+#     schemes = data["Worksheet"]
+#     if (len(schemes) > 1):
+#         for Worksheet in schemes:
+#             if (len(Worksheet) > 0):
+#                 if (Worksheet[0] != "id_sch"):
+#                     if (len(Worksheet) < 11):
+#                         i = len(Worksheet)
+#                         while (i < 11):
+#                             Worksheet.append("")
+#                             i += 1
+#                     c = Scheme.objects.filter(scheme=Worksheet[3])
+#                     bools = isinstance(Worksheet[4], (int, float))
+#                     if bools != True:
+#                         Worksheet[4] = 3
+#                     if (c.count() == 0):
+#                         Scheme.objects.create(
+#                             sch_cons=Worksheet[1],
+#                             sch_voy=Worksheet[2],
+#                             scheme=Worksheet[3],
+#                             type_scheme=Worksheet[4],
+#                             classe_sch=Worksheet[5],
+#                             nombre=Worksheet[6],
+#                             unit=Worksheet[7],
+#                             ora=Worksheet[8],
+#                             conj=Worksheet[9],
+#                             typ=Worksheet[10]
+#                         )
+#                         messages.success(
+#                             request, 'Votre base de donnée a bien été Sauvegardé!')
+#                         return render(request, 'users/import-db.html')
+
+############################################
+
+
+# def Parse_txt(request, format=None):
+#     try:
+#         txt_file = request.FILES['file_txt']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/import-db.html')
+#     if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
+#         lines = txt_file.readlines()
+#         glines = (line.strip() for line in lines)
+#         for line in glines:
+#             fields = line.split(";".encode())
+#             Scheme.objects.create(
+#                 sch_cons=fields[1].decode(),
+#                 sch_voy=fields[2].decode(),
+#                 scheme=fields[3].decode(),
+#                 type_scheme=fields[4].decode(),
+#                 classe_sch=fields[5].decode(),
+#                 nombre=fields[6].decode(),
+#                 unit=fields[7].decode(),
+#                 ora=fields[8].decode(),
+#                 conj=fields[9].decode(),
+#                 typ=fields[10].decode()
+#             )
+#         messages.success(
+#             request, 'Votre base de donnée a bien été Sauvegardé!')
+#         return render(request, 'users/import-db.html')
+
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Text')
+#         return render(request, 'users/import-db.html')
+
+###############################################3 nom ############################################
+##############################################################
+
+
+# def Parse_xl(request):
+#     try:
+#         excel_file = request.FILES['myfile']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/importdb.html')
+
+#     if (str(excel_file).split('.')[-1] == "xls"):
+#         data = xls_get(excel_file, column_limit=20)
+#     elif (str(excel_file).split('.')[-1] == "xlsx"):
+#         data = xlsx_get(excel_file, column_limit=20)
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Excel')
+#         return render(request, 'users/importdb.html')
+#     noms = data["Worksheet"]
+#     if (len(noms) > 1):
+#         for Worksheet in noms:
+#             if (len(Worksheet) > 0):
+#                 if (Worksheet[0] != "id_sch"):
+#                     if (len(Worksheet) < 11):
+#                         i = len(Worksheet)
+#                         while (i < 11):
+#                             Worksheet.append("")
+#                             i += 1
+#                     c = Nom.objects.filter(nom=Worksheet[1])
+#                     try:
+#                         scheme_n = Scheme.objects.get(scheme=Worksheet[4])
+#                         racine_i = Racine.objects.get(rac=Worksheet[5])
+#                     except Scheme.DoesNotExist or Racine.DoesNotExist:
+#                         messages.warning(
+#                             request, "un des racines ou schemes n'existe pas")
+
+#                     if (c.count() == 0):
+#                         Nom.objects.create(
+#                             nom=Worksheet[1],
+#                             nom_cons=Worksheet[2],
+#                             nom_voy=Worksheet[3],
+#                             scheme_nom=scheme_n,
+#                             racine_nom=racine_i
+#                         )
+#                     messages.success(
+#                         request, 'Votre base de donnée a bien été Sauvegardé!')
+#                     return render(request, 'users/import-db.html')
+
+# ###############################
+
+
+# def Parse_txt(request, format=None):
+#     try:
+#         txt_file = request.FILES['file_txt']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/import-db.html')
+#     if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
+#         lines = txt_file.readlines()
+#         glines = (line.strip() for line in lines)
+#         for line in glines:
+#             fields = line.split(";".encode())
+#             try:
+#                 scheme_n = Scheme.objects.get(scheme=fields[4].decode())
+#                 racine_i = Racine.objects.get(rac=fields[5].decode())
+#             except Scheme.DoesNotExist or Racine.DoesNotExist:
+#                 messages.warning(
+#                     request, "un des racines ou schemes n'existe pas")
+#                 return render(request, 'users/import-db.html')
+#             Nom.objects.create(
+#                 nom=fields[1].decode(),
+#                 nom_cons=fields[2].decode(),
+#                 nom_voy=fields[3].decode(),
+#                 scheme_nom=scheme_n,
+#                 racine_nom=racine_i
+#             )
+#         messages.success(
+#             request, 'Votre base de donnée a bien été Sauvegardé!')
+#         return render(request, 'users/import-db.html')
+
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Text')
+#         return render(request, 'users/import-db.html')
+
+
+########################### Verbe #################################
+###################################################################
 def Parse_xl(request):
     try:
         excel_file = request.FILES['myfile']
@@ -280,38 +446,73 @@ def Parse_xl(request):
     else:
         messages.info(request, 'Veuillez importer un fichier de type Excel')
         return render(request, 'users/importdb.html')
-    schemes = data["Worksheet"]
-    if (len(schemes) > 1):
-        for Worksheet in schemes:
+    verbs = data["Worksheet"]
+    if (len(verbs) > 1):
+        for Worksheet in verbs:
             if (len(Worksheet) > 0):
-                if (Worksheet[0] != "id_sch"):
+                if (Worksheet[0] != "id_ver"):
                     if (len(Worksheet) < 11):
                         i = len(Worksheet)
                         while (i < 11):
                             Worksheet.append("")
                             i += 1
-                    c = Scheme.objects.filter(scheme=Worksheet[3])
-                    bools = isinstance(Worksheet[4], (int, float))
-                    if bools != True:
-                        Worksheet[4] = 3
-                    if (c.count() == 0):
-                        Scheme.objects.create(
-                            sch_cons=Worksheet[1],
-                            sch_voy=Worksheet[2],
-                            scheme=Worksheet[3],
-                            type_scheme=Worksheet[4],
-                            classe_sch=Worksheet[5],
-                            nombre=Worksheet[6],
-                            unit=Worksheet[7],
-                            ora=Worksheet[8],
-                            conj=Worksheet[9],
-                            typ=Worksheet[10]
-                        )
-                        messages.success(
-                            request, 'Votre base de donnée a bien été Sauvegardé!')
+                    c = Verbe.objects.filter(nom=Worksheet[1])
+                    try:
+                        scheme_n = Scheme.objects.get(scheme=Worksheet[4])
+                        racine_i = Racine.objects.get(rac=Worksheet[5])
+                    except Scheme.DoesNotExist or Racine.DoesNotExist:
+                        messages.warning(
+                            request, "un des racines ou schemes n'existe pas")
                         return render(request, 'users/import-db.html')
 
+                    if (c.count() == 0):
+                        Verbe.objects.create(
+                            verbe=Worksheet[1],
+                            ver_cons=Worksheet[2],
+                            ver_voy=Worksheet[3],
+                            scheme_ver=scheme_n,
+                            racine_ver=racine_i
+                        )
+                    messages.success(
+                        request, 'Votre base de donnée a bien été Sauvegardé!')
+                    return render(request, 'users/import-db.html')
 
+
+def Parse_txt(request, format=None):
+    try:
+        txt_file = request.FILES['file_txt']
+    except MultiValueDictKeyError:
+        messages.error(request, 'Votre Upload a mal tourné')
+        return render(request, 'users/import-db.html')
+    if (str(request.FILES['file_txt']).split('.')[-1] == "txt"):
+        lines = txt_file.readlines()
+        glines = (line.strip() for line in lines)
+        for line in glines:
+            fields = line.split(";".encode())
+            try:
+                scheme_n = Scheme.objects.get(scheme=fields[4].decode())
+                racine_i = Racine.objects.get(rac=fields[5].decode())
+            except Scheme.DoesNotExist or Racine.DoesNotExist:
+                messages.warning(
+                    request, "un des racines ou schemes n'existe pas")
+                return render(request, 'users/import-db.html')
+            Verbe.objects.create(
+                verbe=fields[1].decode(),
+                ver_cons=fields[2].decode(),
+                ver_voy=fields[3].decode(),
+                scheme_ver=scheme_n,
+                racine_ver=racine_i
+            )
+        messages.success(
+            request, 'Votre base de donnée a bien été Sauvegardé!')
+        return render(request, 'users/import-db.html')
+
+    else:
+        messages.info(request, 'Veuillez importer un fichier de type Text')
+        return render(request, 'users/import-db.html')
+
+
+##################################################################
 def display(request):
     if request.method != 'GET' and request.method != 'POST':
         raise Http404
