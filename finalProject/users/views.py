@@ -27,6 +27,7 @@ from pyexcel_xlsx import get_data as xlsx_get
 from xml.etree import ElementTree as ET
 from django.http import Http404
 from itertools import chain
+from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 
@@ -177,42 +178,42 @@ def import_db(request):
     return render(request, 'users/import-db.html')
 
 
-def Parse_xl(request, format=None):
-    try:
-        excel_file = request.FILES['myfile']
-    except MultiValueDictKeyError:
-        messages.error(request, 'Votre Upload a mal tourné')
-        return render(request, 'users/importdb.html')
+# def Parse_xl(request, format=None):
+#     try:
+#         excel_file = request.FILES['myfile']
+#     except MultiValueDictKeyError:
+#         messages.error(request, 'Votre Upload a mal tourné')
+#         return render(request, 'users/importdb.html')
 
-    if (str(excel_file).split('.')[-1] == "xls"):
-        data = xls_get(excel_file, column_limit=5)
-    elif (str(excel_file).split('.')[-1] == "xlsx"):
-        data = xlsx_get(excel_file, column_limit=5)
-    else:
-        messages.info(request, 'Veuillez importer un fichier de type Excel')
-        return render(request, 'users/importdb.html')
-    Racines = data["Worksheet"]
-    if (len(Racines) > 1):
-        for Worksheet in Racines:
-            if (len(Worksheet) > 0):
-                if (Worksheet[0] != "id"):
-                    if (len(Worksheet) < 5):
-                        i = len(Worksheet)
-                        while (i < 5):
-                            Worksheet.append("")
-                            i += 1
-                    c = Racine.objects.filter(rac=Worksheet[1])
-                    bools = isinstance(Worksheet[2], (int, float))
-                    if bools != True:
-                        Worksheet[2] = 3
-                    if (c.count() == 0):
-                        Racine.objects.create(
-                            rac=Worksheet[1],
-                            type_rac=Worksheet[2],
-                            classe_rac=Worksheet[3]
-                        )
-    messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
-    return render(request, 'users/import-db.html')
+#     if (str(excel_file).split('.')[-1] == "xls"):
+#         data = xls_get(excel_file, column_limit=5)
+#     elif (str(excel_file).split('.')[-1] == "xlsx"):
+#         data = xlsx_get(excel_file, column_limit=5)
+#     else:
+#         messages.info(request, 'Veuillez importer un fichier de type Excel')
+#         return render(request, 'users/importdb.html')
+#     Racines = data["Worksheet"]
+#     if (len(Racines) > 1):
+#         for Worksheet in Racines:
+#             if (len(Worksheet) > 0):
+#                 if (Worksheet[0] != "id"):
+#                     if (len(Worksheet) < 5):
+#                         i = len(Worksheet)
+#                         while (i < 5):
+#                             Worksheet.append("")
+#                             i += 1
+#                     c = Racine.objects.filter(rac=Worksheet[1])
+#                     bools = isinstance(Worksheet[2], (int, float))
+#                     if bools != True:
+#                         Worksheet[2] = 3
+#                     if (c.count() == 0):
+#                         Racine.objects.create(
+#                             rac=Worksheet[1],
+#                             type_rac=Worksheet[2],
+#                             classe_rac=Worksheet[3]
+#                         )
+#     messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
+#     return render(request, 'users/import-db.html')
 
 
 def Parse_txt(request, format=None):
@@ -263,42 +264,52 @@ def Parse_xml(request):
         messages.info(request, 'Veuillez importer un fichier de type XML')
         return render(request, 'users/import-db.html')
 #######################################################################################
-# def Parse_xl_scheme(request):
-#     try:
-#         excel_file = request.FILES['myfile_sch']
-#     except MultiValueDictKeyError:
-#         messages.error(request, 'Votre Upload a mal tourné')
-#         return render(request, 'users/importdb.html')
 
-#     if (str(excel_file).split('.')[-1] == "xls"):
-#         data = xls_get(excel_file, column_limit=5)
-#     elif (str(excel_file).split('.')[-1] == "xlsx"):
-#         data = xlsx_get(excel_file, column_limit=5)
-#     else:
-#         messages.info(request, 'Veuillez importer un fichier de type Excel')
-#         return render(request, 'users/importdb.html')
-#     Racines = data["Worksheet"]
-#     if (len(Racines) > 1):
-#         for Worksheet in Racines:
-#             if (len(Worksheet) > 0):
-#                 if (Worksheet[0] != "id"):
-#                     if (len(Worksheet) < 5):
-#                         i = len(Worksheet)
-#                         while (i < 5):
-#                             Worksheet.append("")
-#                             i += 1
-#                     c = Racine.objects.filter(rac=Worksheet[1])
-#                     bools = isinstance(Worksheet[2], (int, float))
-#                     if bools != True:
-#                         Worksheet[2] = 3
-#                     if (c.count() == 0):
-#                         Racine.objects.create(
-#                             rac=Worksheet[1],
-#                             type_rac=Worksheet[2],
-#                             classe_rac=Worksheet[3]
-#                         )
-#     messages.success(request, 'Votre base de donnée a bien été Sauvegardé!')
-#     return render(request, 'users/import-db.html')
+
+def Parse_xl(request):
+    try:
+        excel_file = request.FILES['myfile']
+    except MultiValueDictKeyError:
+        messages.error(request, 'Votre Upload a mal tourné')
+        return render(request, 'users/importdb.html')
+
+    if (str(excel_file).split('.')[-1] == "xls"):
+        data = xls_get(excel_file, column_limit=20)
+    elif (str(excel_file).split('.')[-1] == "xlsx"):
+        data = xlsx_get(excel_file, column_limit=20)
+    else:
+        messages.info(request, 'Veuillez importer un fichier de type Excel')
+        return render(request, 'users/importdb.html')
+    schemes = data["Worksheet"]
+    if (len(schemes) > 1):
+        for Worksheet in schemes:
+            if (len(Worksheet) > 0):
+                if (Worksheet[0] != "id_sch"):
+                    if (len(Worksheet) < 11):
+                        i = len(Worksheet)
+                        while (i < 11):
+                            Worksheet.append("")
+                            i += 1
+                    c = Scheme.objects.filter(scheme=Worksheet[3])
+                    bools = isinstance(Worksheet[4], (int, float))
+                    if bools != True:
+                        Worksheet[4] = 3
+                    if (c.count() == 0):
+                        Scheme.objects.create(
+                            sch_cons=Worksheet[1],
+                            sch_voy=Worksheet[2],
+                            scheme=Worksheet[3],
+                            type_scheme=Worksheet[4],
+                            classe_sch=Worksheet[5],
+                            nombre=Worksheet[6],
+                            unit=Worksheet[7],
+                            ora=Worksheet[8],
+                            conj=Worksheet[9],
+                            typ=Worksheet[10]
+                        )
+                        messages.success(
+                            request, 'Votre base de donnée a bien été Sauvegardé!')
+                        return render(request, 'users/import-db.html')
 
 
 def display(request):
@@ -567,9 +578,9 @@ def ajouter_verb(request, id_m):
 
     if request.method == 'POST':
         if id_m == 1:
-            scheme_v = request.POST.get('arg_schverb')
-            racine_v = request.POST.get('arg_racverb')
-            verb_i = request.POST.get('ver')
+            scheme_v = request.POST['arg_schverb']
+            racine_v = request.POST['arg_racverb']
+            verb_i = request.POST['ver']
             if not scheme_v or not racine_v or not verb_i:
                 messages.error(request, "error d'insertion")
                 return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
@@ -580,9 +591,9 @@ def ajouter_verb(request, id_m):
             messages.success(request, "Vous avez ajouter un verbe avec succes")
 
         elif id_m == 2:
-            scheme_n = request.POST.get('arg_schnom')
-            racine_n = request.POST.get('arg_racnom')
-            nom_i = request.POST.get('nom')
+            scheme_n = request.POST['arg_schnom']
+            racine_n = request.POST['arg_racnom']
+            nom_i = request.POST['nom']
             if not scheme_n or not racine_n or not nom_i:
                 messages.error(request, "error d'insertion:")
                 return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
@@ -701,8 +712,13 @@ def edit_verbe(request, id_ver):
         verb.verbe = request.POST['v_ed']
         verb.ver_cons = request.POST['v_con_ed']
         verb.ver_voy = request.POST['v_voy_ed']
-        verb.scheme_ver = Scheme.objects.filter(scheme=scheme_v).get()
-        verb.racine_ver = Racine.objects.filter(rac=racine_v).get()
+        try:
+            verb.scheme_ver = Scheme.objects.filter(scheme=scheme_v).get()
+            verb.racine_ver = Racine.objects.filter(rac=racine_v).get()
+        except MultipleObjectsReturned:
+            messages.warning(request, "racine ou scheme multiplier")
+            return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
+
         verb.save()
         messages.success(request, "Vous avez modifier ce verbe avec succes")
         return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
@@ -736,8 +752,12 @@ def edit_nom(request, id_nom):
             return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
 
         nom.nom = request.POST['n_ed']
-        nom.scheme_ver = Scheme.objects.filter(scheme=scheme_n).get()
-        nom.racine_ver = Racine.objects.filter(rac=racine_n).get()
+        try:
+            nom.scheme_ver = Scheme.objects.filter(scheme=scheme_n).get()
+            nom.racine_ver = Racine.objects.filter(rac=racine_n).get()
+        except MultipleObjectsReturned:
+            messages.warning(request, "racine ou scheme multiplier")
+            return redirect(request.META.get('HTTP_REFERER', 'users/dict-arabe.html'))
         nom.nom_cons = request.POST['n_con_ed']
         nom.nom_voy = request.POST['n_voy_ed']
         nom.save()
