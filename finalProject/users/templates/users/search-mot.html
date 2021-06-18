@@ -50,8 +50,8 @@
                             </div>
                             <br>
                             <img src="{% static '/ar_pic.png' %}" class="pb-10" alt="">
-
-                            <form action="/users/dict-arabe/" name="form_mot" method="POST">
+                            <!-- name="form_mot"  -->
+                            <form action="/users/dict-arabe/" method="POST">
                                 {% csrf_token %}
                                 <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 text-right col-form-label">Mot: </label>

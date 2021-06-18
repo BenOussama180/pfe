@@ -354,8 +354,8 @@ def arabedic(request):
                 messages.error(request, "Erreur d'insertion ")
                 return redirect(request.META.get('HTTP_REFERER', 'users/racine.html'))
 
-            noms = Nom.objects.filter(Q(nom__icontains=nom_i) | Q(
-                scheme_nom__scheme__icontains=sch_nom_i), Q(racine_nom__rac__icontains=rac_nom_i))
+            noms = Nom.objects.filter(Q(nom__icontains=nom_i), Q(
+                scheme_nom__scheme__iexact=sch_nom_i) | Q(racine_nom__rac__iexact=rac_nom_i)).order_by('id_nom')
             mylist = noms
             if not mylist:
                 messages.warning(
@@ -367,7 +367,7 @@ def arabedic(request):
             rac_ver_i = request.POST.get('rac_mot')
             sch_ver_i = request.POST.get('sch_mot')
             verbs = Verbe.objects.filter(
-                Q(verbe__icontains=ver_i) | Q(scheme_ver__scheme__icontains=sch_ver_i) | Q(racine_ver__rac__icontains=rac_ver_i))
+                Q(verbe__icontains=ver_i) | Q(scheme_ver__scheme__iexact=sch_ver_i) | Q(racine_ver__rac__iexact=rac_ver_i)).order_by('id_ver')
             mylist = verbs
             if not mylist:
                 messages.warning(
