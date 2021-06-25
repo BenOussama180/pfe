@@ -73,7 +73,7 @@
                                 <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom: </label>
                                 <div class="col-lg-9 col-xl-6">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                        name="nom" required />
+                                        name="nom" id="n_aj" required />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -106,7 +106,7 @@
                                 </label>
                                 <select name="arg_racnom" id="rac_n">
                                     {% for lnom in list_racines %}
-                                    <option value="{{ lnom.id_sch }}"> {{ lnom.rac }}</option>
+                                    <option value="{{ lnom.id_rac }}"> {{ lnom.rac }}</option>
                                     {% endfor %}
                                 </select>
 

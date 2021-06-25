@@ -23,27 +23,27 @@ class PersonFilter(django_filters.FilterSet):
 ##############
 
 
-class VerbeFilter(django_filters.FilterSet):
-    id_ver = CharFilter(field_name="id_ver", lookup_expr='iexact')
-    verbe = CharFilter(field_name="verbe", lookup_expr='icontains')
-    ver_cons = CharFilter(field_name="ver_voy", lookup_expr='icontains')
-    ver_voy = CharFilter(field_name="ver_voy", lookup_expr='icontains')
-    class Meta:
-        model = Verbe
-        fields = '__all__'
-        exclude = ['id_ver', 'verbe', 'ver_cons', 'ver_voy']
+# class VerbeFilter(django_filters.FilterSet):
+#     id_ver = CharFilter(field_name="id_ver", lookup_expr='iexact')
+#     verbe = CharFilter(field_name="verbe", lookup_expr='icontains')
+#     ver_cons = CharFilter(field_name="ver_voy", lookup_expr='icontains')
+#     ver_voy = CharFilter(field_name="ver_voy", lookup_expr='icontains')
+#     class Meta:
+#         model = Verbe
+#         fields = '__all__'
+#         exclude = ['id_ver', 'verbe', 'ver_cons', 'ver_voy']
 
 
-class NomFilter(django_filters.FilterSet):
-    id_nom = CharFilter(field_name="id_nom", lookup_expr='iexact')
-    nom = CharFilter(field_name="nom", lookup_expr='icontains')
-    nom_cons = CharFilter(field_name="nom_voy", lookup_expr='icontains')
-    nom_voy = CharFilter(field_name="nom_voy", lookup_expr='icontains')
+# class NomFilter(django_filters.FilterSet):
+#     id_nom = CharFilter(field_name="id_nom", lookup_expr='iexact')
+#     nom = CharFilter(field_name="nom", lookup_expr='icontains')
+#     nom_cons = CharFilter(field_name="nom_voy", lookup_expr='icontains')
+#     nom_voy = CharFilter(field_name="nom_voy", lookup_expr='icontains')
 
-    class Meta:
-        model = Nom
-        fields = '__all__'
-        exclude = ['id_nom', 'nom', 'nom_cons', 'nom_voy']
+#     class Meta:
+#         model = Nom
+#         fields = '__all__'
+#         exclude = ['id_nom', 'nom', 'nom_cons', 'nom_voy']
 
 
 class RacineFilter(django_filters.FilterSet):

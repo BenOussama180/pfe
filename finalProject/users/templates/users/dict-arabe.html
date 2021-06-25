@@ -183,7 +183,13 @@
                                 </a>
                                 </li>
                                 <li class="nav-item mr-3">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" 
+                                    href="
+                                    {% if obj.nom %}
+                                      users/edit-nom/{{obj.id_nom}}
+                                    {% elif obj.verbe %}
+                                      users/edit-verbe/{{obj.id_ver}}
+                                    {% endif%}">
                                       <span class="nav-text text-warning font-weight-bold">تغيير</span>
                                       <span class="nav-icon mr-2">
                                         <span class="svg-icon svg-icon-warning mr-3">
