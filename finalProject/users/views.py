@@ -353,6 +353,8 @@ def export_xml_nom(request):
 #######################################################################
 def import_db(request):
     return render(request, 'users/import-db.html')
+def accueil(request):
+    return render(request, 'users/accueil.html')
 
 def import2(request):
     return render(request, 'users/import2.html')

@@ -70,6 +70,7 @@ urlpatterns = [
     ######################################################
 
     path('display/', views.display, name='display'),
+    path('accueil/', views.accueil, name='accueil'),
 
     path('dict-arabe/', views.arabedic, name='arabedic'),
     path('racine/', views.racines, name='racines'),
