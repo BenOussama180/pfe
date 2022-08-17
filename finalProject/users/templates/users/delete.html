@@ -3,6 +3,8 @@
  {% load static %}
 
 <br /><br>
+<div class="container">
+
 <div class="container col-md">
     <div class="alert alert-dismissible alert-danger">
         <strong>Êtes vous</strong>
@@ -10,7 +12,7 @@
     </div>
     <form action="" method="post">
         {% csrf_token %}
-        <a href="/" class="btn btn-outline-warning">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+        <a href="javascript: history.go(-1)" class="btn btn-outline-warning">Annuler <i class="fas fa-lg fa-backspace"></i></a>
         <input type="submit" name="confirm" class="btn btn-outline-danger" />
     </form>
 </div>
