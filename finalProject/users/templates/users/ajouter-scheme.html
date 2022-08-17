@@ -1,0 +1,130 @@
+{% extends 'users/layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ajouter un  Schème</h5>
+                        <form action="{% url 'ajouter_scheme' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Schème: </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="scheme_sch" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Type: </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="number"
+                                        name="type" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Classe: </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="classe" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">sch_cons:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="sch_cons" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">sch_voy:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                        name="sch_voy" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Nombre:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <select name="nb_choice">
+                                        {% for obj in nombres %}
+
+                                        <option value="{{ obj }}">{{ obj }}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">UNIT:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <select name="unit_choice">
+                                        {% for obj in units %}
+
+                                        <option value="{{ obj }}">{{ obj }}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">ORAleure:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <select name="ora_choice">
+                                        {% for obj in oras %}
+
+                                        <option value="{{ obj }}">{{ obj }}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 text-right col-form-label">Conj:
+                                </label>
+                                <div class="col-lg-9 col-xl-6">
+                                    <select name="conj_choice">
+                                        {% for obj in conjs %}
+
+                                        <option value="{{ obj }}">{{ obj }}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-lg" type="submit">
+                                 Submit <i class="fas fa-save"></i>
+                                </button>
+                                <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+                          
+                              </div>
+                        </form>
+                        <div class="separator separator-dashed"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

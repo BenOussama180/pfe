@@ -1,53 +1,47 @@
-{% extends 'users/layout.html' %} 
+{% extends 'users/layout.html' %}
 {% block content %}
 {% load static %}
-<form method="GET" action="">
+{% load users_extras %}
+{% load widget_tweaks %}
 
-            
-<!-- ******************************************************* -->
-    <div class="form">
-        {{filtered_qs.form}}
-        <br><button class="btn btn-block btn-info">
-            Cherche <i class="fas fa-lg fa-search"></i>
-          </button>
-    </div>
-    <!-- <div>
-    <label for="name">nom</label>
-    <input type="text" name="name" id="name">
-    </div>
-    <div>
-        <label for="prenom">prenom</label>
-        <input type="text" name="prenom" id="prenom">
-        </div>
-    <div>
-        <label for="email">email</label>
-        <input type="text" name="email" id="email">
-    </div>
-    <div>
-        <label for="city">nom</label>
-        <input type="text" name="city" id="city">
-    </div> 
-     -->
-    <!-- <button type="submit" class="btn btn-block btn-info" value="press" > Chercher </button> -->
-</form>
-<br>
+<div class="container">
+    <div class="flex-row-fluid ml-lg-8">
+        <!--begin::Card-->
+        
+        <div class="card card-custom gutter-bs">
+          <!--Begin::Header-->
+          <div class="container">
+          <div class="card-toolbar">
+            <br>
+         <h3 class=" text-info">Chercher un Utilisateur :</h3>
 
-{% for user in user_page_obj %}
-<div>
-    <label for="name">nammeee </label>
-    <input type="text" name="name" id="" value="{{user.name}}" disabled>
+            <form method="GET" action="{% url 'index' %}">
+
+
+                <!-- ******************************************************* -->
+                 <!-- ******************************************************* -->
+                 <div class="form-group col-sm-4 col-md-3">
+                    # : 
+                    {% render_field filtered_qs.form.id class="form-control" %}
+                  </div>
+                  <div class="form-group col-sm-4 col-md-3">
+                    Nom : 
+                    {% render_field filtered_qs.form.name class="form-control" %}
+                  </div>
+                  <div class="form-group col-sm-4 col-md-3">
+                    Prénom : 
+                    {% render_field filtered_qs.form.prenom class="form-control" %}
+                  </div>
+                  <div class="form-group col-sm-4 col-md-3">
+                    Ville : 
+                    {% render_field filtered_qs.form.city class="form-control" %}
+                  </div>
+                  <br>
+                    <button class="btn btn-lg btn-info">
+                        Cherche <i class="fas fa-lg fa-search"></i>
+                    </button>
+                <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+            </form>
+    <div class="col-3 p-0 pt-5"></div>
 </div>
-<div>
-    <label for="prenom">prenom </label>
-    <input type="text" name="prenom" id="" value="{{user.prenom}}" disabled>
-</div>
-<div>
-    <label for="email">email</label>
-    <input type="text" name="email" id="" value="{{user.email}}" disabled>
-</div>
-<div>
-    <label for="city">city</label>
-    <input type="text" name="city" id="" value="{{user.city}}" disabled>
-</div>
-{% endfor %}
 {% endblock content %}

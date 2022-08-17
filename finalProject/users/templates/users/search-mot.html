@@ -1,0 +1,96 @@
+{% extends 'users/layout.html' %}
+{% block content %}
+{% load static %}
+{% load users_extras %}
+{% load widget_tweaks %}
+<!-- {% load users_extras %} -->
+
+
+<div class="container">
+    <div class="flex-row-fluid ml-lg-8">
+        <!--begin::Card-->
+        <div class="card card-custom gutter-bs">
+            <br>
+            <div class="card-header card-header-tabs-line">
+                <div class="card-toolbar w-100">
+                    <h3 class=" text-info">Chercher un Mot :</h3>
+                    <div class="card-body d-flex flex-column bd-highlight mb-3 w-100 justify-content-center">
+                        <div class="tab-content pt-5 mx-auto">
+                            <!--begin::Tab Content-->
+                            <div class="tab-pane active" id="kt_apps_contacts_view_tab_2" role="tabpanel">
+                                <!-- <div class="form-group row">
+                                    <div class="col-lg-9 col-xl-9">
+                                    </div>
+                                </div> -->
+                            </div>
+                            <br>
+                            
+
+                            <form action="{% url 'arabedic' %}" name="form_mot" method="GET" style="    width: 600px;">
+                                
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Mot: </label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            name="mot" id="mot" />
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Racine</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            name="rac_mot" id="mot_r" />
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Schème</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid" type="text"
+                                            name="sch_mot" id="mot_sch" />
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Forme canonique</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <div class="input-group input-group-lg input-group-solid">
+                                            <div class="input-group-prepend">
+                                            </div>
+                                            <input type="text" class="form-control form-control-lg form-control-solid"
+                                                id="form_can" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 text-right col-form-label">Nom/Verbe: </label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <select name="mot_t">
+                                            <option id="kalima">كلمة</option>
+                                            <option id="fi3l">فعل</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-lg" type="submit">
+                                     Submit <i class="fas fa-save"></i>
+                                    </button>
+                                    <a href="javascript: history.go(-1)" class="btn btn-outline-warning btn-lg">Annuler <i class="fas fa-lg fa-backspace"></i></a>
+                              
+                                  </div>
+                            </form>
+
+                            
+
+                            <div class="separator separator-dashed"></div>
+                            <!--begin::Heading-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
